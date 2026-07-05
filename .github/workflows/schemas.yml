@@ -1,0 +1,29 @@
+name: schemas
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  json-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Parse schema and fixture JSON
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          for path in Path('.').glob('schemas/*.json'):
+              json.loads(path.read_text(encoding='utf-8'))
+              print(f'json ok: {path}')
+
+          for path in Path('.').glob('fixtures/**/*.json'):
+              json.loads(path.read_text(encoding='utf-8'))
+              print(f'json ok: {path}')
+          PY
