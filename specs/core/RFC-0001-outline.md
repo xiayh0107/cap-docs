@@ -56,6 +56,8 @@ CAP-Core should exclude:
 - model reasoning guarantees;
 - CAP-Digest field selection and digest text details.
 
+Use `BOUNDARY-MATRIX.md` as the working source for this section.
+
 ## 5. Relationship to CAP-Digest
 
 Include a diagram:
@@ -100,6 +102,8 @@ Candidate terms:
 | Run | One execution or observation instance created from an Assembly. |
 | RunEvidence | Records, logs, signatures, provenance, outputs, and attestations from a Run. |
 | Binding | A typed edge between a CAP-Core object and an external standard or host object. |
+
+Use `ONTOLOGY-DRAFT.md` as the working source for this section.
 
 ## 7. Layer model
 
@@ -150,6 +154,9 @@ EvidenceEnvelope
 Binding
 ```
 
+Use `ONTOLOGY-DRAFT.md` and `EXAMPLE-ASSEMBLY-0001.md` to test whether this set
+is too broad or too small.
+
 ## 9. Assembly lifecycle
 
 Draft lifecycle:
@@ -171,6 +178,8 @@ Draft lifecycle:
 Open question: should CAP-Core define a state machine, or only record lifecycle
 checkpoints?
 
+Use `LIFECYCLE-DRAFT.md` as the working source for this section.
+
 ## 10. External standard binding policy
 
 RFC-0001 should include a table:
@@ -186,6 +195,9 @@ RFC-0001 should include a table:
 | Supply chain | in-toto / Sigstore / SPDX / CycloneDX | Evidence binding; do not define signing or SBOM format. |
 | Policy | OPA / Cedar / OAuth/OIDC | Policy binding; do not define policy language. |
 | Observability | OpenTelemetry | Evidence input; do not define tracing protocol. |
+
+Use `RESEARCH-SOURCES.md` as the source list and `BOUNDARY-MATRIX.md` as the
+boundary decision record.
 
 ## 11. Security and policy model
 
@@ -238,7 +250,7 @@ Do not accept conformance levels until fixtures exist.
 
 ## 14. Example assembly
 
-Use the first example from `WRITING-PLAN.md`:
+Use `EXAMPLE-ASSEMBLY-0001.md` as the first concrete example.
 
 ```text
 dataset + script + environment reference + config
