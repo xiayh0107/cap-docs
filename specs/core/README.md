@@ -8,6 +8,22 @@ traceable, policy-governed artifact graph. It is **not yet drafted**. This
 directory is a placeholder so that future CAP-Core work has a home distinct from
 the CAP-Digest profile.
 
+## Current status
+
+CAP-Core remains reserved. The files added here are planning and research
+coordination documents only; they are non-normative and do not define CAP-Core
+conformance.
+
+Start here:
+
+1. [CAP-Core Writing Plan](WRITING-PLAN.md) — how to research and write CAP-Core.
+2. [CAP-Core RFC-0001 Outline](RFC-0001-outline.md) — proposed structure for the
+   first future CAP-Core RFC.
+3. [CAP-Core Research Sources](RESEARCH-SOURCES.md) — source categories to review
+   before drafting.
+4. [CAP-Core Open Questions](OPEN-QUESTIONS.md) — questions to resolve or defer
+   before RFC-0001.
+
 ## Problem statement (intended scope)
 
 Where CAP-Digest specifies how a source object is safely turned into
