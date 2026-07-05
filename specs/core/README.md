@@ -19,9 +19,13 @@ Start here:
 1. [CAP-Core Writing Plan](WRITING-PLAN.md) — how to research and write CAP-Core.
 2. [CAP-Core RFC-0001 Outline](RFC-0001-outline.md) — proposed structure for the
    first future CAP-Core RFC.
-3. [CAP-Core Research Sources](RESEARCH-SOURCES.md) — source categories to review
+3. [CAP-Core Boundary Matrix](BOUNDARY-MATRIX.md) — Core/Profile/Binding/Digest/external split.
+4. [CAP-Core Ontology Draft](ONTOLOGY-DRAFT.md) — candidate Core objects and relationships.
+5. [CAP-Core Lifecycle Draft](LIFECYCLE-DRAFT.md) — candidate assembly/run lifecycle checkpoints.
+6. [Example Assembly 0001](EXAMPLE-ASSEMBLY-0001.md) — first scientific-analysis example.
+7. [CAP-Core Research Sources](RESEARCH-SOURCES.md) — source categories to review
    before drafting.
-4. [CAP-Core Open Questions](OPEN-QUESTIONS.md) — questions to resolve or defer
+8. [CAP-Core Open Questions](OPEN-QUESTIONS.md) — questions to resolve or defer
    before RFC-0001.
 
 ## Problem statement (intended scope)
