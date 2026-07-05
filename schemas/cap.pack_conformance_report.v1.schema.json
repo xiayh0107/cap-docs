@@ -24,11 +24,11 @@
       "items": {
         "type": "object",
         "additionalProperties": true,
-        "required": ["name", "passed", "failures"],
+        "required": ["name", "passed", "issues"],
         "properties": {
           "name": { "type": "string" },
           "passed": { "type": "boolean" },
-          "failures": { "type": "array", "items": { "type": "string" } }
+          "issues": { "type": "array", "items": { "type": "string" } }
         }
       }
     }
