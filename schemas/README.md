@@ -1,26 +1,24 @@
-# Schemas (Planned)
+# Schemas
 
-> Status: planned · Last updated: 2026-07-05
+> Status: draft · Last updated: 2026-07-05
 
-This directory will hold machine-readable JSON schemas for the CAP-Digest
-artifact family. It currently contains **no schema files**; the list below is a
-planning sketch derived from `specs/digest/`. Schemas will be added alongside a
-reference implementation and conformance fixtures.
+This directory holds machine-readable JSON schemas for the CAP-Digest artifact
+family. Schemas use JSON Schema Draft 2020-12.
 
-## Planned v1 schemas
+## v1 schemas
 
-- `cap.digest.v1.schema.json` — the digest text envelope (version line, source
-  line, field blocks, caveats, available-on-request, contract, data fences).
-  See `specs/digest/06-digest-text-format.md`.
-- `cap.manifest.v1.schema.json` — the DigestManifest structure (source
-  reference, version, selected/rejected fields, cost, trust/exec classes,
-  redaction, warnings/errors, fingerprint, tokenizer/estimator).
-  See `specs/digest/07-digest-manifest-and-evidence.md`.
-- `cap.digest_patch.v1.schema.json` — a digest patch returned by the follow-up
-  gate. See `specs/digest/09-followup-contract-and-gate.md`.
-- `cap.contract_response.v1.schema.json` — the structured model contract
-  response (cited field IDs, follow-up requests, signals).
-  See `specs/digest/09-followup-contract-and-gate.md`.
+- `cap.digest.v1.schema.json` — digest object envelope.
+- `cap.manifest.v1.schema.json` — DigestManifest structure.
+- `cap.contract_response.v1.schema.json` — structured model contract response.
+- `cap.validation_result.v1.schema.json` — mechanical validation result for a ContractResponse.
+- `cap.gate_result.v1.schema.json` — gate decisions for follow-up requests.
+- `cap.digest_patch.v1.schema.json` — typed digest patch operations.
+- `cap.field.v1.schema.json` — serialized field definition.
+- `cap.field_catalog.v1.schema.json` — field catalog aggregate.
+- `cap.digest_pack.v1.schema.json` — Digest Pack `CAP.md` frontmatter.
+- `cap.pack_conformance_report.v1.schema.json` — Digest Pack conformance report.
 
-Schema versioning and feature-state rules will follow
-`specs/digest/11-versioning-conformance-governance.md`.
+## Source basis
+
+The schema dialect follows [JSON-SCHEMA-2020-12] in `../REFERENCES.md`. Schema
+versioning and feature-state rules follow `specs/digest/11-versioning-conformance-governance.md`.
