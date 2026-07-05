@@ -1,3 +1,4 @@
+schema: cap.field.v1
 id: f1:table@shape#base
 label: Shape
 description: Row and column count for a tabular source.
@@ -6,8 +7,11 @@ sourceTypes:
 timing: assemble
 trust: code
 exec: local_cheap
+selectionHints:
+  priorValue: 1.0
+  intentTags:
+    - structure
 levels:
   - level: 1
     estimatedCost: 24
-    priorValue: 1.0
     description: Row and column count.
