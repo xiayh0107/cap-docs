@@ -1,0 +1,8 @@
+[project]
+name = "cap-digest-reference"
+version = "0.0.1"
+description = "Experimental CAP-Digest reference implementation for conformance fixtures"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

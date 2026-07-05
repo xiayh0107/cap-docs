@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cap-spec.org/schemas/cap.digest_patch.v1.schema.json",
+  "title": "CAP-Digest Patch v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema", "baseDigestId", "fingerprint", "textAppend", "manifestRows"],
+  "properties": {
+    "schema": { "const": "cap.digest_patch.v1" },
+    "baseDigestId": { "type": "string", "minLength": 1 },
+    "fingerprint": { "type": "string" },
+    "textAppend": { "type": "string" },
+    "manifestRows": {
+      "type": "array",
+      "items": { "type": "object", "additionalProperties": true }
+    }
+  }
+}

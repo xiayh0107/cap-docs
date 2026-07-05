@@ -1,0 +1,19 @@
+{
+  "schema": "cap.validation_result.v1",
+  "response": {
+    "claims": [
+      {
+        "id": "claim-1",
+        "text": "The table contains 1000 rows and 4 columns.",
+        "evidence": ["f1:table@shape#base"]
+      }
+    ],
+    "evidence": ["f1:table@shape#base"],
+    "warnings": [],
+    "requests": []
+  },
+  "validation": {
+    "ok": true,
+    "errors": []
+  }
+}

@@ -1,0 +1,46 @@
+name: docs
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check local markdown links
+        run: |
+          python - <<'PY'
+          import re
+          import sys
+          from pathlib import Path
+
+          root = Path('.')
+          problems = []
+          pattern = re.compile(r'\[[^\]]+\]\(([^)]+)\)')
+
+          for md in root.rglob('*.md'):
+              text = md.read_text(encoding='utf-8')
+              for match in pattern.finditer(text):
+                  target = match.group(1).split('#', 1)[0]
+                  if not target or target.startswith(('http://', 'https://', 'mailto:')):
+                      continue
+                  path = (md.parent / target).resolve()
+                  try:
+                      path.relative_to(root.resolve())
+                  except ValueError:
+                      problems.append(f'{md}: link escapes repository: {target}')
+                      continue
+                  if not path.exists():
+                      problems.append(f'{md}: missing link target: {target}')
+
+          if problems:
+              print('\n'.join(problems))
+              sys.exit(1)
+          print('local markdown links ok')
+          PY

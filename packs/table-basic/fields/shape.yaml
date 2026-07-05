@@ -1,0 +1,13 @@
+id: f1:table@shape#base
+label: Shape
+description: Row and column count for a tabular source.
+sourceTypes:
+  - table
+timing: assemble
+trust: code
+exec: local_cheap
+levels:
+  - level: 1
+    estimatedCost: 24
+    priorValue: 1.0
+    description: Row and column count.

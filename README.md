@@ -12,10 +12,13 @@ cap-docs/
 ├── specs/
 │   ├── digest/               # CAP-Digest — current draft profile
 │   └── core/                 # CAP-Core — reserved, not yet drafted
+├── schemas/                  # CAP-Digest JSON schemas
+├── fixtures/                 # conformance fixtures
+├── packs/                    # Digest Packs
+├── reference/                # experimental reference implementation
+├── capps/                    # CAP-Digest proposal process
 ├── notes/                    # non-normative design memos and knowledge notes
-├── schemas/                  # planned v1 JSON schemas (planned)
-├── fixtures/                 # planned conformance fixtures (planned)
-└── packs/                    # planned digest packs (planned)
+└── .github/                  # contribution templates and CI
 ```
 
 ## What is in scope right now
@@ -42,11 +45,34 @@ fresh research pass; see `specs/core/README.md`.
 
 - For the current spec, start at [CAP-Digest Overview](specs/digest/00-overview.md),
   then follow the reading order it lists (01 → 12).
+- For the current implementation status, read [STATUS.md](STATUS.md).
+- For near-term work, read [ROADMAP.md](ROADMAP.md).
+- For maintenance policy, read [MAINTENANCE.md](MAINTENANCE.md).
+- For positioning questions, read [FAQ.md](FAQ.md).
 - For the CAP-Digest / CAP-Core split rationale, read
   [CAP 认知差错与正确认知框架报告](notes/2026-07-05-cognitive-error-and-framework.md).
 - For retained ecosystem knowledge notes (to seed a future CAP-Core research
   pass), read
   [Deep Research v2 知识留存笔记](notes/2026-07-05-deep-research-v2-knowledge-notes.md).
+
+## Executable draft assets
+
+The repository now includes early executable assets for CAP-Digest:
+
+- `schemas/` — draft JSON schemas for CAP-Digest objects.
+- `fixtures/basic-table/` — the first conformance fixture.
+- `packs/table-basic/` — the first experimental Digest Pack.
+- `reference/python/` — a minimal Python reference implementation and fixture checker.
+
+These assets are intentionally narrow. The first target is CAP-Digest Level 0/1
+for one source type: `table`.
+
+## Contribution and governance
+
+- Use [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
+- Use [SECURITY.md](SECURITY.md) for security-sensitive reports.
+- Use `capps/` for substantial CAP-Digest changes.
+- Use `CHANGELOG.md` to track notable changes.
 
 ## Working rule
 
@@ -61,6 +87,6 @@ behind this rule.
 ## Normative language
 
 The CAP-Digest spec set uses **MUST**, **MUST NOT**, **SHOULD**, and **MAY** as
-defined in `specs/digest/00-overview.md`. Documents in `notes/` and the
-planned-status READMEs under `schemas/`, `fixtures/`, and `packs/` are
-non-normative.
+defined in `specs/digest/00-overview.md`. Documents in `notes/`, `reference/`,
+and planned or experimental assets are non-normative unless explicitly stated
+otherwise.

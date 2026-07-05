@@ -1,0 +1,20 @@
+# Default ownership
+* @xiayh0107
+
+# Normative CAP-Digest specification
+/specs/digest/ @xiayh0107
+
+# Reserved CAP-Core area
+/specs/core/ @xiayh0107
+
+# Conformance assets
+/schemas/ @xiayh0107
+/fixtures/ @xiayh0107
+/reference/ @xiayh0107
+
+# Digest packs
+/packs/ @xiayh0107
+
+# Governance and CI
+/.github/ @xiayh0107
+/capps/ @xiayh0107
