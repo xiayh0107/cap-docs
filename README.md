@@ -1,29 +1,31 @@
 # CAP — Context Assembly Protocol
 
-> Status: draft · Version: 2026-07-05-draft · Scope: CAP-Digest profile (CAP-Core reserved)
+> Status: draft · Version: 2026-07-05-draft · Scope: CAP-Digest profile plus non-normative CAP-Core proposal
 
-CAP is a family of specifications for turning complex source objects into safe,
-bounded, traceable, machine-operable context for AI agents. The repository is
-organized as a working draft of one profile plus a reserved upper layer.
+CAP is a family of specifications for turning complex source objects and
+machine-operable task records into safe, bounded, traceable context and assembly
+artifacts for AI agents. The repository is organized as a working draft of one
+profile plus a non-normative upper-layer proposal.
 
 ```text
 cap-docs/
 ├── README.md                 # this entry point
 ├── specs/
 │   ├── digest/               # CAP-Digest — current draft profile
-│   └── core/                 # CAP-Core — reserved, not yet drafted
+│   └── core/                 # CAP-Core — non-normative RFC-0001 proposal
 ├── schemas/                  # CAP-Digest JSON schemas
 ├── fixtures/                 # conformance fixtures
 ├── packs/                    # Digest Packs
 ├── reference/                # experimental reference implementation
-├── capps/                    # CAP-Digest proposal process
+├── capps/                    # CAP proposal process
 ├── notes/                    # non-normative design memos and knowledge notes
 └── .github/                  # contribution templates and CI
 ```
 
 ## What is in scope right now
 
-**CAP-Digest** (`specs/digest/`) is the only drafted specification. It defines a
+**CAP-Digest** (`specs/digest/`) is the only drafted normative-track
+specification. It defines a
 *context evidence layer*: how a source object is safely turned into a
 model-readable **context digest** (text + DigestManifest) with stable field
 anchors, budgeted selection, redaction, and gated follow-up.
@@ -36,15 +38,18 @@ The central artifact is a **context digest**: a model-readable text object plus 
 machine-readable DigestManifest that records exactly what was included, omitted,
 redacted, downgraded, or made available for follow-up.
 
-**CAP-Core** (`specs/core/`) is **reserved**, not started. It is intended as a
-future upper layer covering artifact graphs, capability/runtime binding,
-RunEvidence, and external standard bindings. It will be drafted only after a
-fresh research pass; see `specs/core/README.md`.
+**CAP-Core** (`specs/core/`) now has a **non-normative draft proposal**. It is
+intended as an upper layer covering artifact graphs, capability/runtime binding,
+RunEvidence, policy records, and external standard bindings. It does not define
+stable conformance; see `specs/core/README.md`.
 
 ## Start reading
 
 - For the current spec, start at [CAP-Digest Overview](specs/digest/00-overview.md),
   then follow the reading order it lists (01 → 12).
+- For the CAP-Core draft proposal, start at
+  [CAP-Core README](specs/core/README.md), then read
+  [RFC-0001](specs/core/RFC-0001.md).
 - For the current implementation status, read [STATUS.md](STATUS.md).
 - For near-term work, read [ROADMAP.md](ROADMAP.md).
 - For maintenance policy, read [MAINTENANCE.md](MAINTENANCE.md).
@@ -71,7 +76,7 @@ for one source type: `table`.
 
 - Use [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
 - Use [SECURITY.md](SECURITY.md) for security-sensitive reports.
-- Use `capps/` for substantial CAP-Digest changes.
+- Use `capps/` for substantial CAP-Digest, CAP-Core, pack, or governance changes.
 - Use `CHANGELOG.md` to track notable changes.
 
 ## Working rule

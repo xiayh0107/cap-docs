@@ -333,4 +333,4 @@ particular:
 ## Next step
 
 Use `EXAMPLE-ASSEMBLY-0001.md` to test whether these objects are sufficient
-before drafting `RFC-0001.md`.
+before advancing `RFC-0001.md` beyond draft proposal status.

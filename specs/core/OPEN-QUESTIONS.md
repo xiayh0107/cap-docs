@@ -3,13 +3,14 @@
 > Status: planning · Non-normative · Last updated: 2026-07-05
 
 This file records unresolved CAP-Core design questions. These questions should
-be resolved, narrowed, or explicitly deferred before drafting `RFC-0001.md`.
+be resolved, narrowed, or explicitly deferred before `RFC-0001.md` advances
+beyond draft proposal status.
 
 ## Positioning
 
 1. Is CAP-Core best described as an **Object Assembly Contract**, an
-   **Execution Contract**, an **Artifact Graph**, or a **Machine-Operable Context
-   Layer**?
+   **Execution Contract**, an **Artifact Graph**, or a
+   **Machine-Operable Context Layer**?
 2. Should CAP-Core define a control-plane contract only, leaving all data-plane
    transfer to external systems?
 3. Should CAP-Core define a minimal state machine, or only record lifecycle
@@ -60,6 +61,35 @@ be resolved, narrowed, or explicitly deferred before drafting `RFC-0001.md`.
     assembly example?
 21. What is the smallest reference implementation that proves CAP-Core adds value
     without implementing a full agent runtime?
+
+## Current dispositions
+
+These dispositions are the writing-plan gate for the first RFC-0001 draft. They
+are not final technical decisions.
+
+| # | Owner | Current disposition | RFC-0001 treatment |
+|---:|---|---|---|
+| 1 | Core editor | Prefer **Machine-Operable Object Assembly Contract**. | Use this as the RFC title hypothesis. |
+| 2 | Core editor | Yes: Core is a control-plane contract. | State that large bytes and transfer semantics remain external. |
+| 3 | Core editor | Define lifecycle checkpoints first; defer strict state machine. | Use checkpoint names and leave mandatory states open. |
+| 4 | Core editor | Treat `Assembly` as the central contract; `Artifact` remains a primary referenced object. | Define both, with `Assembly` linking artifacts to capability and bindings. |
+| 5 | Core editor | Keep `Capability` first-class in Core, but allow external catalogs. | Define minimal capability shape and external catalog binding. |
+| 6 | Core editor | Treat `Profile` as schema constraint plus compatibility label. | Do not put domain semantics in Core. |
+| 7 | Core editor | Use generic `Binding` with named binding roles in the first draft. | Defer separate top-level binding objects until fixtures show the need. |
+| 8 | Core editor | Use a minimal binding envelope: type, target, standard, version/profile, constraints, integrity, status. | Put detailed external semantics in binding profiles. |
+| 9 | Core editor | Allow JSON-LD profiles; do not require JSON-LD for all Core objects. | Keep JSON Schema as the first schema-sketch path. |
+| 10 | Core editor | Use URI/source-label references first; defer registry design. | Do not define a CAP-Core registry in RFC-0001. |
+| 11 | Core editor | Include `PolicyBinding` and a minimal embedded `decision` record. | Do not define a policy language. |
+| 12 | Core editor | Represent secret requirements by reference only. | Ban secret values from Core records. |
+| 13 | Core editor | Record consent/delegation evidence as policy decision references. | Bind to OAuth/OIDC, workload identity, or host policy systems. |
+| 14 | Core editor | Core requires explicit policy decision records and no implicit secret disclosure. | Profile hardening may add stronger controls. |
+| 15 | Core editor | Smallest `Run`: id, assembly, state, timestamps, outputs/log refs, evidence refs. | Use checkpoint model in RFC-0001. |
+| 16 | Core editor | Smallest `RunEvidence`: subject run, materials, products, records, external evidence refs, completeness. | Keep distinct from DigestEvidence. |
+| 17 | Core editor | Allow W3C PROV / Workflow Run RO-Crate profiles; do not require PROV as the only form. | Bind or map to provenance standards. |
+| 18 | Core editor | Link through `DigestBinding` or digest view references. | State that DigestEvidence proves model-visible context, not run execution. |
+| 19 | Core editor | First fixture family: local scientific analysis assembly. | Plan fixture under `fixtures/core/local-analysis/` after schema sketch review. |
+| 20 | Core editor | Begin with parsing object graphs and producing one complete assembly example. | Levels 0-2 cover reader, assembly producer, run recorder. |
+| 21 | Core editor | Minimal reference implementation is a validator/renderer, not a runtime. | Defer execution engine behavior out of scope. |
 
 ## Deferral rule
 

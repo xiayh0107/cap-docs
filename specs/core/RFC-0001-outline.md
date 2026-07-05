@@ -1,9 +1,25 @@
 # CAP-Core RFC-0001 Outline
 
-> Status: outline · Non-normative · Last updated: 2026-07-05
+> Status: reviewed outline · Non-normative · Last updated: 2026-07-05
 
-This file is an outline for a future CAP-Core RFC-0001. It is not the RFC and
+This file is the reviewed outline for CAP-Core RFC-0001. It is not the RFC and
 contains no normative CAP-Core requirements.
+
+## Review checkpoint
+
+This outline has been reviewed against the first CAP-Core writing-cycle sources:
+
+- `WRITING-PLAN.md`;
+- `RESEARCH-SOURCES.md`;
+- `BOUNDARY-MATRIX.md`;
+- `ONTOLOGY-DRAFT.md`;
+- `LIFECYCLE-DRAFT.md`;
+- `EXAMPLE-ASSEMBLY-0001.md`;
+- `OPEN-QUESTIONS.md`.
+
+The review result is that the outline is sufficient to seed
+`RFC-0001.md`, provided the RFC remains a draft proposal and does not claim
+stable CAP-Core conformance.
 
 Working title:
 
@@ -22,7 +38,8 @@ Explain CAP-Core in one paragraph:
 ## 2. Status of this document
 
 State that the document is a draft proposal and not yet a stable standard.
-Clarify the relationship to CAP-Digest and to the reserved status of CAP-Core.
+Clarify the relationship to CAP-Digest and to the prior reserved status of
+CAP-Core.
 
 ## 3. Motivation and problem statement
 
@@ -276,7 +293,7 @@ Define:
 ## 16. Open questions
 
 Initial open questions live in `OPEN-QUESTIONS.md` and should be resolved or
-deferred before RFC-0001 is drafted.
+deferred before RFC-0001 advances beyond draft proposal status.
 
 ## 17. Source basis
 

@@ -20,7 +20,9 @@ Keeping these separate prevents CAP-Digest from becoming an over-broad protocol 
 The repository maintains these layer rules:
 
 - `specs/digest/` is the current normative CAP-Digest draft.
-- `specs/core/` is reserved and non-normative until a future CAPP starts CAP-Core work.
+- `specs/core/` is non-normative unless a later CAPP accepts CAP-Core schemas,
+  fixtures, and conformance language. CAPP-0004 proposes the first draft-entry
+  step.
 - `notes/` is non-normative.
 - `schemas/`, `fixtures/`, `packs/`, and `reference/` support CAP-Digest unless explicitly documented otherwise.
 - Every pull request must classify whether it changes CAP-Digest, CAP-Core research material, or repository maintenance.

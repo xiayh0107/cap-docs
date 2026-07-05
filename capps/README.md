@@ -1,6 +1,7 @@
-# CAP-Digest Proposals (CAPPs)
+# CAP Proposals (CAPPs)
 
-CAPPs are the change-control mechanism for substantial CAP-Digest changes.
+CAPPs are the change-control mechanism for substantial CAP-Digest, CAP-Core,
+CAP pack, and repository governance changes.
 
 Use a CAPP for:
 
@@ -57,3 +58,4 @@ A CAPP should not be accepted without:
 | CAPP-0001 | CAP-Digest / CAP-Core split | draft |
 | CAPP-0002 | Initial schemas and fixtures | draft |
 | CAPP-0003 | table-basic Digest Pack | draft |
+| CAPP-0004 | CAP-Core Draft Entry | proposed |

@@ -2,7 +2,8 @@
 
 All notable changes to this repository will be documented here.
 
-This project currently tracks a draft CAP-Digest profile with CAP-Core reserved for future work.
+This project currently tracks a draft CAP-Digest profile and a non-normative
+CAP-Core draft proposal.
 
 ## Unreleased
 
@@ -14,6 +15,10 @@ This project currently tracks a draft CAP-Digest profile with CAP-Core reserved 
 - Initial `basic-table` conformance fixture.
 - Initial `table-basic` digest pack skeleton.
 - Initial Python reference implementation skeleton.
+- CAP-Core writing plan completion set: RFC-0001 draft proposal, reviewed source
+  map, boundary matrix, primitive reuse review, binding policy, ontology draft,
+  lifecycle draft, security/policy draft, conformance plan, example assembly,
+  open-question dispositions, and CAPP-0004 draft-entry proposal.
 
 ### Changed
 

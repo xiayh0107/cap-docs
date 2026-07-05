@@ -2,13 +2,14 @@
 
 > Status: planning · Non-normative · Last updated: 2026-07-05
 
-This document defines how CAP-Core should be researched and written. It does not
-start the CAP-Core specification. CAP-Core remains reserved until the entry
-criteria in this plan are met.
+This document defines how CAP-Core should be researched and written. It did not
+start the CAP-Core specification by itself. The completion record below shows
+that the first writing cycle has moved CAP-Core from reserved planning material
+to a non-normative draft proposal.
 
 ## Purpose
 
-CAP-Core should be drafted only after the project can answer one question with
+CAP-Core was to be drafted only after the project could answer one question with
 precision:
 
 > What cross-layer assembly contract is missing for machine-operable agent tasks,
@@ -83,8 +84,14 @@ The first CAP-Core writing cycle should produce:
 | Research source map | `specs/core/RESEARCH-SOURCES.md` | No | Track source basis and what to reuse. |
 | RFC-0001 outline | `specs/core/RFC-0001-outline.md` | No | Define the draft structure before writing. |
 | Open questions | `specs/core/OPEN-QUESTIONS.md` | No | Prevent unresolved design choices from becoming accidental spec. |
-| Boundary matrix | future `specs/core/BOUNDARY-MATRIX.md` | No until accepted | Decide Core/Profile/Binding/external split. |
-| RFC-0001 draft | future `specs/core/RFC-0001.md` | Draft only | First integrated CAP-Core proposal. |
+| Boundary matrix | `specs/core/BOUNDARY-MATRIX.md` | No until accepted | Decide Core/Profile/Binding/external split. |
+| Primitive reuse review | `specs/core/PRIMITIVE-REUSE.md` | No | Record reuse or gap statement for each proposed primitive. |
+| Binding policy | `specs/core/BINDING-POLICY.md` | No | Define how CAP-Core references external standards. |
+| Security and policy draft | `specs/core/SECURITY-POLICY-DRAFT.md` | No | Sketch policy records, secret handling, and evidence integrity. |
+| Conformance draft | `specs/core/CONFORMANCE-DRAFT.md` | No | Sketch schemas, fixtures, and conformance levels. |
+| Example assembly | `specs/core/EXAMPLE-ASSEMBLY-0001.md` | No | Test the object model end to end. |
+| RFC-0001 draft | `specs/core/RFC-0001.md` | Draft only | First integrated CAP-Core proposal. |
+| Draft-entry CAPP | `capps/CAPP-0004-cap-core-draft-entry.md` | Proposed | Records whether CAP-Core should proceed to draft specification. |
 
 ## Entry criteria for drafting RFC-0001
 
@@ -100,6 +107,18 @@ Do not create `specs/core/RFC-0001.md` until the following are true:
 - at least one end-to-end example assembly is described without requiring new
   runtime semantics;
 - open questions have explicit owners or deferral decisions.
+
+## Entry criteria review
+
+The first RFC-0001 draft was created only after these checks were recorded:
+
+| Criterion | Evidence |
+|---|---|
+| At least one source for each major adjacent category | `RESEARCH-SOURCES.md` baseline reviewed source records. |
+| Ontology names reviewed against CAP-Digest terminology | `PRIMITIVE-REUSE.md` CAP-Digest separation and rejected names. |
+| Every proposed Core primitive has a reuse or gap statement | `PRIMITIVE-REUSE.md` primitive review table. |
+| At least one end-to-end example assembly is described | `EXAMPLE-ASSEMBLY-0001.md`. |
+| Open questions have owners or deferral decisions | `OPEN-QUESTIONS.md` current dispositions table. |
 
 ## First example assembly
 
@@ -129,3 +148,20 @@ This plan is complete when:
 - the first example assembly is written;
 - at least one CAPP or Core RFC decision records whether CAP-Core work should
   proceed to a draft specification.
+
+## Completion record
+
+As of 2026-07-05, the writing plan is complete for the first CAP-Core writing
+cycle:
+
+| Done item | Evidence |
+|---|---|
+| RFC-0001 has a reviewed outline | `RFC-0001-outline.md` is marked `reviewed outline` and lists the review inputs. |
+| CAP-Core terms are separated from CAP-Digest terms | `PRIMITIVE-REUSE.md` separates Core terms from Digest terms. |
+| External-standard reuse policy is explicit | `BINDING-POLICY.md` and `RESEARCH-SOURCES.md`. |
+| First example assembly is written | `EXAMPLE-ASSEMBLY-0001.md`. |
+| CAPP/Core RFC decision records whether to proceed | `capps/CAPP-0004-cap-core-draft-entry.md` proposes proceeding to draft specification. |
+
+Completion does not mean CAP-Core is accepted or normative. It means the first
+writing cycle has produced the planned draft artifacts and the next work should
+move through CAPP review, schema sketches, fixtures, and validator work.

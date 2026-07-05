@@ -1,6 +1,7 @@
 # Roadmap
 
-This roadmap keeps CAP-Digest executable while keeping CAP-Core reserved until a fresh research pass justifies normative work.
+This roadmap keeps CAP-Digest executable while keeping CAP-Core non-normative
+until schemas, fixtures, and conformance work justify normative Core text.
 
 ## Phase 0 — Repository governance baseline
 
@@ -24,6 +25,7 @@ Goal: make normative change control explicit.
 - [x] Draft CAPP-0001 for the CAP-Digest / CAP-Core split.
 - [x] Draft CAPP-0002 for initial schemas and fixtures.
 - [x] Draft CAPP-0003 for the `table-basic` digest pack.
+- [x] Propose CAPP-0004 for CAP-Core draft entry.
 - [ ] Use CAPP status in future normative changes.
 
 ## Phase 2 — First machine-readable contract
@@ -77,6 +79,22 @@ Exit criteria:
 - [ ] Changelog and status are updated.
 - [ ] Release tag created.
 
-## Deferred: CAP-Core
+## Phase 7 - CAP-Core draft track
 
-CAP-Core remains reserved. Do not add normative CAP-Core schema, runtime binding, RunEvidence, service binding, or policy model until a separate research and CAPP process starts.
+Goal: test CAP-Core as a draft assembly contract without making it normative.
+
+- [x] Add CAP-Core writing plan.
+- [x] Add research source map with baseline reviewed source records.
+- [x] Add boundary matrix, ontology draft, lifecycle draft, and example assembly.
+- [x] Add primitive reuse review and external-standard binding policy.
+- [x] Add security/policy draft and conformance fixture plan.
+- [x] Add `specs/core/RFC-0001.md` as a draft proposal.
+- [x] Add CAPP-0004 to record whether CAP-Core should proceed to a draft specification.
+- [ ] Draft Core JSON schema sketches under a Core-scoped schema path.
+- [ ] Add `fixtures/core/local-analysis/`.
+- [ ] Add a Core validator/renderer reference prototype.
+- [ ] Decide whether CAPP-0004 should be accepted, revised, or deferred.
+
+Do not add normative CAP-Core schema, runtime binding, RunEvidence, service
+binding, or policy model until CAPP review accepts the required schemas,
+fixtures, and conformance language.
