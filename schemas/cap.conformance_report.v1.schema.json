@@ -7,6 +7,17 @@
   "required": ["schema", "ok", "checks"],
   "properties": {
     "schema": { "const": "cap.conformance_report.v1" },
+    "implementation": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["name", "version"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 }
+      }
+    },
+    "capVersion": { "type": "string", "minLength": 1 },
+    "level": { "type": "integer", "minimum": 0 },
     "ok": { "type": "boolean" },
     "checks": {
       "type": "array",

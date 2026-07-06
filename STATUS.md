@@ -1,6 +1,6 @@
 # Project Status
 
-> Last updated: 2026-07-05
+> Last updated: 2026-07-06
 
 This repository contains one drafted CAP-Digest profile and one non-normative
 CAP-Core draft proposal area.
@@ -11,7 +11,7 @@ CAP-Core draft proposal area.
 | CAP-Core | `specs/core/` | draft proposal + executable fixture prototype | no | RFC-0001 draft, schema sketches, local-analysis fixture, and validator/renderer; no stable conformance. |
 | Design and research notes | `notes/` | analysis | no | Non-normative material only. |
 | JSON schemas | `schemas/` | draft | yes when marked active | CAP-Digest schemas and CAP-Core schema sketches. |
-| Conformance fixtures | `fixtures/` | draft | yes when marked active | CAP-Digest basic-table fixture and CAP-Core local-analysis fixture. |
+| Conformance fixtures | `fixtures/` | draft | yes when marked active | CAP-Digest basic, negative, follow-up, pack, and security fixtures plus CAP-Core local-analysis fixture. |
 | Digest packs | `packs/` | draft | yes when marked active | `table-basic` has field metadata, renderer notes, redactor notes, and pack fixture coverage. |
 | Reference implementation | `reference/` | experimental | no | Executable companion to test fixtures; not the specification itself. |
 | CAPP process | `capps/` | draft | yes for accepted CAPPs | Normative changes should route through this process when required. |
@@ -33,6 +33,7 @@ The current executable targets are:
 CAP-Digest Level 0/1 for one source type: table
 CAP-Digest Level 2 follow-up gate for table sample rows
 CAP-Digest Level 3 table-basic pack metadata loading
+CAP-Digest alpha release checklist prepared
 CAP-Core draft-track reader/assembly/run-evidence validator for local-analysis
 ```
 
@@ -41,8 +42,11 @@ The first fixture paths are:
 ```text
 schemas/cap.manifest.v1.schema.json
 fixtures/basic-table/
+fixtures/digest-text-negative/
 fixtures/followup-basic/
 fixtures/pack-table-basic/
+fixtures/security-adversarial/
+RELEASE-CHECKLIST.md
 reference/python/
 schemas/core/
 fixtures/core/local-analysis/

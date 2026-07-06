@@ -27,6 +27,7 @@ CAP-Core draft proposal.
   validator/renderer prototype.
 - CAP-Digest follow-up fixture, negative validation cases, table-basic pack
   loading, pack fixture, and conformance report generation.
+- CAP-Digest security adversarial fixtures and alpha release checklist.
 
 ### Changed
 
@@ -38,6 +39,9 @@ CAP-Core draft proposal.
 - `cap.digest_patch.v1.schema.json` now uses typed patch operations instead of free-form text append.
 - CAPP-0002 and CAPP-0003 are implemented by the current schema, fixture,
   reference implementation, and pack assets.
+- `11-versioning-conformance-governance.md` now defines CAPP status lifecycle,
+  release lifecycle, version bump rules, compatibility rules, and alpha release
+  readiness criteria.
 
 ### Security
 
