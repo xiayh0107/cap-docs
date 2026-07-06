@@ -33,6 +33,8 @@ fixtures/
   gate decision, fingerprint/budget checks, and `cap.digest_patch.v1`.
 - `pack-table-basic/` — a CAP-Digest Level 3 fixture exercising pack discovery
   and field/redactor metadata alignment.
+- `security-adversarial/` — adversarial security cases for source string
+  escaping, secret-like field masking, and renderer failure manifest shape.
 - `core/local-analysis/` — a CAP-Core draft fixture exercising artifact refs,
   capability, Assembly, Binding records, policy decision, Run, RunEvidence,
   DigestBinding, review rendering, and negative layer/security cases.

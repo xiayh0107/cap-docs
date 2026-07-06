@@ -18,6 +18,39 @@ CAP-Digest-conforming implementations MUST preserve these invariants:
 7. Field IDs are the only valid DigestEvidence and request anchors.
 8. The DigestManifest records selected and rejected fields.
 
+## Threat Model
+
+| Threat | CAP-Digest control | Test or fixture |
+|---|---|---|
+| Source data injection closes `<data>` or `<field>` tags | Escape source-derived strings before rendering inside digest text | [`fixtures/security-adversarial/`](../../fixtures/security-adversarial/) |
+| Redaction bypass through secret-like names | Redact before rendering and record caveats/manifest warnings | [`fixtures/basic-table/`](../../fixtures/basic-table/) and [`fixtures/security-adversarial/`](../../fixtures/security-adversarial/) |
+| Lazy source execution during rendering | Treat rendering as guarded source touch; failed fields become manifest errors | [`fixtures/security-adversarial/renderer-failure-manifest.json`](../../fixtures/security-adversarial/renderer-failure-manifest.json) |
+| Remote source materialization | Require policy-gated interactive fields for expensive or remote reads | [`specs/digest/09-followup-contract-and-gate.md`](09-followup-contract-and-gate.md) |
+| Malformed digest text | Reject malformed field blocks, data fences, and invalid field IDs | [`fixtures/digest-text-negative/`](../../fixtures/digest-text-negative/) |
+| Malicious renderer behavior | Record renderer failure as `ok=false`, `selected=false`, and `errorClass` | [`fixtures/security-adversarial/renderer-failure-manifest.json`](../../fixtures/security-adversarial/renderer-failure-manifest.json) |
+| Prompt-only security overclaim | State mechanical artifact guarantees only; do not claim model reasoning correctness | This chapter's honest-claims section |
+
+## Security Conformance Checklist
+
+A CAP-Digest implementation SHOULD be able to show:
+
+- source-derived names and values are escaped before digest text assembly;
+- sensitive-name redaction happens before rendering;
+- redaction is visible in caveats and `DigestManifest.fields[].warnings`;
+- malformed digest text is rejected deterministically;
+- unknown, rejected, or missing evidence IDs fail validation;
+- interactive fields are unavailable as DigestEvidence until a gate-approved
+  patch or replacement digest selects them;
+- renderer failures are recorded as failed field rows rather than rendered as
+  normal values.
+
+The reference checks live in:
+
+- [`reference/python/tests/test_security_adversarial.py`](../../reference/python/tests/test_security_adversarial.py)
+- [`reference/python/tests/test_digest_text.py`](../../reference/python/tests/test_digest_text.py)
+- [`reference/python/tests/test_basic_table.py`](../../reference/python/tests/test_basic_table.py)
+- [`reference/python/scripts/validate_fixtures.py`](../../reference/python/scripts/validate_fixtures.py)
+
 ## Guard Boundary
 
 Guarded operations include:
@@ -183,3 +216,16 @@ guarantee that:
 
 Specifications and implementations should state these limits plainly.
 
+## Mechanically Tested Vs Out Of Scope
+
+Mechanically tested security properties include escaping, redaction visibility,
+field-ID evidence validation, malformed digest rejection, and failed-field
+manifest shape.
+
+Out of scope:
+
+- proving a model's final answer is true;
+- proving a cited field semantically entails a claim;
+- proving a source object or remote service is honest;
+- defining CAP-Core runtime, service binding, or execution security;
+- replacing host sandboxing, IAM, or data-loss-prevention controls.
