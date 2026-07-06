@@ -10,7 +10,14 @@ REFERENCE = ROOT / "reference" / "python"
 if str(REFERENCE) not in sys.path:
     sys.path.insert(0, str(REFERENCE))
 
-from cap_digest import assemble_table, gate_requests, load_table_basic_pack, validate_response  # noqa: E402
+from cap_digest import (  # noqa: E402
+    assemble_table,
+    gate_requests,
+    load_table_basic_pack,
+    parse_digest_text,
+    validate_manifest_text_consistency,
+    validate_response,
+)
 from cap_core import load_local_analysis_fixture, render_review_summary, validate_core_fixture, validate_negative_record  # noqa: E402
 
 
@@ -25,6 +32,7 @@ def main() -> int:
 
     checks = [
         ("fixtures/basic-table", validate_basic_table()),
+        ("fixtures/digest-text-negative", validate_digest_text_negative()),
         ("fixtures/followup-basic", validate_followup_basic()),
         ("fixtures/pack-table-basic", validate_pack_table_basic()),
         ("fixtures/core/local-analysis", validate_core_local_analysis()),
@@ -71,6 +79,43 @@ def validate_basic_table() -> list[str]:
         actual = validate_response(result.text, result.manifest, case["response"])
         if actual != case["validation"]:
             problems.append(f"negative validation mismatch: {case['name']}")
+    return problems
+
+
+def validate_digest_text_negative() -> list[str]:
+    fixture = ROOT / "fixtures" / "digest-text-negative"
+    problems: list[str] = []
+
+    parse_cases = {
+        "duplicate-field-id.txt": "text_duplicate_field_id",
+        "invalid-field-id.txt": "text_invalid_field_id",
+        "unclosed-data-fence.txt": "text_unclosed_data",
+    }
+    for filename, expected in parse_cases.items():
+        text = (fixture / filename).read_text(encoding="utf-8")
+        try:
+            parse_digest_text(text)
+        except ValueError as exc:
+            if str(exc) != expected:
+                problems.append(f"{filename} expected {expected}, got {exc}")
+        else:
+            problems.append(f"{filename} unexpectedly parsed")
+
+    manifest = load_json(ROOT / "fixtures" / "basic-table" / "expected-manifest.json")
+    mismatch_cases = {
+        "manifest-missing-selected-field.txt": [
+            {"code": "evidence_missing_from_text", "fieldId": "f1:table@columns#compact"}
+        ],
+        "unknown-text-field.txt": [
+            {"code": "text_field_missing_from_manifest", "fieldId": "f1:table@sample#k10"}
+        ],
+    }
+    for filename, expected in mismatch_cases.items():
+        text = (fixture / filename).read_text(encoding="utf-8")
+        actual = validate_manifest_text_consistency(parse_digest_text(text), manifest)
+        if actual != expected:
+            problems.append(f"{filename} mismatch: expected {expected}, got {actual}")
+
     return problems
 
 

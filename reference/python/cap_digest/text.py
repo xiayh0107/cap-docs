@@ -6,6 +6,10 @@ from typing import Any
 
 FIELD_RE = re.compile(r'<field\s+([^>]+)>\n(.*?)\n</field>', re.DOTALL)
 ATTR_RE = re.compile(r'(\w+)="([^"]*)"')
+FIELD_ID_RE = re.compile(
+    r"^f1:[a-z][a-z0-9_]*@[a-z][a-z0-9_]*(?:[-_][a-z0-9_]+)*#[a-z0-9]+(?:[-_][a-z0-9]+)*$"
+)
+DATA_TAG_RE = re.compile(r"</?data>")
 
 
 @dataclass(frozen=True)
@@ -22,6 +26,8 @@ def parse_digest_text(text: str) -> ParsedDigestText:
         raise ValueError("text_unknown_version")
     if len(lines) < 2 or not lines[1].startswith("# source:"):
         raise ValueError("text_missing_source_line")
+    if len(re.findall(r"<field\b", text)) != len(re.findall(r"</field>", text)):
+        raise ValueError("text_unclosed_field")
 
     field_ids: list[str] = []
     fields: dict[str, dict[str, str]] = {}
@@ -30,10 +36,16 @@ def parse_digest_text(text: str) -> ParsedDigestText:
         field_id = attrs.get("id")
         if not field_id:
             raise ValueError("text_field_missing_id")
+        if not FIELD_ID_RE.fullmatch(field_id):
+            raise ValueError("text_invalid_field_id")
         if field_id in fields:
             raise ValueError("text_duplicate_field_id")
         if "trust" not in attrs or "level" not in attrs:
             raise ValueError("text_field_missing_required_attr")
+        body = match.group(2)
+        if "<field" in body or "</field>" in body:
+            raise ValueError("text_nested_field")
+        _validate_data_fences(body)
         field_ids.append(field_id)
         fields[field_id] = attrs
 
@@ -46,6 +58,22 @@ def parse_digest_text(text: str) -> ParsedDigestText:
         field_ids=field_ids,
         fields=fields,
     )
+
+
+def _validate_data_fences(body: str) -> None:
+    open_fence = False
+    for match in DATA_TAG_RE.finditer(body):
+        tag = match.group(0)
+        if tag == "<data>":
+            if open_fence:
+                raise ValueError("text_nested_data")
+            open_fence = True
+            continue
+        if not open_fence:
+            raise ValueError("text_unopened_data")
+        open_fence = False
+    if open_fence:
+        raise ValueError("text_unclosed_data")
 
 
 def validate_manifest_text_consistency(parsed: ParsedDigestText, manifest: dict[str, Any]) -> list[dict[str, str]]:
