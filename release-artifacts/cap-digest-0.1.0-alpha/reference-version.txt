@@ -1,0 +1,6 @@
+release: cap-digest-0.1.0-alpha
+releaseTagCommit: 9d678e554a478348808f1284e53f36ca6a01598d
+referenceImplementation: reference/python
+conformanceReport: conformance-report.json
+schemaScope: CAP-Digest only; schemas/core is excluded
+fixtureScope: basic-table, digest-text-negative, followup-basic, pack-table-basic, security-adversarial

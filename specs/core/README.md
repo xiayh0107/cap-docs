@@ -33,6 +33,8 @@ Start here:
    RFC drafting.
 13. [CAP-Core Open Questions](OPEN-QUESTIONS.md) — questions to resolve or defer
    before RFC-0001 advances.
+14. [CAP-Core review decisions](reviews/) — non-normative decision notes for
+    object minimization, fixture value, and RFC split planning.
 
 Executable draft assets:
 

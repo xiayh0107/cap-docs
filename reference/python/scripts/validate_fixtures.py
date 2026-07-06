@@ -28,15 +28,21 @@ def load_json(path: Path):
 def main() -> int:
     parser = ArgumentParser()
     parser.add_argument("--report", type=Path, default=None)
+    parser.add_argument("--scope", choices=("all", "digest", "core"), default="all")
     args = parser.parse_args()
 
+    all_checks = [
+        ("digest", "fixtures/basic-table", validate_basic_table),
+        ("digest", "fixtures/digest-text-negative", validate_digest_text_negative),
+        ("digest", "fixtures/followup-basic", validate_followup_basic),
+        ("digest", "fixtures/pack-table-basic", validate_pack_table_basic),
+        ("digest", "fixtures/security-adversarial", validate_security_adversarial),
+        ("core", "fixtures/core/local-analysis", validate_core_local_analysis),
+    ]
     checks = [
-        ("fixtures/basic-table", validate_basic_table()),
-        ("fixtures/digest-text-negative", validate_digest_text_negative()),
-        ("fixtures/followup-basic", validate_followup_basic()),
-        ("fixtures/pack-table-basic", validate_pack_table_basic()),
-        ("fixtures/security-adversarial", validate_security_adversarial()),
-        ("fixtures/core/local-analysis", validate_core_local_analysis()),
+        (name, validate())
+        for scope, name, validate in all_checks
+        if args.scope == "all" or args.scope == scope
     ]
     problems = [problem for _, fixture_problems in checks for problem in fixture_problems]
     report = {

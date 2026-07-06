@@ -288,13 +288,11 @@ def request_field(
     for index, row in enumerate(rows, start=1):
         values = ", ".join(f"{key}=<data>{_escape_data(value)}</data>" for key, value in row.items())
         rendered_rows.append(f"{index}. {values}")
-    text_append = "\n".join(
+    field_block = "\n".join(
         [
-            "",
             '<field id="f1:table@sample#k10" trust="data" level="1">',
             *rendered_rows,
             "</field>",
-            "",
         ]
     )
     manifest_row = {
@@ -321,9 +319,21 @@ def request_field(
     }
     return {
         "schema": "cap.digest_patch.v1",
+        "patchId": f"cap-patch-{manifest['digestId']}-sample-k10",
         "baseDigestId": manifest["digestId"],
-        "fingerprint": fingerprint,
-        "textAppend": text_append,
+        "baseFingerprint": fingerprint,
+        "budgetDelta": {"estimated": manifest_row["estimatedCost"], "used": manifest_row["actualCost"]},
+        "operations": [
+            {
+                "op": "add_selected_field",
+                "fieldId": field_id,
+                "fieldBlock": field_block,
+            },
+            {
+                "op": "remove_available_on_request",
+                "fieldId": field_id,
+            },
+        ],
         "manifestRows": [manifest_row],
     }
 
