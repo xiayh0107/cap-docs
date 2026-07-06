@@ -75,7 +75,8 @@ CAP-Digest is the **context evidence layer** of CAP: it specifies how a source
 object is safely turned into model-readable context with traceable anchors and
 gated follow-up. It is deliberately scoped and does not define artifact graphs,
 runtime/capability binding, RunEvidence, or external standard bindings — those
-belong to a future **CAP-Core** (currently reserved, see `specs/core/`).
+belong to **CAP-Core**, which is tracked separately as a non-normative draft
+area in `specs/core/`.
 
 When working in this directory, ask first:
 

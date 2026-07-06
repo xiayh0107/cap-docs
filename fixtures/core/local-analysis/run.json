@@ -1,0 +1,23 @@
+{
+  "schema": "cap.core.run.v1",
+  "id": "run-001",
+  "assemblyId": "assembly.local-analysis-001",
+  "state": "completed",
+  "startedAt": "2026-07-05T12:01:00Z",
+  "endedAt": "2026-07-05T12:01:30Z",
+  "inputs": [
+    "artifact.dataset.orders",
+    "artifact.script.analyze",
+    "artifact.config.analysis",
+    "artifact.environment.analysis"
+  ],
+  "outputs": [
+    "artifact.output.summary",
+    "artifact.output.plot"
+  ],
+  "runtimeBinding": "binding.runtime.local-process",
+  "resourceBinding": "binding.resource.local-analysis",
+  "serviceBindings": [],
+  "logs": ["artifact.log.run"],
+  "evidenceRefs": ["evidence.run-001"]
+}

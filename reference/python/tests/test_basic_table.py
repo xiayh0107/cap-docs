@@ -21,6 +21,7 @@ class BasicTableFixtureTest(unittest.TestCase):
         self.expected_digest = (fixture / "expected-digest.txt").read_text(encoding="utf-8")
         self.expected_manifest = json.loads((fixture / "expected-manifest.json").read_text(encoding="utf-8"))
         self.expected_validation = json.loads((fixture / "expected-validation.json").read_text(encoding="utf-8"))
+        self.negative_validation = json.loads((fixture / "negative-validation.json").read_text(encoding="utf-8"))
 
     def test_assemble_matches_fixture(self) -> None:
         result = assemble_table(self.source, self.policy)
@@ -31,6 +32,13 @@ class BasicTableFixtureTest(unittest.TestCase):
         result = assemble_table(self.source, self.policy)
         validation = validate_response(result.text, result.manifest, self.expected_validation["response"])
         self.assertEqual(validation, self.expected_validation["validation"])
+
+    def test_negative_validation_cases_match_fixture(self) -> None:
+        result = assemble_table(self.source, self.policy)
+        for case in self.negative_validation["cases"]:
+            with self.subTest(case=case["name"]):
+                validation = validate_response(result.text, result.manifest, case["response"])
+                self.assertEqual(validation, case["validation"])
 
 
 if __name__ == "__main__":

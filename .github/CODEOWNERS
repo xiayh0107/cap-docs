@@ -4,7 +4,7 @@
 # Normative CAP-Digest specification
 /specs/digest/ @xiayh0107
 
-# Reserved CAP-Core area
+# Non-normative CAP-Core draft-track area
 /specs/core/ @xiayh0107
 
 # Conformance assets

@@ -16,7 +16,7 @@ labels: ["area:spec-digest", "type:question", "status:needs-triage"]
 ## Layer check
 
 - [ ] CAP-Digest
-- [ ] CAP-Core reserved/research only
+- [ ] CAP-Core non-normative draft-track
 - [ ] Non-normative note
 
 Does this change normative behavior?

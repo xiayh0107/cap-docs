@@ -1,0 +1,9 @@
+CAP-Core review summary
+Assembly: assembly.local-analysis-001
+Capability: capability.run-analysis
+Run: run-001 state=completed
+Policy: allowed_with_constraints network=disabled
+Artifacts: 7
+Bindings: 7
+Evidence: evidence.run-001 completeness=partial integrity=digested
+Digest view: binding.digest.run-summary

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import html
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
 SENSITIVE_PATTERNS = ("password", "secret", "token", "api_key", "credential", "private_key")
@@ -11,6 +12,14 @@ SENSITIVE_PATTERNS = ("password", "secret", "token", "api_key", "credential", "p
 class DigestResult:
     text: str
     manifest: dict[str, Any]
+
+
+@dataclass(frozen=True)
+class GateDecision:
+    fieldId: str
+    allowed: bool
+    reason: str
+    patch: dict[str, Any] | None = None
 
 
 def _is_sensitive_name(name: str, patterns: list[str] | tuple[str, ...] = SENSITIVE_PATTERNS) -> bool:
@@ -163,6 +172,209 @@ def assemble_table(source: dict[str, Any], policy: dict[str, Any]) -> DigestResu
         ],
     }
     return DigestResult(text=text, manifest=manifest)
+
+
+def capabilities() -> dict[str, Any]:
+    return {
+        "schema": "cap.capabilities.v1",
+        "implementation": "reference/python",
+        "sourceTypes": ["table"],
+        "features": ["manifestV1", "fieldCatalog", "followupRequests", "digestPatchV1", "packLoading"],
+    }
+
+
+def list_fields(source_type: str = "table") -> list[dict[str, Any]]:
+    if source_type != "table":
+        return []
+    return [
+        {
+            "fieldId": "f1:table@shape#base",
+            "timing": "assemble",
+            "trust": "code",
+            "exec": "local_cheap",
+            "level": 1,
+            "estimatedCost": 24,
+        },
+        {
+            "fieldId": "f1:table@columns#compact",
+            "timing": "assemble",
+            "trust": "derived",
+            "exec": "local_cheap",
+            "level": 1,
+            "estimatedCost": 120,
+        },
+        {
+            "fieldId": "f1:table@sample#k10",
+            "timing": "interactive",
+            "trust": "data",
+            "exec": "local_scan",
+            "level": 1,
+            "estimatedCost": 300,
+        },
+    ]
+
+
+def gate_requests(
+    digest_text: str,
+    manifest: dict[str, Any],
+    response: dict[str, Any],
+    source: dict[str, Any],
+    policy: dict[str, Any],
+) -> list[GateDecision]:
+    validation = validate_response(digest_text, manifest, response)
+    if not validation["ok"]:
+        return [
+            GateDecision(
+                fieldId=request.get("fieldId", ""),
+                allowed=False,
+                reason="invalid_evidence",
+            )
+            for request in response.get("requests", [])
+        ]
+
+    decisions: list[GateDecision] = []
+    available = {row["fieldId"]: row for row in manifest["fields"]}
+    remaining_budget = policy.get("followupBudget", policy.get("budget", 0) - manifest["budget"]["used"])
+    expected_fingerprint = policy.get("fingerprint", manifest.get("fingerprint"))
+
+    for request in response.get("requests", []):
+        field_id = request.get("fieldId", "")
+        row = available.get(field_id)
+        if row is None:
+            decisions.append(GateDecision(field_id, False, "unknown_field"))
+            continue
+        if row.get("selected") is True:
+            decisions.append(GateDecision(field_id, False, "already_selected"))
+            continue
+        if row.get("fingerprint") != expected_fingerprint:
+            decisions.append(GateDecision(field_id, False, "fingerprint_mismatch"))
+            continue
+        requested_budget = request.get("budget") if request.get("budget") is not None else row.get("estimatedCost", 0)
+        if requested_budget > remaining_budget:
+            decisions.append(GateDecision(field_id, False, "budget_exceeded"))
+            continue
+        if field_id == "f1:table@sample#k10":
+            patch = request_field(manifest, source, policy, field_id, request.get("level") or 1)
+            decisions.append(GateDecision(field_id, True, "allowed", patch))
+            remaining_budget -= requested_budget
+        else:
+            decisions.append(GateDecision(field_id, False, "not_requestable"))
+    return decisions
+
+
+def request_field(
+    manifest: dict[str, Any],
+    source: dict[str, Any],
+    policy: dict[str, Any],
+    field_id: str,
+    level: int = 1,
+) -> dict[str, Any]:
+    if field_id != "f1:table@sample#k10":
+        raise ValueError(f"unsupported follow-up field: {field_id}")
+    fingerprint = policy.get("fingerprint", manifest.get("fingerprint"))
+    rows = source.get("sampleRows", [])[:10]
+    rendered_rows = []
+    for index, row in enumerate(rows, start=1):
+        values = ", ".join(f"{key}=<data>{_escape_data(value)}</data>" for key, value in row.items())
+        rendered_rows.append(f"{index}. {values}")
+    text_append = "\n".join(
+        [
+            "",
+            '<field id="f1:table@sample#k10" trust="data" level="1">',
+            *rendered_rows,
+            "</field>",
+            "",
+        ]
+    )
+    manifest_row = {
+        "fieldId": "f1:table@sample#k10",
+        "fieldLabel": "Sample rows",
+        "sourceType": "table",
+        "timing": "interactive",
+        "trust": "data",
+        "exec": "local_scan",
+        "level": level,
+        "selected": True,
+        "rejectedReason": None,
+        "estimatedCost": 300,
+        "actualCost": 180,
+        "priorValue": 0.8,
+        "renderMethod": "table_sample_k10_v1",
+        "redacted": False,
+        "ok": True,
+        "warnings": [],
+        "errorClass": None,
+        "elapsedMs": 0,
+        "fingerprint": fingerprint,
+        "tokenizer": policy.get("tokenizer", "heuristic_v1"),
+    }
+    return {
+        "schema": "cap.digest_patch.v1",
+        "baseDigestId": manifest["digestId"],
+        "fingerprint": fingerprint,
+        "textAppend": text_append,
+        "manifestRows": [manifest_row],
+    }
+
+
+def load_table_basic_pack(root: Path) -> dict[str, Any]:
+    pack_dir = root / "packs" / "table-basic"
+    fields: list[dict[str, Any]] = []
+    for path in sorted((pack_dir / "fields").glob("*.yaml")):
+        fields.append(_parse_field_yaml(path))
+    return {
+        "name": "table-basic",
+        "sourceTypes": ["table"],
+        "fields": fields,
+        "redactors": ["sensitive-name"],
+    }
+
+
+def _parse_field_yaml(path: Path) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    levels: list[dict[str, Any]] = []
+    current_level: dict[str, Any] | None = None
+    current_list_key: str | None = None
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        if not raw_line.strip() or raw_line.strip().startswith("#"):
+            continue
+        stripped = raw_line.strip()
+        if stripped.startswith("- "):
+            value = stripped[2:]
+            if ":" in value:
+                key, raw_value = value.split(":", 1)
+                current_level = {key.strip(): _yaml_scalar(raw_value.strip())}
+                levels.append(current_level)
+            elif current_list_key:
+                result.setdefault(current_list_key, []).append(_yaml_scalar(value))
+            continue
+        if ":" in stripped:
+            key, raw_value = stripped.split(":", 1)
+            key = key.strip()
+            raw_value = raw_value.strip()
+            if raw_value == "":
+                if key == "levels":
+                    current_list_key = None
+                else:
+                    current_list_key = key
+                    result[current_list_key] = []
+                continue
+            if raw_line.startswith("    ") and current_level is not None:
+                current_level[key] = _yaml_scalar(raw_value)
+            else:
+                result[key] = _yaml_scalar(raw_value)
+    if levels:
+        result["levels"] = levels
+    return result
+
+
+def _yaml_scalar(value: str) -> Any:
+    if value.isdigit():
+        return int(value)
+    try:
+        return float(value)
+    except ValueError:
+        return value.strip('"')
 
 
 def validate_response(digest_text: str, manifest: dict[str, Any], response: dict[str, Any]) -> dict[str, Any]:

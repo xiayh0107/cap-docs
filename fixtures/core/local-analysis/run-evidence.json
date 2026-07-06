@@ -1,0 +1,37 @@
+{
+  "schema": "cap.core.run_evidence.v1",
+  "id": "evidence.run-001",
+  "runId": "run-001",
+  "evidenceType": "run-record",
+  "profile": "profile.local-file-evidence.v0",
+  "subject": "run-001",
+  "materials": [
+    "artifact.dataset.orders",
+    "artifact.script.analyze",
+    "artifact.config.analysis",
+    "artifact.environment.analysis"
+  ],
+  "products": [
+    "artifact.output.summary",
+    "artifact.output.plot",
+    "artifact.log.run"
+  ],
+  "logs": ["artifact.log.run"],
+  "records": {
+    "exitCode": 0,
+    "startedAt": "2026-07-05T12:01:00Z",
+    "endedAt": "2026-07-05T12:01:30Z",
+    "resourceUse": {
+      "cpuSeconds": 12,
+      "peakMemory": "512MiB",
+      "network": "disabled"
+    }
+  },
+  "attestations": [],
+  "provenanceRefs": ["prov://fixture/run-001"],
+  "sbomRefs": [],
+  "telemetryRefs": ["otel://fixture/run-001"],
+  "digestViews": ["binding.digest.run-summary"],
+  "completeness": "partial",
+  "integrity": "digested"
+}

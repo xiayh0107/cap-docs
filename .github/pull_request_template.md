@@ -15,7 +15,7 @@
 ## Layer
 
 - [ ] CAP-Digest
-- [ ] CAP-Core reserved/research only
+- [ ] CAP-Core non-normative draft-track
 - [ ] Non-normative note
 - [ ] Repository maintenance
 
@@ -51,4 +51,4 @@ Justification:
 - [ ] Terms match the glossary
 - [ ] MUST/SHOULD/MAY used consistently
 - [ ] Notes are not presented as normative
-- [ ] CAP-Core remains reserved unless this is a CAP-Core research note
+- [ ] CAP-Core draft-track assets are not presented as stable conformance

@@ -1,0 +1,159 @@
+{
+  "schema": "cap.core.artifact_set.v1",
+  "artifacts": [
+    {
+      "schema": "cap.core.artifact.v1",
+      "id": "artifact.dataset.orders",
+      "kind": "data",
+      "mediaType": "text/csv",
+      "profileType": "profile.table-analysis.v0",
+      "ref": {
+        "uri": "file://workspace/data/orders.csv",
+        "scope": "workspace",
+        "kind": "file",
+        "integrity": {
+          "algorithm": "sha256",
+          "value": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "accessHints": ["read-only"]
+      },
+      "labels": ["input", "dataset"],
+      "profiles": ["profile.table-analysis.v0"],
+      "bindings": ["binding.data.local-filesystem"],
+      "metadata": {
+        "rows": 120,
+        "columns": 5
+      }
+    },
+    {
+      "schema": "cap.core.artifact.v1",
+      "id": "artifact.script.analyze",
+      "kind": "code",
+      "mediaType": "text/x-python",
+      "profileType": "profile.python-script.v0",
+      "ref": {
+        "uri": "file://workspace/scripts/analyze.py",
+        "scope": "workspace",
+        "kind": "file",
+        "integrity": {
+          "algorithm": "sha256",
+          "value": "2222222222222222222222222222222222222222222222222222222222222222"
+        },
+        "accessHints": ["read-only"]
+      },
+      "labels": ["input", "code"],
+      "profiles": ["profile.python-script.v0"],
+      "bindings": ["binding.data.local-filesystem"],
+      "metadata": {
+        "entrypoint": "python analyze.py"
+      }
+    },
+    {
+      "schema": "cap.core.artifact.v1",
+      "id": "artifact.config.analysis",
+      "kind": "config",
+      "mediaType": "application/json",
+      "profileType": "profile.analysis-config.v0",
+      "ref": {
+        "uri": "file://workspace/config/analysis.json",
+        "scope": "workspace",
+        "kind": "file",
+        "integrity": {
+          "algorithm": "sha256",
+          "value": "3333333333333333333333333333333333333333333333333333333333333333"
+        },
+        "accessHints": ["read-only"]
+      },
+      "labels": ["input", "config"],
+      "profiles": ["profile.analysis-config.v0"],
+      "bindings": ["binding.data.local-filesystem"],
+      "metadata": {}
+    },
+    {
+      "schema": "cap.core.artifact.v1",
+      "id": "artifact.environment.analysis",
+      "kind": "environment",
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "profileType": "profile.oci-runtime-reference.v0",
+      "ref": {
+        "uri": "oci://example/analysis@sha256:4444444444444444444444444444444444444444444444444444444444444444",
+        "scope": "external",
+        "kind": "oci-image",
+        "integrity": {
+          "algorithm": "sha256",
+          "value": "4444444444444444444444444444444444444444444444444444444444444444"
+        },
+        "accessHints": ["runtime-reference"]
+      },
+      "labels": ["environment"],
+      "profiles": ["profile.oci-runtime-reference.v0"],
+      "bindings": ["binding.runtime.local-process"],
+      "metadata": {
+        "platform": "linux/amd64"
+      }
+    },
+    {
+      "schema": "cap.core.artifact.v1",
+      "id": "artifact.output.summary",
+      "kind": "result",
+      "mediaType": "application/json",
+      "profileType": "profile.analysis-result.v0",
+      "ref": {
+        "uri": "file://workspace/out/summary.json",
+        "scope": "workspace",
+        "kind": "file",
+        "integrity": {
+          "algorithm": "sha256",
+          "value": "5555555555555555555555555555555555555555555555555555555555555555"
+        },
+        "accessHints": ["created-by-run"]
+      },
+      "labels": ["output", "summary"],
+      "profiles": ["profile.analysis-result.v0"],
+      "bindings": ["binding.evidence.local-files"],
+      "metadata": {}
+    },
+    {
+      "schema": "cap.core.artifact.v1",
+      "id": "artifact.output.plot",
+      "kind": "result",
+      "mediaType": "image/png",
+      "profileType": "profile.analysis-result.v0",
+      "ref": {
+        "uri": "file://workspace/out/plot.png",
+        "scope": "workspace",
+        "kind": "file",
+        "integrity": {
+          "algorithm": "sha256",
+          "value": "6666666666666666666666666666666666666666666666666666666666666666"
+        },
+        "accessHints": ["created-by-run"]
+      },
+      "labels": ["output", "plot"],
+      "profiles": ["profile.analysis-result.v0"],
+      "bindings": ["binding.evidence.local-files"],
+      "metadata": {}
+    },
+    {
+      "schema": "cap.core.artifact.v1",
+      "id": "artifact.log.run",
+      "kind": "log",
+      "mediaType": "text/plain",
+      "profileType": "profile.run-log.v0",
+      "ref": {
+        "uri": "file://workspace/out/run.log",
+        "scope": "workspace",
+        "kind": "file",
+        "integrity": {
+          "algorithm": "sha256",
+          "value": "7777777777777777777777777777777777777777777777777777777777777777"
+        },
+        "accessHints": ["created-by-run"]
+      },
+      "labels": ["output", "log"],
+      "profiles": ["profile.run-log.v0"],
+      "bindings": ["binding.evidence.local-files"],
+      "metadata": {}
+    }
+  ]
+}

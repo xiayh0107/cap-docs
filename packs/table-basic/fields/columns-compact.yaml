@@ -1,3 +1,4 @@
+schema: cap.field.v1
 id: f1:table@columns#compact
 label: Columns
 description: Compact column names, types, and masked examples for a tabular source.

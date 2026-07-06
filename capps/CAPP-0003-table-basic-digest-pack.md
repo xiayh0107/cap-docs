@@ -1,6 +1,6 @@
 # CAPP-0003: table-basic Digest Pack
 
-> Status: draft · Created: 2026-07-05 · Layer: CAP-Digest Pack
+> Status: implemented · Created: 2026-07-05 · Layer: CAP-Digest Pack
 
 ## Abstract
 
@@ -17,7 +17,9 @@ The `table-basic` pack provides:
 - pack metadata in `CAP.md`;
 - field definitions for shape, compact columns, and sample rows;
 - redaction guidance for sensitive column names;
-- fixture alignment with `fixtures/basic-table/`.
+- fixture alignment with `fixtures/basic-table/`;
+- executable pack loading in the Python reference implementation;
+- pack validation fixture under `fixtures/pack-table-basic/`.
 
 The pack is source-reading logic for CAP-Digest. It is not a Skill and not a CAP-Core profile.
 
@@ -35,8 +37,10 @@ The pack must preserve host policy. Redactors must not silently disable host red
 
 ## Reference Implementation
 
-The initial Python reference implementation includes equivalent built-in field definitions. Full pack loading is deferred.
+The Python reference implementation can load the `table-basic` field definitions
+and validate pack metadata alignment.
 
 ## Conformance Fixtures
 
-The initial conformance target is `fixtures/basic-table/`. A pack-driven fixture may be added later.
+The initial conformance targets are `fixtures/basic-table/` and
+`fixtures/pack-table-basic/`.
