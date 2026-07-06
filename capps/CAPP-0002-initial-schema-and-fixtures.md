@@ -1,6 +1,6 @@
 # CAPP-0002: Initial Schemas and Fixtures
 
-> Status: draft · Created: 2026-07-05 · Layer: CAP-Digest
+> Status: implemented · Created: 2026-07-05 · Layer: CAP-Digest
 
 ## Abstract
 
@@ -28,6 +28,7 @@ The first fixture targets a single `table` source type and tests Level 0 and Lev
 - visible redaction caveats;
 - escaped data fences;
 - evidence validation against selected field IDs.
+- negative validation cases for unknown and unselected evidence.
 
 ## Rationale
 
@@ -47,4 +48,5 @@ A minimal Python reference implementation is introduced under `reference/python/
 
 ## Conformance Fixtures
 
-The initial fixture is `fixtures/basic-table/`.
+The initial fixture is `fixtures/basic-table/`, including
+`negative-validation.json`.

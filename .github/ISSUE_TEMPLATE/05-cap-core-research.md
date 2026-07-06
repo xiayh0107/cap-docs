@@ -1,8 +1,8 @@
 ---
 name: CAP-Core research note
-description: Capture research or design questions for the reserved CAP-Core layer
+description: Capture research or design questions for the non-normative CAP-Core draft track
 title: "[core-research] "
-labels: ["area:spec-core-reserved", "area:research", "status:needs-triage"]
+labels: ["area:spec-core", "area:research", "status:needs-triage"]
 ---
 
 ## Research question

@@ -10,7 +10,11 @@ Current CAP-Digest scope:
 - redaction: sensitive-name masking;
 - tokenizer: `heuristic_v1` placeholder;
 - fingerprint: fixture-provided `structure_v1` value;
-- validation: evidence IDs must exist, be selected, and appear in digest text.
+- validation: evidence IDs must exist, be selected, and appear in digest text;
+- follow-up gate: validates evidence, fingerprint, budget, and selected status;
+- digest patch: renders `f1:table@sample#k10` after gate approval;
+- pack loading: reads `packs/table-basic/fields/*.yaml`;
+- conformance report: `validate_fixtures.py --report conformance-report.json`.
 
 Current CAP-Core scope:
 

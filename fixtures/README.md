@@ -26,13 +26,15 @@ fixtures/
 - `basic-table/` — a small tabular source exercising CAP-Digest Level 0 (Digest Producer)
   and Level 1 (Safe Assembler): field catalog, budgeted selection, redaction
   before rendering, evidence validation of cited field IDs.
+- `followup-basic/` — a CAP-Digest Level 2 fixture exercising ContractResponse,
+  gate decision, fingerprint/budget checks, and `cap.digest_patch.v1`.
+- `pack-table-basic/` — a CAP-Digest Level 3 fixture exercising pack discovery
+  and field/redactor metadata alignment.
 - `core/local-analysis/` — a CAP-Core draft fixture exercising artifact refs,
   capability, Assembly, Binding records, policy decision, Run, RunEvidence,
   DigestBinding, review rendering, and negative layer/security cases.
 
 ## Planned additional cases
 
-- A follow-up case exercising Level 2 (Follow-Up Capable): contract response,
-  gate decision, digest patch.
-- A digest-pack case exercising Level 3 (Digest Pack Ecosystem): pack-driven
-  field definitions and renderers.
+- Additional adversarial security fixtures for escaping, redaction policy
+  composition, and stale fingerprints.

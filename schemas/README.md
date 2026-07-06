@@ -20,6 +20,8 @@ a CAPP marks a specific schema as active.
 - `cap.contract_response.v1.schema.json` — the structured model contract
   response (cited field IDs, follow-up requests, signals).
   See `specs/digest/09-followup-contract-and-gate.md`.
+- `cap.conformance_report.v1.schema.json` — the fixture/check report emitted by
+  the reference implementation.
 
 ## CAP-Core draft schema sketches
 

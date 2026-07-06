@@ -55,7 +55,7 @@ A CAPP should not be accepted without:
 
 | CAPP | Title | Status |
 |---|---|---|
-| CAPP-0001 | CAP-Digest / CAP-Core split | draft |
-| CAPP-0002 | Initial schemas and fixtures | draft |
-| CAPP-0003 | table-basic Digest Pack | draft |
+| CAPP-0001 | CAP-Digest / CAP-Core split | implemented |
+| CAPP-0002 | Initial schemas and fixtures | implemented |
+| CAPP-0003 | table-basic Digest Pack | implemented |
 | CAPP-0004 | CAP-Core Draft Entry | implemented |

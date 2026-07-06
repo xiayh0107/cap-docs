@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import sys
+from argparse import ArgumentParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -9,7 +10,7 @@ REFERENCE = ROOT / "reference" / "python"
 if str(REFERENCE) not in sys.path:
     sys.path.insert(0, str(REFERENCE))
 
-from cap_digest import assemble_table, validate_response  # noqa: E402
+from cap_digest import assemble_table, gate_requests, load_table_basic_pack, validate_response  # noqa: E402
 from cap_core import load_local_analysis_fixture, render_review_summary, validate_core_fixture, validate_negative_record  # noqa: E402
 
 
@@ -18,14 +19,31 @@ def load_json(path: Path):
 
 
 def main() -> int:
-    problems = validate_basic_table() + validate_core_local_analysis()
+    parser = ArgumentParser()
+    parser.add_argument("--report", type=Path, default=None)
+    args = parser.parse_args()
+
+    checks = [
+        ("fixtures/basic-table", validate_basic_table()),
+        ("fixtures/followup-basic", validate_followup_basic()),
+        ("fixtures/pack-table-basic", validate_pack_table_basic()),
+        ("fixtures/core/local-analysis", validate_core_local_analysis()),
+    ]
+    problems = [problem for _, fixture_problems in checks for problem in fixture_problems]
+    report = {
+        "schema": "cap.conformance_report.v1",
+        "ok": not problems,
+        "checks": [{"name": name, "ok": not fixture_problems, "problems": fixture_problems} for name, fixture_problems in checks],
+    }
+    if args.report is not None:
+        args.report.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     if problems:
         for problem in problems:
             print(f"CHECK: {problem}")
         return 1
 
-    print("OK: fixtures/basic-table")
-    print("OK: fixtures/core/local-analysis")
+    for name, _ in checks:
+        print(f"OK: {name}")
     return 0
 
 
@@ -47,7 +65,61 @@ def validate_basic_table() -> list[str]:
         problems.append("manifest output mismatch")
     if validation != expected_validation["validation"]:
         problems.append("validation output mismatch")
+
+    negative = load_json(fixture / "negative-validation.json")
+    for case in negative["cases"]:
+        actual = validate_response(result.text, result.manifest, case["response"])
+        if actual != case["validation"]:
+            problems.append(f"negative validation mismatch: {case['name']}")
     return problems
+
+
+def validate_followup_basic() -> list[str]:
+    fixture = ROOT / "fixtures" / "followup-basic"
+    source = load_json(fixture / "source.json")
+    policy = load_json(fixture / "policy.json")
+    response = load_json(fixture / "response.json")
+    expected_gate = load_json(fixture / "expected-gate.json")
+    expected_patch = load_json(fixture / "expected-patch.json")
+
+    result = assemble_table(source, policy)
+    decisions = gate_requests(result.text, result.manifest, response, source, policy)
+    rendered_gate = {
+        "schema": "cap.gate_result.v1",
+        "decisions": [
+            {
+                "fieldId": decision.fieldId,
+                "allowed": decision.allowed,
+                "reason": decision.reason,
+                "patchSchema": decision.patch["schema"] if decision.patch else None,
+            }
+            for decision in decisions
+        ],
+    }
+    problems: list[str] = []
+    if rendered_gate != expected_gate:
+        problems.append("follow-up gate decision mismatch")
+    patches = [decision.patch for decision in decisions if decision.patch is not None]
+    if patches != [expected_patch]:
+        problems.append("follow-up digest patch mismatch")
+    return problems
+
+
+def validate_pack_table_basic() -> list[str]:
+    expected = load_json(ROOT / "fixtures" / "pack-table-basic" / "expected-pack.json")
+    pack = load_table_basic_pack(ROOT)
+    actual = {
+        "schema": "cap.pack_validation.v1",
+        "pack": {
+            "name": pack["name"],
+            "sourceTypes": pack["sourceTypes"],
+            "fieldIds": [field["id"] for field in pack["fields"]],
+            "redactors": pack["redactors"],
+        },
+    }
+    if actual != expected:
+        return ["pack table-basic validation mismatch"]
+    return []
 
 
 def validate_core_local_analysis() -> list[str]:

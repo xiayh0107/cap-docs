@@ -67,14 +67,17 @@ The repository now includes early executable assets:
 
 - `schemas/` — draft JSON schemas for CAP-Digest and CAP-Core objects.
 - `fixtures/basic-table/` — the first CAP-Digest conformance fixture.
+- `fixtures/followup-basic/` — the first CAP-Digest follow-up/gate fixture.
+- `fixtures/pack-table-basic/` — the first Digest Pack loading fixture.
 - `fixtures/core/local-analysis/` — the first CAP-Core draft fixture.
 - `packs/table-basic/` — the first experimental Digest Pack.
 - `reference/python/` — minimal CAP-Digest and CAP-Core reference helpers and
   fixture checker.
 
-These assets are intentionally narrow. The first CAP-Digest target is Level 0/1
-for one source type: `table`; the first CAP-Core target is a local scientific
-analysis assembly fixture with draft validator/renderer coverage.
+These assets are intentionally narrow. The first CAP-Digest target covers Level
+0/1 table assembly, Level 2 follow-up gating, and Level 3 `table-basic` pack
+metadata loading. The first CAP-Core target is a local scientific analysis
+assembly fixture with draft validator/renderer coverage.
 
 ## Contribution and governance
 

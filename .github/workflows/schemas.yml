@@ -19,11 +19,11 @@ jobs:
           import json
           from pathlib import Path
 
-          for path in Path('.').glob('schemas/*.json'):
+          for path in Path('schemas').rglob('*.json'):
               json.loads(path.read_text(encoding='utf-8'))
               print(f'json ok: {path}')
 
-          for path in Path('.').glob('fixtures/**/*.json'):
+          for path in Path('fixtures').rglob('*.json'):
               json.loads(path.read_text(encoding='utf-8'))
               print(f'json ok: {path}')
           PY

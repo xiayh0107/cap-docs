@@ -22,10 +22,13 @@ CAP-Core draft proposal.
 - CAP-Core executable draft-track assets: schema sketches under `schemas/core/`,
   `fixtures/core/local-analysis/`, negative Core fixtures, and a Python
   validator/renderer prototype.
+- CAP-Digest follow-up fixture, negative validation cases, table-basic pack
+  loading, pack fixture, and conformance report generation.
 
 ### Changed
 
-- Future normative changes should go through the CAPP process when they alter behavior, schemas, digest grammar, security requirements, deprecations, or governance.
+- CAPP-0002 and CAPP-0003 are implemented by the current schema, fixture,
+  reference implementation, and pack assets.
 
 ### Security
 

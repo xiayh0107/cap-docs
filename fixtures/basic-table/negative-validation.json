@@ -1,0 +1,53 @@
+{
+  "schema": "cap.negative_validation_cases.v1",
+  "cases": [
+    {
+      "name": "unknown evidence",
+      "response": {
+        "claims": [
+          {
+            "id": "claim-unknown",
+            "text": "This cites a field that does not exist.",
+            "evidence": ["f1:table@unknown#field"]
+          }
+        ],
+        "evidence": [],
+        "warnings": [],
+        "requests": []
+      },
+      "validation": {
+        "ok": false,
+        "errors": [
+          {
+            "code": "unknown_or_unselected_evidence",
+            "fieldId": "f1:table@unknown#field"
+          }
+        ]
+      }
+    },
+    {
+      "name": "unselected interactive evidence",
+      "response": {
+        "claims": [
+          {
+            "id": "claim-sample",
+            "text": "This cites sample rows before follow-up gate approval.",
+            "evidence": ["f1:table@sample#k10"]
+          }
+        ],
+        "evidence": [],
+        "warnings": [],
+        "requests": []
+      },
+      "validation": {
+        "ok": false,
+        "errors": [
+          {
+            "code": "unknown_or_unselected_evidence",
+            "fieldId": "f1:table@sample#k10"
+          }
+        ]
+      }
+    }
+  ]
+}

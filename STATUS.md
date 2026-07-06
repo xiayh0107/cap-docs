@@ -12,7 +12,7 @@ CAP-Core draft proposal area.
 | Design and research notes | `notes/` | analysis | no | Non-normative material only. |
 | JSON schemas | `schemas/` | draft | yes when marked active | CAP-Digest schemas and CAP-Core schema sketches. |
 | Conformance fixtures | `fixtures/` | draft | yes when marked active | CAP-Digest basic-table fixture and CAP-Core local-analysis fixture. |
-| Digest packs | `packs/` | draft/planned | yes when marked active | Packs distribute reusable source-reading logic for CAP-Digest. |
+| Digest packs | `packs/` | draft | yes when marked active | `table-basic` has field metadata, renderer notes, redactor notes, and pack fixture coverage. |
 | Reference implementation | `reference/` | experimental | no | Executable companion to test fixtures; not the specification itself. |
 | CAPP process | `capps/` | draft | yes for accepted CAPPs | Normative changes should route through this process when required. |
 
@@ -31,6 +31,8 @@ The current executable targets are:
 
 ```text
 CAP-Digest Level 0/1 for one source type: table
+CAP-Digest Level 2 follow-up gate for table sample rows
+CAP-Digest Level 3 table-basic pack metadata loading
 CAP-Core draft-track reader/assembly/run-evidence validator for local-analysis
 ```
 
@@ -39,6 +41,8 @@ The first fixture paths are:
 ```text
 schemas/cap.manifest.v1.schema.json
 fixtures/basic-table/
+fixtures/followup-basic/
+fixtures/pack-table-basic/
 reference/python/
 schemas/core/
 fixtures/core/local-analysis/

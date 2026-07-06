@@ -1,6 +1,6 @@
 # CAPP-0001: CAP-Digest / CAP-Core Split
 
-> Status: draft · Created: 2026-07-05 · Layer: repository governance
+> Status: implemented · Created: 2026-07-05 · Layer: repository governance
 
 ## Abstract
 
