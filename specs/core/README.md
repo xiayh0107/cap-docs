@@ -1,6 +1,6 @@
 # CAP-Core
 
-> Status: draft proposal area · Non-normative · Last updated: 2026-07-05
+> Status: draft proposal area · Non-normative · Last updated: 2026-07-06
 
 CAP-Core is the upper layer of CAP proposed for assembling machine-operable
 research/engineering objects into a runnable, traceable, policy-governed
@@ -9,11 +9,11 @@ CAP-Digest and has no stable conformance language.
 
 ## Current status
 
-CAP-Core remains non-normative. This directory contains a first draft proposal
-for CAP-Core RFC-0001 plus supporting planning and construction documents. The
-repository also contains Core-scoped schema sketches, a local-analysis fixture,
-and a validator/renderer prototype. None of these assets define stable CAP-Core
-conformance.
+CAP-Core remains non-normative. This directory contains the integrated RFC-0001
+overview, split draft RFCs, and supporting planning and construction documents.
+The repository also contains Core-scoped schema sketches, local-analysis and
+build-test fixtures, and a validator/renderer prototype. None of these assets
+define stable CAP-Core conformance.
 
 Start here:
 
@@ -38,7 +38,8 @@ Start here:
 17. [CAP-Core Open Questions](OPEN-QUESTIONS.md) — questions to resolve or defer
    before RFC-0001 advances.
 18. [CAP-Core review decisions](reviews/) — non-normative decision notes for
-    object minimization, fixture value, and RFC split planning.
+    object minimization, fixture value, schema boundaries, and RFC split
+    planning.
 
 Executable draft assets:
 

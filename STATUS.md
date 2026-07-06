@@ -37,7 +37,7 @@ CAP-Digest 0.1.0-alpha release tagged as cap-digest-0.1.0-alpha
 CAP-Core draft-track reader/assembly/run-evidence validator for local-analysis and build-test
 ```
 
-The first fixture paths are:
+Key executable paths are:
 
 ```text
 schemas/cap.manifest.v1.schema.json
