@@ -11,7 +11,7 @@ non-normative CAP-Core draft proposal area.
 | CAP-Core | `specs/core/` | draft proposal + executable fixture prototypes | no | Integrated RFC-0001 overview, split draft RFCs, schema sketches, local-analysis and build-test fixtures, and validator/renderer; no stable conformance. |
 | Design and research notes | `notes/` | analysis | no | Non-normative material only. |
 | JSON schemas | `schemas/` | draft | yes when marked active | CAP-Digest schemas and CAP-Core schema sketches. |
-| Conformance fixtures | `fixtures/` | draft | yes when marked active | CAP-Digest basic, negative, follow-up, pack, and security fixtures plus CAP-Core local-analysis fixture. |
+| Conformance fixtures | `fixtures/` | draft | yes when marked active | CAP-Digest basic, negative, follow-up, pack, and security fixtures plus CAP-Core local-analysis and build-test fixtures. |
 | Digest packs | `packs/` | draft | yes when marked active | `table-basic` has field metadata, renderer notes, redactor notes, and pack fixture coverage. |
 | Reference implementation | `reference/` | experimental | no | Executable companion to test fixtures; not the specification itself. |
 | CAPP process | `capps/` | draft | yes for accepted CAPPs | Normative changes should route through this process when required. |

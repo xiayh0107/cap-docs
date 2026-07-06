@@ -1,10 +1,10 @@
 # CAP-Digest 0.1.0-Alpha Release Checklist
 
-> Status: draft checklist
+> Status: completed checklist
 > Prepared: 2026-07-06
 
-This checklist prepares a future CAP-Digest `0.1.0-alpha` release. It does not
-create the release tag by itself.
+This checklist records the completed CAP-Digest `0.1.0-alpha` release. It does
+not define CAP-Core conformance.
 
 ## Required Criteria
 
@@ -51,10 +51,10 @@ Release notes should include:
 
 - Only one CAP-Digest source type, `table`, has executable coverage.
 - The Python reference implementation is intentionally minimal.
-- JSON schemas are draft assets and are not yet packaged as a versioned release
-  artifact.
-- CI parses schema and fixture JSON and runs fixture validation; broader JSON
-  Schema validation across every fixture shape remains a post-alpha task.
+- JSON schemas are draft assets and are not yet packaged as an independently
+  versioned schema bundle.
+- CI parses schema and fixture JSON, validates schema-backed fixtures, and runs
+  fixture validation.
 - Remote, credentialed, and large-source fixtures are out of scope for alpha.
 - CAP-Core schemas, fixtures, RunEvidence, runtime binding, service binding, and
   policy model are not stable conformance requirements.

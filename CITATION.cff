@@ -6,7 +6,7 @@ authors:
   - family-names: Xia
     given-names: Yonghe
 repository-code: "https://github.com/xiayh0107/cap-docs"
-abstract: "Draft specifications for CAP-Digest, a context evidence layer for assembling complex source objects into safe, bounded, traceable context artifacts for AI agents, with CAP-Core reserved for future work."
+abstract: "Draft specifications for CAP-Digest, a context evidence layer for assembling complex source objects into safe, bounded, traceable context artifacts for AI agents, plus non-normative CAP-Core draft-track proposal assets for object assembly."
 keywords:
   - AI agents
   - context engineering
@@ -14,5 +14,5 @@ keywords:
   - protocol
   - conformance fixtures
 license: MIT
-version: "2026-07-05-draft"
-date-released: "2026-07-05"
+version: "2026-07-06-draft"
+date-released: "2026-07-06"

@@ -23,6 +23,8 @@ CAP-Core draft proposal.
   conformance reporting to cover both Core draft fixtures.
 - Updated Core documentation to keep artifact-set, policy-decision, binding,
   and profile boundaries explicit before any future normative promotion.
+- Synced project status, FAQ, maintenance guidance, release checklist status,
+  and citation metadata with the post-alpha CAP-Core draft-track state.
 
 ## cap-digest-0.1.0-alpha - 2026-07-06
 

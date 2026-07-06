@@ -5,7 +5,7 @@ This repository is maintained as a draft specification project.
 ## Goals
 
 1. Keep CAP-Digest small, executable, and testable.
-2. Keep CAP-Core reserved until a future research and CAPP process starts.
+2. Keep CAP-Core draft-track and non-normative unless a future CAPP promotes it.
 3. Prefer schemas, fixtures, and reference implementation checks over prose-only claims.
 4. Route substantial normative changes through CAPPs.
 
@@ -33,7 +33,7 @@ Before a release:
 - `STATUS.md` should be updated;
 - active CAPP statuses should be reviewed;
 - conformance fixtures should be reproducible;
-- CAP-Core should remain non-normative unless its process has started.
+- CAP-Core should remain non-normative unless an accepted CAPP promotes it.
 
 ## Change policy
 
