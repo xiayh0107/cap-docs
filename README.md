@@ -1,104 +1,130 @@
 # CAP — Context Assembly Protocol
 
-> Status: draft · Version: 2026-07-05-draft · Scope: CAP-Digest profile plus non-normative CAP-Core proposal
+> Status: draft · Version: 2026-07-06-draft · Scope: CAP-Digest draft profile plus non-normative CAP-Core draft track
 
 CAP is a family of specifications for turning complex source objects and
 machine-operable task records into safe, bounded, traceable context and assembly
-artifacts for AI agents. The repository is organized as a working draft of one
-profile plus a non-normative upper-layer proposal.
+artifacts for AI agents.
 
-```text
-cap-docs/
-├── README.md                 # this entry point
-├── specs/
-│   ├── digest/               # CAP-Digest — current draft profile
-│   └── core/                 # CAP-Core — non-normative RFC-0001 proposal
-├── schemas/                  # CAP-Digest schemas and CAP-Core schema sketches
-├── fixtures/                 # CAP-Digest and CAP-Core draft fixtures
-├── packs/                    # Digest Packs
-├── reference/                # experimental reference implementation
-├── capps/                    # CAP proposal process
-├── notes/                    # non-normative design memos and knowledge notes
-└── .github/                  # contribution templates and CI
-```
+The repository currently has one normative-track draft profile, **CAP-Digest**,
+and one non-normative upper-layer draft track, **CAP-Core**.
 
-## What is in scope right now
+## Current Scope
 
-**CAP-Digest** (`specs/digest/`) is the only drafted normative-track
-specification. It defines a
-*context evidence layer*: how a source object is safely turned into a
-model-readable **context digest** (text + DigestManifest) with stable field
-anchors, budgeted selection, redaction, and gated follow-up.
+**CAP-Digest** is the active draft specification. It defines a context evidence
+layer: how a source object is transformed into a model-readable digest plus a
+machine-readable `DigestManifest` with stable field anchors, budgeted selection,
+redaction, evidence validation, and gated follow-up.
 
 ```text
 source object -> field catalog -> context digest -> model response -> gated follow-up
 ```
 
-The central artifact is a **context digest**: a model-readable text object plus a
-machine-readable DigestManifest that records exactly what was included, omitted,
-redacted, downgraded, or made available for follow-up.
-
-**CAP-Core** (`specs/core/`) now has a **non-normative draft proposal** plus
-Core-scoped schema sketches, a local-analysis fixture, and a validator/renderer
-prototype. It is intended as an upper layer covering artifact graphs,
+**CAP-Core** is a draft-track proposal area. It explores artifact graphs,
 capability/runtime binding, RunEvidence, policy records, and external standard
-bindings. It does not define stable conformance; see `specs/core/README.md`.
+bindings, but it does not define stable conformance yet.
 
-## Start reading
+## Repository Layout
 
-- For the current spec, start at [CAP-Digest Overview](specs/digest/00-overview.md),
-  then follow the reading order it lists (01 → 12).
-- For the CAP-Core draft proposal, start at
-  [CAP-Core README](specs/core/README.md), then read
-  [RFC-0001](specs/core/RFC-0001.md).
-- For the current implementation status, read [STATUS.md](STATUS.md).
-- For near-term work, read [ROADMAP.md](ROADMAP.md).
-- For maintenance policy, read [MAINTENANCE.md](MAINTENANCE.md).
-- For positioning questions, read [FAQ.md](FAQ.md).
-- For the CAP-Digest / CAP-Core split rationale, read
-  [CAP 认知差错与正确认知框架报告](notes/2026-07-05-cognitive-error-and-framework.md).
-- For retained ecosystem knowledge notes (to seed a future CAP-Core research
-  pass), read
-  [Deep Research v2 知识留存笔记](notes/2026-07-05-deep-research-v2-knowledge-notes.md).
+```text
+cap-docs/
+├── specs/
+│   ├── digest/               # CAP-Digest draft specification
+│   └── core/                 # CAP-Core non-normative draft proposal track
+├── schemas/                  # CAP-Digest schemas and CAP-Core schema sketches
+├── fixtures/                 # executable draft fixtures
+├── packs/                    # experimental Digest Packs
+├── reference/                # experimental Python reference helpers
+├── capps/                    # CAP proposal process
+├── notes/                    # non-normative design and research notes
+├── RELEASE-CHECKLIST.md      # CAP-Digest 0.1.0-alpha checklist
+└── .github/                  # issue/PR templates and CI workflows
+```
 
-## Executable draft assets
+## Start Reading
 
-The repository now includes early executable assets:
+- Current CAP-Digest spec: [specs/digest/00-overview.md](specs/digest/00-overview.md)
+- Implementation guide: [specs/digest/12-implementation-guide.md](specs/digest/12-implementation-guide.md)
+- Current project status: [STATUS.md](STATUS.md)
+- Roadmap and remaining release gate: [ROADMAP.md](ROADMAP.md)
+- Alpha release checklist: [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md)
+- Governance and CAPP process: [capps/README.md](capps/README.md)
+- CAP-Core draft track: [specs/core/README.md](specs/core/README.md)
 
-- `schemas/` — draft JSON schemas for CAP-Digest and CAP-Core objects.
-- `fixtures/basic-table/` — the first CAP-Digest conformance fixture.
-- `fixtures/followup-basic/` — the first CAP-Digest follow-up/gate fixture.
-- `fixtures/pack-table-basic/` — the first Digest Pack loading fixture.
-- `fixtures/core/local-analysis/` — the first CAP-Core draft fixture.
+## Executable Draft Assets
+
+CAP-Digest executable coverage now includes:
+
+- `fixtures/basic-table/` — Level 0/1 table assembly, manifest generation,
+  redaction, and evidence validation.
+- `fixtures/digest-text-negative/` — parser and manifest/text consistency
+  negative cases.
+- `fixtures/followup-basic/` — Level 2 follow-up gate and digest patch behavior.
+- `fixtures/pack-table-basic/` — Level 3 `table-basic` Digest Pack metadata
+  loading.
+- `fixtures/security-adversarial/` — escaping, sensitive-name masking, and
+  renderer failure manifest shape.
 - `packs/table-basic/` — the first experimental Digest Pack.
-- `reference/python/` — minimal CAP-Digest and CAP-Core reference helpers and
-  fixture checker.
+- `reference/python/` — experimental executable companion and fixture checker.
 
-These assets are intentionally narrow. The first CAP-Digest target covers Level
-0/1 table assembly, Level 2 follow-up gating, and Level 3 `table-basic` pack
-metadata loading. The first CAP-Core target is a local scientific analysis
-assembly fixture with draft validator/renderer coverage.
+CAP-Core executable draft-track coverage includes:
 
-## Contribution and governance
+- `schemas/core/`
+- `fixtures/core/local-analysis/`
+- `reference/python/cap_core/`
+
+These Core assets are useful for design validation, but they are not stable
+CAP-Core conformance requirements.
+
+## Run Checks
+
+From the repository root:
+
+```bash
+python -m unittest discover reference/python/tests
+python reference/python/scripts/validate_fixtures.py
+python reference/python/scripts/validate_fixtures.py --report conformance-report.json
+```
+
+The conformance report uses `cap.conformance_report.v1` and currently covers
+the CAP-Digest fixtures plus the CAP-Core local-analysis draft fixture.
+
+## Conformance Snapshot
+
+Current executable target:
+
+```text
+CAP-Digest Level 0/1: table source digest assembly
+CAP-Digest Level 2: gated follow-up for table sample rows
+CAP-Digest Level 3: table-basic Digest Pack metadata loading
+CAP-Core: non-normative local-analysis draft fixture
+```
+
+The CAP-Digest `0.1.0-alpha` checklist is prepared, but the release tag has not
+been created.
+
+## Contribution and Governance
 
 - Use [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
 - Use [SECURITY.md](SECURITY.md) for security-sensitive reports.
-- Use `capps/` for substantial CAP-Digest, CAP-Core, pack, or governance changes.
-- Use `CHANGELOG.md` to track notable changes.
+- Use `capps/` for substantial CAP-Digest, CAP-Core, pack, or governance
+  changes.
+- Use [CHANGELOG.md](CHANGELOG.md) for notable changes.
 
-## Working rule
+## Layer Rule
 
-When making a change in this repository, ask first:
+Every change should answer:
 
 > Is this refining CAP-Digest, or does it actually belong in CAP-Core?
 
-Keeping these two layers separate avoids conflating a context evidence profile
-with a full object-assembly protocol. See the notes directory for the analysis
-behind this rule.
+CAP-Digest is a context evidence profile. CAP-Core is a broader object assembly
+proposal track. Keeping them separate avoids turning digest text, field
+selection, and evidence validation into an implicit runtime protocol.
 
-## Normative language
+## Normative Language
 
-The CAP-Digest spec set uses **MUST**, **MUST NOT**, **SHOULD**, and **MAY** as
-defined in `specs/digest/00-overview.md`. Documents in `notes/`, `reference/`,
-and planned or experimental assets are non-normative unless explicitly stated
-otherwise.
+The CAP-Digest spec uses **MUST**, **MUST NOT**, **SHOULD**, and **MAY** as
+defined in [specs/digest/00-overview.md](specs/digest/00-overview.md).
+
+Documents in `notes/`, `reference/`, draft fixtures, and CAP-Core draft-track
+assets are non-normative unless a future accepted CAPP explicitly promotes them.
