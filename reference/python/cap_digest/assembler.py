@@ -36,11 +36,13 @@ def _escape_data(value: Any) -> str:
 def _column_line(column: dict[str, Any], patterns: list[str]) -> tuple[str, bool]:
     name = column["name"]
     typ = column["type"]
+    safe_name = _escape_data(name)
+    safe_type = _escape_data(typ)
     examples = column.get("examples", [])[:2]
     if _is_sensitive_name(name, patterns):
-        return f'{name} <{typ}> e.g. <data>[masked: sensitive name]</data>', True
+        return f'{safe_name} <{safe_type}> e.g. <data>[masked: sensitive name]</data>', True
     rendered = ", ".join(f"<data>{_escape_data(v)}</data>" for v in examples)
-    return f"{name} <{typ}> e.g. {rendered}", False
+    return f"{safe_name} <{safe_type}> e.g. {rendered}", False
 
 
 def assemble_table(source: dict[str, Any], policy: dict[str, Any]) -> DigestResult:
@@ -53,11 +55,18 @@ def assemble_table(source: dict[str, Any], policy: dict[str, Any]) -> DigestResu
     patterns = policy.get("redaction", {}).get("sensitiveNamePatterns", list(SENSITIVE_PATTERNS))
 
     column_lines: list[str] = []
-    redacted = False
+    redacted_names: list[str] = []
     for column in source["columns"]:
         line, masked = _column_line(column, patterns)
         column_lines.append(line)
-        redacted = redacted or masked
+        if masked:
+            redacted_names.append(column["name"])
+
+    caveat_lines = [
+        f'- [cap_caveat_redacted] f1:table@columns#compact: values in "{_escape_data(name)}" were masked'
+        for name in redacted_names
+    ]
+    redacted = bool(redacted_names)
 
     text = "\n".join(
         [
@@ -73,7 +82,7 @@ def assemble_table(source: dict[str, Any], policy: dict[str, Any]) -> DigestResu
             "</field>",
             "",
             "<caveats>",
-            '- [cap_caveat_redacted] f1:table@columns#compact: values in "api_token" were masked',
+            *caveat_lines,
             "</caveats>",
             "",
             "<available_on_request>",
@@ -143,7 +152,7 @@ def assemble_table(source: dict[str, Any], policy: dict[str, Any]) -> DigestResu
                 "renderMethod": "table_columns_compact_v1",
                 "redacted": redacted,
                 "ok": True,
-                "warnings": ["values in api_token masked"] if redacted else [],
+                "warnings": [f"values in {name} masked" for name in redacted_names],
                 "errorClass": None,
                 "elapsedMs": 0,
                 "fingerprint": fingerprint,
