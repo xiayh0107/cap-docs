@@ -1,0 +1,21 @@
+{
+  "schema": "cap.core.run.v1",
+  "id": "run-build-test-001",
+  "assemblyId": "assembly.build-test-001",
+  "state": "completed",
+  "startedAt": "2026-07-06T13:01:00Z",
+  "endedAt": "2026-07-06T13:01:18Z",
+  "inputs": [
+    "artifact.repo.source",
+    "artifact.config.pyproject",
+    "artifact.environment.python"
+  ],
+  "outputs": [
+    "artifact.output.test-report"
+  ],
+  "runtimeBinding": "binding.runtime.oci-reference",
+  "resourceBinding": "binding.resource.local-test",
+  "serviceBindings": [],
+  "logs": ["artifact.log.test"],
+  "evidenceRefs": ["evidence.build-test-001"]
+}

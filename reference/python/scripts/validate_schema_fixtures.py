@@ -38,12 +38,14 @@ class SchemaTarget:
 DOCUMENTED_NO_SCHEMA: dict[str, str] = {
     "fixtures/basic-table/source.json": "fixture input source; source schema is not defined for alpha",
     "fixtures/basic-table/policy.json": "fixture harness policy; policy schema is not defined for alpha",
+    "fixtures/core/build-test/expected-validation.json": "Core validator expected-output harness",
+    "fixtures/core/build-test/negative/digest-evidence-as-run-evidence.json": (
+        "negative layer-boundary case using a digest evidence schema not defined in this repo"
+    ),
     "fixtures/core/local-analysis/expected-validation.json": "Core validator expected-output harness",
     "fixtures/core/local-analysis/negative/digest-evidence-as-run-evidence.json": (
         "negative layer-boundary case using a digest evidence schema not defined in this repo"
     ),
-    "fixtures/core/local-analysis/policy-decision.json": "Core policy decision envelope has no schema sketch yet",
-    "fixtures/core/local-analysis/source-artifacts.json": "artifact-set wrapper has no schema; nested artifacts are validated",
     "fixtures/followup-basic/expected-gate.json": "legacy compact gate summary used by reference tests",
     "fixtures/followup-basic/policy.json": "fixture harness policy; policy schema is not defined for alpha",
     "fixtures/followup-basic/source.json": "fixture input source; source schema is not defined for alpha",
@@ -107,6 +109,33 @@ def add(targets: list[SchemaTarget], fixture: str, schema: str, pointer: tuple[s
     targets.append(SchemaTarget(rel(fixture), rel(schema), pointer, note))
 
 
+def add_expected_invalid(
+    targets: list[SchemaTarget],
+    fixture: str,
+    schema: str,
+    pointer: tuple[str | int, ...] = (),
+    note: str = "",
+) -> None:
+    targets.append(SchemaTarget(rel(fixture), rel(schema), pointer, note, expected_valid=False))
+
+
+def add_core_fixture_targets(targets: list[SchemaTarget], name: str) -> None:
+    base = f"fixtures/core/{name}"
+    add(targets, f"{base}/source-artifacts.json", "schemas/core/cap.core.artifact_set.v1.schema.json")
+    core_artifacts = load_json(rel(f"{base}/source-artifacts.json"))
+    for index, _artifact in enumerate(core_artifacts["artifacts"]):
+        add(targets, f"{base}/source-artifacts.json", "schemas/core/cap.core.artifact.v1.schema.json", ("artifacts", index))
+    add(targets, f"{base}/capability.json", "schemas/core/cap.core.capability.v1.schema.json")
+    add(targets, f"{base}/assembly.json", "schemas/core/cap.core.assembly.v1.schema.json")
+    assembly = load_json(rel(f"{base}/assembly.json"))
+    for index, _binding in enumerate(assembly["bindingRecords"]):
+        add(targets, f"{base}/assembly.json", "schemas/core/cap.core.binding.v1.schema.json", ("bindingRecords", index))
+    add(targets, f"{base}/policy-decision.json", "schemas/core/cap.core.policy_decision.v1.schema.json")
+    add(targets, f"{base}/digest-view-ref.json", "schemas/core/cap.core.binding.v1.schema.json")
+    add(targets, f"{base}/run.json", "schemas/core/cap.core.run.v1.schema.json")
+    add(targets, f"{base}/run-evidence.json", "schemas/core/cap.core.run_evidence.v1.schema.json")
+
+
 def build_targets() -> list[SchemaTarget]:
     targets: list[SchemaTarget] = []
 
@@ -163,27 +192,7 @@ def build_targets() -> list[SchemaTarget]:
         "schemas/cap.manifest.v1.schema.json",
     )
 
-    core_artifacts = load_json(rel("fixtures/core/local-analysis/source-artifacts.json"))
-    for index, _artifact in enumerate(core_artifacts["artifacts"]):
-        add(
-            targets,
-            "fixtures/core/local-analysis/source-artifacts.json",
-            "schemas/core/cap.core.artifact.v1.schema.json",
-            ("artifacts", index),
-        )
-    add(targets, "fixtures/core/local-analysis/capability.json", "schemas/core/cap.core.capability.v1.schema.json")
-    add(targets, "fixtures/core/local-analysis/assembly.json", "schemas/core/cap.core.assembly.v1.schema.json")
-    assembly = load_json(rel("fixtures/core/local-analysis/assembly.json"))
-    for index, _binding in enumerate(assembly["bindingRecords"]):
-        add(
-            targets,
-            "fixtures/core/local-analysis/assembly.json",
-            "schemas/core/cap.core.binding.v1.schema.json",
-            ("bindingRecords", index),
-        )
-    add(targets, "fixtures/core/local-analysis/digest-view-ref.json", "schemas/core/cap.core.binding.v1.schema.json")
-    add(targets, "fixtures/core/local-analysis/run.json", "schemas/core/cap.core.run.v1.schema.json")
-    add(targets, "fixtures/core/local-analysis/run-evidence.json", "schemas/core/cap.core.run_evidence.v1.schema.json")
+    add_core_fixture_targets(targets, "local-analysis")
     add(
         targets,
         "fixtures/core/local-analysis/negative/secret-value-in-service-binding.json",
@@ -197,6 +206,25 @@ def build_targets() -> list[SchemaTarget]:
             expected_valid=False,
             note="negative fixture must fail required assemblyId validation",
         )
+    )
+    add_core_fixture_targets(targets, "build-test")
+    add(
+        targets,
+        "fixtures/core/build-test/negative/secret-value-in-service-binding.json",
+        "schemas/core/cap.core.binding.v1.schema.json",
+        note="schema-valid but semantically rejected by the Core validator",
+    )
+    add_expected_invalid(
+        targets,
+        "fixtures/core/build-test/negative/policy-decision-invalid-decision.json",
+        "schemas/core/cap.core.policy_decision.v1.schema.json",
+        note="negative fixture must fail decision enum validation",
+    )
+    add_expected_invalid(
+        targets,
+        "fixtures/core/build-test/negative/run-with-invalid-state.json",
+        "schemas/core/cap.core.run.v1.schema.json",
+        note="negative fixture must fail run state enum validation",
     )
 
     return targets

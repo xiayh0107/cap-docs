@@ -7,7 +7,22 @@ CAP-Core draft proposal.
 
 ## Unreleased
 
-No unreleased changes yet.
+### Added
+
+- Added a second CAP-Core executable draft fixture, `fixtures/core/build-test/`,
+  covering a software build/test scenario with Core validation and negative
+  fixture coverage.
+- Added Core-scoped schema sketches for artifact sets and policy decisions.
+- Split the CAP-Core RFC-0001 material into object-model, binding-model,
+  scientific-computation-profile, and CAP-Digest bridge profile drafts.
+- Added a CAP-Core policy/artifact-set boundary decision note.
+
+### Changed
+
+- Expanded Core fixture validation, schema-fixture validation, tests, and
+  conformance reporting to cover both Core draft fixtures.
+- Updated Core documentation to keep artifact-set, policy-decision, binding,
+  and profile boundaries explicit before any future normative promotion.
 
 ## cap-digest-0.1.0-alpha - 2026-07-06
 

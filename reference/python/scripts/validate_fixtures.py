@@ -18,7 +18,7 @@ from cap_digest import (  # noqa: E402
     validate_manifest_text_consistency,
     validate_response,
 )
-from cap_core import load_local_analysis_fixture, render_review_summary, validate_core_fixture, validate_negative_record  # noqa: E402
+from cap_core import load_core_fixture, render_review_summary, validate_core_fixture, validate_negative_record  # noqa: E402
 
 
 def load_json(path: Path):
@@ -37,7 +37,8 @@ def main() -> int:
         ("digest", "fixtures/followup-basic", validate_followup_basic),
         ("digest", "fixtures/pack-table-basic", validate_pack_table_basic),
         ("digest", "fixtures/security-adversarial", validate_security_adversarial),
-        ("core", "fixtures/core/local-analysis", validate_core_local_analysis),
+        ("core", "fixtures/core/local-analysis", lambda: validate_core_fixture_family("local-analysis")),
+        ("core", "fixtures/core/build-test", lambda: validate_core_fixture_family("build-test")),
     ]
     checks = [
         (name, validate())
@@ -231,9 +232,9 @@ def validate_security_adversarial() -> list[str]:
     return problems
 
 
-def validate_core_local_analysis() -> list[str]:
-    fixture_path = ROOT / "fixtures" / "core" / "local-analysis"
-    fixture = load_local_analysis_fixture(ROOT)
+def validate_core_fixture_family(name: str) -> list[str]:
+    fixture_path = ROOT / "fixtures" / "core" / name
+    fixture = load_core_fixture(ROOT, name)
     expected_validation = load_json(fixture_path / "expected-validation.json")
     expected_summary = (fixture_path / "expected-review-summary.txt").read_text(encoding="utf-8")
 
@@ -247,9 +248,9 @@ def validate_core_local_analysis() -> list[str]:
         "warnings": expected_validation["warnings"],
         "summary": expected_validation["summary"],
     }:
-        problems.append("core local-analysis validation mismatch")
+        problems.append(f"core {name} validation mismatch")
     if rendered_summary != expected_summary:
-        problems.append("core local-analysis review summary mismatch")
+        problems.append(f"core {name} review summary mismatch")
 
     for filename, expected in expected_validation["negativeFixtures"].items():
         record = load_json(fixture_path / "negative" / filename)
@@ -257,7 +258,7 @@ def validate_core_local_analysis() -> list[str]:
         actual_codes = sorted({error["code"] for error in negative.errors})
         expected_codes = sorted(expected["errorCodes"])
         if negative.ok != expected["ok"] or actual_codes != expected_codes:
-            problems.append(f"core negative fixture mismatch: {filename}")
+            problems.append(f"core {name} negative fixture mismatch: {filename}")
 
     return problems
 

@@ -10,7 +10,8 @@ RFC-0001. It is not an accepted conformance program.
 As of 2026-07-06, the first draft-track assets exist:
 
 - schema sketches under `schemas/core/`;
-- positive and negative fixture cases under `fixtures/core/local-analysis/`;
+- positive and negative fixture cases under `fixtures/core/local-analysis/` and
+  `fixtures/core/build-test/`;
 - a validator/renderer prototype under `reference/python/cap_core/`;
 - tests in `reference/python/tests/test_core_local_analysis.py`.
 
@@ -45,9 +46,11 @@ Candidate schema files:
 
 ```text
 schemas/core/cap.core.artifact.v1.schema.json
+schemas/core/cap.core.artifact_set.v1.schema.json
 schemas/core/cap.core.capability.v1.schema.json
 schemas/core/cap.core.binding.v1.schema.json
 schemas/core/cap.core.assembly.v1.schema.json
+schemas/core/cap.core.policy_decision.v1.schema.json
 schemas/core/cap.core.run.v1.schema.json
 schemas/core/cap.core.run_evidence.v1.schema.json
 ```
@@ -79,15 +82,17 @@ status
 evidenceRefs
 ```
 
-## First fixture family
+## Fixture families
 
-The first fixture should be local scientific analysis, aligned with
-`EXAMPLE-ASSEMBLY-0001.md`.
+The first fixture is local scientific analysis, aligned with
+`EXAMPLE-ASSEMBLY-0001.md`. The second fixture is software build/test, which
+checks that the object model is not tied to one scientific-analysis domain.
 
-Candidate path:
+Current paths:
 
 ```text
 fixtures/core/local-analysis/
+fixtures/core/build-test/
 ```
 
 Candidate files:
@@ -115,6 +120,17 @@ The fixture should test:
 - RunEvidence references to logs, outputs, timestamps, and optional provenance;
 - DigestBinding to a CAP-Digest view without treating DigestEvidence as
   RunEvidence.
+
+The build/test fixture adds:
+
+- source repository, project config, environment, test report, and log
+  artifacts;
+- one `run-build-test` capability;
+- runtime, resource, policy, evidence, digest, data-plane, transport, and schema
+  bindings;
+- policy decision with network disabled;
+- negative cases for invalid run state, invalid policy decision, secret values
+  in service bindings, and DigestEvidence/RunEvidence layer confusion.
 
 ## Negative fixture ideas
 

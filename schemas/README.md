@@ -38,15 +38,18 @@ Schemas use JSON Schema Draft 2020-12. The schema dialect follows
 Core schema sketches live under `schemas/core/`:
 
 - `cap.core.artifact.v1.schema.json` — Artifact / ArtifactRef envelope.
+- `cap.core.artifact_set.v1.schema.json` — fixture and assembly artifact-set wrapper.
 - `cap.core.capability.v1.schema.json` — Capability declaration.
 - `cap.core.binding.v1.schema.json` — generic typed Binding envelope.
 - `cap.core.assembly.v1.schema.json` — pre-run Assembly contract.
+- `cap.core.policy_decision.v1.schema.json` — minimal policy decision record.
 - `cap.core.run.v1.schema.json` — Run record.
 - `cap.core.run_evidence.v1.schema.json` — RunEvidence envelope.
 
 These sketches align with `specs/core/RFC-0001.md` and
-`fixtures/core/local-analysis/`. They are not stable CAP-Core conformance
-requirements.
+the split draft RFCs under `specs/core/`. They are exercised by
+`fixtures/core/local-analysis/` and `fixtures/core/build-test/`. They are not
+stable CAP-Core conformance requirements.
 
 Schema versioning and feature-state rules will follow
 `specs/digest/11-versioning-conformance-governance.md`.

@@ -38,6 +38,9 @@ fixtures/
 - `core/local-analysis/` — a CAP-Core draft fixture exercising artifact refs,
   capability, Assembly, Binding records, policy decision, Run, RunEvidence,
   DigestBinding, review rendering, and negative layer/security cases.
+- `core/build-test/` — a second CAP-Core draft fixture for a software build/test
+  scenario, proving the object model outside the first scientific-analysis
+  example.
 
 ## Schema validation map
 
@@ -70,19 +73,22 @@ Schema-backed CAP-Digest fixture files:
 
 Schema-backed CAP-Core draft fixture files:
 
-- `core/local-analysis/source-artifacts.json` validates each nested Artifact
-  against the draft `cap.core.artifact.v1` schema. The artifact-set wrapper has
-  no schema yet.
-- `core/local-analysis/capability.json`, `assembly.json`, `run.json`,
-  `run-evidence.json`, and `digest-view-ref.json` validate against the matching
-  draft Core schema sketches.
-- `core/local-analysis/assembly.json` also validates each nested Binding record
-  against `cap.core.binding.v1`.
-- `core/local-analysis/negative/secret-value-in-service-binding.json` is schema
-  valid but intentionally fails semantic Core validation because it carries a
-  secret value.
-- `core/local-analysis/negative/run-without-assembly.json` is intentionally
-  schema invalid and must continue failing required-field validation.
+- `core/*/source-artifacts.json` validates against
+  `cap.core.artifact_set.v1`, and each nested Artifact validates against
+  `cap.core.artifact.v1`.
+- `core/*/capability.json`, `assembly.json`, `policy-decision.json`,
+  `run.json`, `run-evidence.json`, and `digest-view-ref.json` validate against
+  the matching draft Core schema sketches.
+- `core/*/assembly.json` also validates each nested Binding record against
+  `cap.core.binding.v1`.
+- `core/*/negative/secret-value-in-service-binding.json` is schema valid but
+  intentionally fails semantic Core validation because it carries a secret
+  value.
+- `core/local-analysis/negative/run-without-assembly.json`,
+  `core/build-test/negative/run-with-invalid-state.json`, and
+  `core/build-test/negative/policy-decision-invalid-decision.json` are
+  intentionally schema invalid and must continue failing required-field or enum
+  validation.
 
 Fixture harness or no-schema JSON:
 
@@ -90,12 +96,11 @@ Fixture harness or no-schema JSON:
   and policy schemas are not defined for the alpha.
 - `followup-basic/expected-gate.json` and `pack-table-basic/expected-pack.json`
   are compact reference-test summaries, not normative schema artifacts.
-- `core/local-analysis/policy-decision.json` has no Core schema sketch yet.
-- `core/local-analysis/expected-validation.json` is reference-validator
-  expected output.
-- `core/local-analysis/negative/digest-evidence-as-run-evidence.json` is a
-  layer-boundary negative case using a Digest evidence shape not defined in this
-  repository.
+- `core/*/expected-validation.json` files are reference-validator expected
+  output.
+- `core/*/negative/digest-evidence-as-run-evidence.json` files are
+  layer-boundary negative cases using a Digest evidence shape not defined in
+  this repository.
 
 ## Planned additional cases
 

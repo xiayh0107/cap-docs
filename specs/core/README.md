@@ -18,28 +18,33 @@ conformance.
 Start here:
 
 1. [CAP-Core Writing Plan](WRITING-PLAN.md) — how to research and write CAP-Core.
-2. [CAP-Core RFC-0001](RFC-0001.md) — first integrated draft proposal.
-3. [CAP-Core RFC-0001 Outline](RFC-0001-outline.md) — reviewed structure for the
+2. [CAP-Core RFC-0001](RFC-0001.md) — first integrated draft proposal retained as an overview.
+3. [RFC-0001 Core Object Model](RFC-0001-core-object-model.md) — split draft for minimal Core objects.
+4. [RFC-0002 Binding Model](RFC-0002-binding-model.md) — split draft for generic bindings and binding roles.
+5. [RFC-0003 Scientific Computation Profile](RFC-0003-scientific-computation-profile.md) — split profile draft.
+6. [RFC-0004 CAP-Digest Bridge Profile](RFC-0004-cap-digest-bridge-profile.md) — split bridge profile draft.
+7. [CAP-Core RFC-0001 Outline](RFC-0001-outline.md) — reviewed structure for the
    first CAP-Core RFC.
-4. [CAP-Core Boundary Matrix](BOUNDARY-MATRIX.md) — Core/Profile/Binding/Digest/external split.
-5. [CAP-Core Primitive Reuse Review](PRIMITIVE-REUSE.md) — primitive-by-primitive reuse/gap review.
-6. [CAP-Core External Standard Binding Policy](BINDING-POLICY.md) — how Core binds to external standards.
-7. [CAP-Core Ontology Draft](ONTOLOGY-DRAFT.md) — candidate Core objects and relationships.
-8. [CAP-Core Lifecycle Draft](LIFECYCLE-DRAFT.md) — candidate assembly/run lifecycle checkpoints.
-9. [CAP-Core Security and Policy Draft](SECURITY-POLICY-DRAFT.md) — policy/security record model.
-10. [CAP-Core Conformance Draft](CONFORMANCE-DRAFT.md) — schema sketch and fixture plan.
-11. [Example Assembly 0001](EXAMPLE-ASSEMBLY-0001.md) — first scientific-analysis example.
-12. [CAP-Core Research Sources](RESEARCH-SOURCES.md) — reviewed source basis for
+8. [CAP-Core Boundary Matrix](BOUNDARY-MATRIX.md) — Core/Profile/Binding/Digest/external split.
+9. [CAP-Core Primitive Reuse Review](PRIMITIVE-REUSE.md) — primitive-by-primitive reuse/gap review.
+10. [CAP-Core External Standard Binding Policy](BINDING-POLICY.md) — how Core binds to external standards.
+11. [CAP-Core Ontology Draft](ONTOLOGY-DRAFT.md) — candidate Core objects and relationships.
+12. [CAP-Core Lifecycle Draft](LIFECYCLE-DRAFT.md) — candidate assembly/run lifecycle checkpoints.
+13. [CAP-Core Security and Policy Draft](SECURITY-POLICY-DRAFT.md) — policy/security record model.
+14. [CAP-Core Conformance Draft](CONFORMANCE-DRAFT.md) — schema sketch and fixture plan.
+15. [Example Assembly 0001](EXAMPLE-ASSEMBLY-0001.md) — first scientific-analysis example.
+16. [CAP-Core Research Sources](RESEARCH-SOURCES.md) — reviewed source basis for
    RFC drafting.
-13. [CAP-Core Open Questions](OPEN-QUESTIONS.md) — questions to resolve or defer
+17. [CAP-Core Open Questions](OPEN-QUESTIONS.md) — questions to resolve or defer
    before RFC-0001 advances.
-14. [CAP-Core review decisions](reviews/) — non-normative decision notes for
+18. [CAP-Core review decisions](reviews/) — non-normative decision notes for
     object minimization, fixture value, and RFC split planning.
 
 Executable draft assets:
 
 - `schemas/core/` — CAP-Core JSON Schema sketches.
 - `fixtures/core/local-analysis/` — first Core fixture with positive and negative cases.
+- `fixtures/core/build-test/` — second Core fixture proving the object model outside scientific analysis.
 - `reference/python/cap_core/` — validator/renderer prototype.
 
 ## Problem statement (intended scope)

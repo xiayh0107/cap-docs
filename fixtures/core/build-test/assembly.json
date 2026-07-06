@@ -1,0 +1,172 @@
+{
+  "schema": "cap.core.assembly.v1",
+  "id": "assembly.build-test-001",
+  "artifacts": [
+    "artifact.repo.source",
+    "artifact.config.pyproject",
+    "artifact.environment.python"
+  ],
+  "capability": "capability.run-build-test",
+  "profiles": ["profile.software-build-test.v0", "profile.python-test.v0"],
+  "bindings": [
+    "binding.runtime.oci-reference",
+    "binding.resource.local-test",
+    "binding.policy.no-network",
+    "binding.evidence.test-files",
+    "binding.digest.test-report",
+    "binding.data.workspace",
+    "binding.transport.host-test-runner",
+    "binding.schema.pyproject"
+  ],
+  "bindingRecords": [
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.runtime.oci-reference",
+      "type": "runtime",
+      "target": "oci://example/python-test@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "standard": "OCI",
+      "standardVersion": "image-spec-1.1",
+      "profile": "profile.oci-runtime-reference.v0",
+      "constraints": {
+        "entrypoint": "python -m unittest discover",
+        "isolation": "workspace"
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "freshness": {
+        "observedAt": "2026-07-06T13:00:00Z"
+      },
+      "status": "resolved",
+      "evidenceRefs": []
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.resource.local-test",
+      "type": "resource",
+      "target": "host-resource://local-test",
+      "standard": "cap-resource-envelope",
+      "standardVersion": "draft-2026-07-06",
+      "profile": "profile.resource-envelope.v0",
+      "constraints": {
+        "cpu": 2,
+        "memory": "2GiB",
+        "timeout": "5m",
+        "network": "disabled",
+        "storage": "512MiB",
+        "locality": "workspace"
+      },
+      "integrity": null,
+      "freshness": null,
+      "status": "resolved",
+      "evidenceRefs": []
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.policy.no-network",
+      "type": "policy",
+      "target": "policy://fixture/no-network-tests",
+      "standard": "host-policy",
+      "standardVersion": "2026-07-06-fixture",
+      "profile": "profile.policy-decision.v0",
+      "constraints": {
+        "decision": "allowed_with_constraints",
+        "network": "disabled",
+        "writeScope": "file://workspace/out/",
+        "principal": "user:fixture"
+      },
+      "integrity": null,
+      "freshness": {
+        "decisionTime": "2026-07-06T13:00:00Z"
+      },
+      "status": "resolved",
+      "evidenceRefs": ["policy-decision.build-test-001"]
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.evidence.test-files",
+      "type": "evidence",
+      "target": "file://workspace/out/",
+      "standard": "cap-run-evidence-envelope",
+      "standardVersion": "draft-2026-07-06",
+      "profile": "profile.local-file-evidence.v0",
+      "constraints": {
+        "outputs": ["test-report.json", "test.log"]
+      },
+      "integrity": null,
+      "freshness": null,
+      "status": "resolved",
+      "evidenceRefs": []
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.digest.test-report",
+      "type": "digest",
+      "target": "fixture://build-test/test-report-digest",
+      "standard": "CAP-Digest",
+      "standardVersion": "2026-07-06-draft",
+      "profile": "profile.cap-digest-view.v0",
+      "constraints": {
+        "sourceRunEvidence": "evidence.build-test-001"
+      },
+      "integrity": null,
+      "freshness": null,
+      "status": "resolved",
+      "evidenceRefs": ["evidence.build-test-001"]
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.data.workspace",
+      "type": "data-plane",
+      "target": "file://workspace/",
+      "standard": "host-filesystem",
+      "standardVersion": "2026-07-06-fixture",
+      "profile": "profile.local-file-reference.v0",
+      "constraints": {
+        "largeBytesInCore": false
+      },
+      "integrity": null,
+      "freshness": null,
+      "status": "resolved",
+      "evidenceRefs": []
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.transport.host-test-runner",
+      "type": "transport",
+      "target": "host-tool://run-tests",
+      "standard": "host-tool-api",
+      "standardVersion": "2026-07-06-fixture",
+      "profile": "profile.host-tool-binding.v0",
+      "constraints": {
+        "interactive": false
+      },
+      "integrity": null,
+      "freshness": null,
+      "status": "resolved",
+      "evidenceRefs": []
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.schema.pyproject",
+      "type": "schema",
+      "target": "schema://python/pyproject-build-test",
+      "standard": "JSON Schema",
+      "standardVersion": "2020-12",
+      "profile": "profile.python-project.v0",
+      "constraints": {
+        "configArtifact": "artifact.config.pyproject"
+      },
+      "integrity": null,
+      "freshness": null,
+      "status": "resolved",
+      "evidenceRefs": []
+    }
+  ],
+  "policyBinding": "binding.policy.no-network",
+  "state": "authorized",
+  "createdAt": "2026-07-06T13:00:00Z",
+  "createdBy": "user:fixture",
+  "unresolved": []
+}

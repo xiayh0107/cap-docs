@@ -2,6 +2,7 @@
 
 from .validator import (
     CoreValidationResult,
+    load_core_fixture,
     load_local_analysis_fixture,
     render_review_summary,
     validate_core_fixture,
@@ -10,6 +11,7 @@ from .validator import (
 
 __all__ = [
     "CoreValidationResult",
+    "load_core_fixture",
     "load_local_analysis_fixture",
     "render_review_summary",
     "validate_core_fixture",

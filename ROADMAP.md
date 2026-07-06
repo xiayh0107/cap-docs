@@ -95,6 +95,12 @@ Goal: test CAP-Core as a draft assembly contract without making it normative.
 - [x] Add `fixtures/core/local-analysis/`.
 - [x] Add a Core validator/renderer reference prototype.
 - [x] Mark CAPP-0004 implemented for CAP-Core draft entry.
+- [x] Add a second Core fixture, `fixtures/core/build-test/`, before any
+  normative promotion.
+- [x] Resolve artifact-set and policy-decision schema boundaries as Core-scoped
+  schema sketches.
+- [x] Split CAP-Core RFC-0001 into Core object-model, binding-model, scientific
+  computation profile, and CAP-Digest bridge profile drafts.
 
 CAP-Core now has a complete draft-track artifact set. Do not treat the Core
 schemas, runtime binding, RunEvidence, service binding, or policy model as

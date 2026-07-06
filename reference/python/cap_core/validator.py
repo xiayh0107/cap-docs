@@ -7,10 +7,23 @@ from typing import Any
 
 
 CORE_REQUIRED_FIELDS: dict[str, tuple[str, ...]] = {
+    "cap.core.artifact_set.v1": ("schema", "artifacts"),
     "cap.core.artifact.v1": ("schema", "id", "kind", "ref"),
     "cap.core.capability.v1": ("schema", "id", "name", "inputs", "outputs", "requiredBindings"),
     "cap.core.binding.v1": ("schema", "id", "type", "target", "status"),
     "cap.core.assembly.v1": ("schema", "id", "artifacts", "capability", "bindings", "policyBinding", "state"),
+    "cap.core.policy_decision.v1": (
+        "schema",
+        "id",
+        "policyBinding",
+        "policySystem",
+        "policyRef",
+        "principal",
+        "action",
+        "resource",
+        "decision",
+        "decisionTime",
+    ),
     "cap.core.run.v1": ("schema", "id", "assemblyId", "state", "startedAt", "inputs", "outputs", "evidenceRefs"),
     "cap.core.run_evidence.v1": (
         "schema",
@@ -27,6 +40,7 @@ CORE_REQUIRED_FIELDS: dict[str, tuple[str, ...]] = {
 BINDING_TYPES = {"runtime", "resource", "service", "policy", "evidence", "digest", "transport", "data-plane", "schema"}
 BINDING_STATUSES = {"candidate", "resolved", "denied", "stale", "unavailable", "deferred"}
 RUN_STATES = {"planned", "starting", "running", "waiting", "completed", "failed", "cancelled", "stale"}
+POLICY_DECISIONS = {"allowed", "denied", "allowed_with_constraints", "needs_confirmation", "stale_context"}
 SECRET_VALUE_KEYS = {"secretvalue", "password", "plaintextsecret", "privatekey", "apikey"}
 
 
@@ -50,8 +64,8 @@ def _load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def load_local_analysis_fixture(root: Path) -> dict[str, Any]:
-    fixture = root / "fixtures" / "core" / "local-analysis"
+def load_core_fixture(root: Path, name: str) -> dict[str, Any]:
+    fixture = root / "fixtures" / "core" / name
     return {
         "fixture": fixture,
         "source_artifacts": _load_json(fixture / "source-artifacts.json"),
@@ -62,6 +76,10 @@ def load_local_analysis_fixture(root: Path) -> dict[str, Any]:
         "run_evidence": _load_json(fixture / "run-evidence.json"),
         "digest_view_ref": _load_json(fixture / "digest-view-ref.json"),
     }
+
+
+def load_local_analysis_fixture(root: Path) -> dict[str, Any]:
+    return load_core_fixture(root, "local-analysis")
 
 
 def validate_core_record(record: dict[str, Any], path: str) -> list[dict[str, str]]:
@@ -90,6 +108,8 @@ def validate_core_record(record: dict[str, Any], path: str) -> list[dict[str, st
             errors.append({"code": "invalid_binding_status", "path": f"{path}.status", "message": "Invalid binding status."})
     if schema == "cap.core.run.v1" and "state" in record and record.get("state") not in RUN_STATES:
         errors.append({"code": "invalid_run_state", "path": f"{path}.state", "message": "Invalid run state."})
+    if schema == "cap.core.policy_decision.v1" and "decision" in record and record.get("decision") not in POLICY_DECISIONS:
+        errors.append({"code": "invalid_policy_decision", "path": f"{path}.decision", "message": "Invalid policy decision."})
     _scan_for_secret_values(record, path, errors)
     return errors
 
@@ -125,11 +145,13 @@ def validate_core_fixture(fixture: dict[str, Any]) -> CoreValidationResult:
     digest_view_ref = fixture["digest_view_ref"]
     binding_records = assembly.get("bindingRecords", [])
 
+    errors.extend(validate_core_record(fixture["source_artifacts"], "source-artifacts"))
     for index, artifact in enumerate(artifacts):
         errors.extend(validate_core_record(artifact, f"source-artifacts.artifacts[{index}]"))
     for name, record in (
         ("capability", capability),
         ("assembly", assembly),
+        ("policy-decision", policy_decision),
         ("run", run),
         ("run-evidence", run_evidence),
         ("digest-view-ref", digest_view_ref),

@@ -1,0 +1,41 @@
+{
+  "schema": "cap.core.run_evidence.v1",
+  "id": "evidence.build-test-001",
+  "runId": "run-build-test-001",
+  "evidenceType": "run-record",
+  "profile": "profile.local-file-evidence.v0",
+  "subject": "run-build-test-001",
+  "materials": [
+    "artifact.repo.source",
+    "artifact.config.pyproject",
+    "artifact.environment.python"
+  ],
+  "products": [
+    "artifact.output.test-report",
+    "artifact.log.test"
+  ],
+  "logs": ["artifact.log.test"],
+  "records": {
+    "exitCode": 0,
+    "startedAt": "2026-07-06T13:01:00Z",
+    "endedAt": "2026-07-06T13:01:18Z",
+    "testSummary": {
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "resourceUse": {
+      "cpuSeconds": 6,
+      "peakMemory": "256MiB",
+      "network": "disabled"
+    }
+  },
+  "attestations": [],
+  "provenanceRefs": ["prov://fixture/build-test-001"],
+  "sbomRefs": [],
+  "telemetryRefs": ["otel://fixture/build-test-001"],
+  "digestViews": ["binding.digest.test-report"],
+  "completeness": "complete",
+  "integrity": "digested"
+}

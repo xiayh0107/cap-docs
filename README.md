@@ -22,7 +22,8 @@ source object -> field catalog -> context digest -> model response -> gated foll
 
 **CAP-Core** is a draft-track proposal area. It explores artifact graphs,
 capability/runtime binding, RunEvidence, policy records, and external standard
-bindings, but it does not define stable conformance yet.
+bindings through split draft RFCs, but it does not define stable conformance
+yet.
 
 ## Repository Layout
 
@@ -46,7 +47,7 @@ cap-docs/
 - Current CAP-Digest spec: [specs/digest/00-overview.md](specs/digest/00-overview.md)
 - Implementation guide: [specs/digest/12-implementation-guide.md](specs/digest/12-implementation-guide.md)
 - Current project status: [STATUS.md](STATUS.md)
-- Roadmap and remaining release gate: [ROADMAP.md](ROADMAP.md)
+- Roadmap: [ROADMAP.md](ROADMAP.md)
 - Alpha release checklist: [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md)
 - Governance and CAPP process: [capps/README.md](capps/README.md)
 - CAP-Core draft track: [specs/core/README.md](specs/core/README.md)
@@ -71,6 +72,7 @@ CAP-Core executable draft-track coverage includes:
 
 - `schemas/core/`
 - `fixtures/core/local-analysis/`
+- `fixtures/core/build-test/`
 - `reference/python/cap_core/`
 
 These Core assets are useful for design validation, but they are not stable
@@ -82,12 +84,14 @@ From the repository root:
 
 ```bash
 python -m unittest discover reference/python/tests
+python reference/python/scripts/validate_schema_fixtures.py
 python reference/python/scripts/validate_fixtures.py
 python reference/python/scripts/validate_fixtures.py --report conformance-report.json
 ```
 
 The conformance report uses `cap.conformance_report.v1` and currently covers
-the CAP-Digest fixtures plus the CAP-Core local-analysis draft fixture.
+the CAP-Digest fixtures plus the CAP-Core local-analysis and build-test draft
+fixtures.
 
 ## Conformance Snapshot
 
@@ -97,7 +101,7 @@ Current executable target:
 CAP-Digest Level 0/1: table source digest assembly
 CAP-Digest Level 2: gated follow-up for table sample rows
 CAP-Digest Level 3: table-basic Digest Pack metadata loading
-CAP-Core: non-normative local-analysis draft fixture
+CAP-Core: non-normative local-analysis and build-test draft fixtures
 ```
 
 CAP-Digest `0.1.0-alpha` is tagged as `cap-digest-0.1.0-alpha`. GitHub release

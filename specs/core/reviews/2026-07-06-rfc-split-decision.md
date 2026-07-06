@@ -11,20 +11,20 @@ too broad for focused review. Splitting reduces ambiguity between the minimal
 Core object model, external-standard binding policy, and profile-specific
 semantics.
 
-## Future RFC files
+## Split RFC files
 
-| Future file | Scope | Normative candidate? |
+| File | Scope | Normative candidate? |
 |---|---|---|
 | `specs/core/RFC-0001-core-object-model.md` | Artifact, ArtifactRef, Profile reference mechanism, Capability minimum, Assembly, Run, RunEvidence envelope, lifecycle checkpoints. | Candidate only after future CAPP. |
 | `specs/core/RFC-0002-binding-model.md` | Generic Binding envelope, binding roles, integrity/freshness/status fields, external-standard binding rules. | Candidate only after future CAPP. |
 | `specs/core/RFC-0003-scientific-computation-profile.md` | Local/scientific analysis profile semantics, artifact roles, resource constraints, reproducibility notes, fixture mapping. | Profile draft, non-Core. |
 | `specs/core/RFC-0004-cap-digest-bridge-profile.md` | DigestBinding, Digest view references, RunEvidence-to-Digest view rules, separation from DigestEvidence. | Profile draft, coordinated with CAP-Digest CAPP if behavior changes. |
 
-Keep `specs/core/RFC-0001.md` temporarily as an integrated overview until the
-split files are drafted. Do not promote any split RFC to normative status in
-the split PR.
+Keep `specs/core/RFC-0001.md` as an integrated overview while the split drafts
+are reviewed. Do not promote any split RFC to normative status in the split
+work.
 
-Implementation is tracked in #29.
+Implementation is tracked in #29 and recorded by the split draft files above.
 
 ## Review answers
 
@@ -39,5 +39,5 @@ Implementation is tracked in #29.
 
 ## Non-goals
 
-This decision does not draft the split RFCs, promote CAP-Core conformance, add
-new Core concepts, or change CAP-Digest behavior.
+This decision does not promote CAP-Core conformance, add new Core concepts, or
+change CAP-Digest behavior.

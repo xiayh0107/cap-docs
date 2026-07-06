@@ -1,0 +1,24 @@
+{
+  "schema": "cap.core.policy_decision.v1",
+  "id": "policy-decision.build-test-001",
+  "policyBinding": "binding.policy.no-network",
+  "policySystem": "host-policy",
+  "policyRef": "policy://fixture/no-network-tests",
+  "policyVersion": "2026-07-06-fixture",
+  "principal": "user:fixture",
+  "action": "run-tests",
+  "resource": "assembly.build-test-001",
+  "decision": "allowed_with_constraints",
+  "decisionTime": "2026-07-06T13:00:00Z",
+  "conditions": {
+    "network": "disabled",
+    "writeScope": "file://workspace/out/",
+    "timeout": "5m"
+  },
+  "obligations": [
+    "record-run-evidence",
+    "do-not-store-secret-values",
+    "render-digest-view-after-finalize"
+  ],
+  "auditRef": "audit://fixture/build-test-001"
+}

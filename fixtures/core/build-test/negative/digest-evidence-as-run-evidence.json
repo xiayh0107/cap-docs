@@ -1,0 +1,7 @@
+{
+  "schema": "cap.digest.evidence.v1",
+  "id": "digest-evidence.build-test-invalid",
+  "runId": "run-build-test-001",
+  "fieldIds": ["f1:test@summary#base"],
+  "digestManifest": "fixture://build-test/test-report-digest"
+}
