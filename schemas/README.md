@@ -6,6 +6,9 @@ This directory holds machine-readable JSON schemas for CAP-Digest plus
 Core-scoped schema sketches for CAP-Core. These schemas are draft assets unless
 a CAPP marks a specific schema as active.
 
+Schemas use JSON Schema Draft 2020-12. The schema dialect follows
+[JSON-SCHEMA-2020-12] in `../REFERENCES.md`.
+
 ## CAP-Digest v1 schemas
 
 - `cap.digest.v1.schema.json` — the digest text envelope (version line, source
@@ -20,6 +23,13 @@ a CAPP marks a specific schema as active.
 - `cap.contract_response.v1.schema.json` — the structured model contract
   response (cited field IDs, follow-up requests, signals).
   See `specs/digest/09-followup-contract-and-gate.md`.
+- `cap.validation_result.v1.schema.json` — mechanical validation result for a
+  ContractResponse.
+- `cap.gate_result.v1.schema.json` — gate decisions for follow-up requests.
+- `cap.field.v1.schema.json` — serialized field definition.
+- `cap.field_catalog.v1.schema.json` — field catalog aggregate.
+- `cap.digest_pack.v1.schema.json` — Digest Pack `CAP.md` frontmatter.
+- `cap.pack_conformance_report.v1.schema.json` — Digest Pack conformance report.
 - `cap.conformance_report.v1.schema.json` — the fixture/check report emitted by
   the reference implementation.
 
