@@ -1,0 +1,7 @@
+{
+  "schema": "cap.digest.evidence.v1",
+  "id": "digest-evidence.invalid",
+  "runId": "run-001",
+  "fieldIds": ["f1:table@shape#base"],
+  "digestManifest": "fixture://basic-table/expected-manifest.json"
+}

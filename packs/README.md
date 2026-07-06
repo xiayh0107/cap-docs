@@ -1,11 +1,10 @@
-# Digest Packs (Planned)
+# Digest Packs
 
-> Status: planned · Last updated: 2026-07-05
+> Status: draft · Last updated: 2026-07-06
 
-This directory will hold reusable **digest packs** — distributable bundles of
-source-reading logic for CAP-Digest. It currently contains **no packs**; the
-structure below is a planning sketch aligned with
-`specs/digest/10-digest-packs.md`.
+This directory holds reusable **Digest Packs**: distributable bundles of
+source-reading logic for CAP-Digest. Pack assets are draft unless a CAPP marks a
+specific pack active.
 
 ## Planned layout
 
@@ -21,14 +20,14 @@ packs/
     └── fixtures/         # pack-specific examples and test sources
 ```
 
-## Planned initial packs
+## Current packs
 
 - `table-basic/` — fields, renderers, and redactors for tabular sources (data
   frames, query results), aligned with the `fixtures/basic-table/` conformance
   case.
 
-Packs will be added when the field model in
-`specs/digest/05-field-model-and-assembly.md` and the pack format in
-`specs/digest/10-digest-packs.md` reach a stable draft. A pack here is a
-**Digest Pack** (source-reading logic); it is distinct from any future CAP-Core
-profile/skill binding.
+The reference implementation validates `table-basic` metadata through
+`fixtures/pack-table-basic/`.
+
+A pack here is a **Digest Pack** (source-reading logic); it is distinct from any
+CAP-Core profile or skill binding.

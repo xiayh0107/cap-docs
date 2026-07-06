@@ -1,0 +1,9 @@
+{
+  "schema": "cap.core.run.v1",
+  "id": "run-invalid",
+  "state": "completed",
+  "startedAt": "2026-07-05T12:01:00Z",
+  "inputs": ["artifact.dataset.orders"],
+  "outputs": [],
+  "evidenceRefs": []
+}

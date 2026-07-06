@@ -1,13 +1,12 @@
-# Schemas (Planned)
+# Schemas
 
-> Status: planned · Last updated: 2026-07-05
+> Status: draft · Last updated: 2026-07-06
 
-This directory will hold machine-readable JSON schemas for the CAP-Digest
-artifact family. It currently contains **no schema files**; the list below is a
-planning sketch derived from `specs/digest/`. Schemas will be added alongside a
-reference implementation and conformance fixtures.
+This directory holds machine-readable JSON schemas for CAP-Digest plus
+Core-scoped schema sketches for CAP-Core. These schemas are draft assets unless
+a CAPP marks a specific schema as active.
 
-## Planned v1 schemas
+## CAP-Digest v1 schemas
 
 - `cap.digest.v1.schema.json` — the digest text envelope (version line, source
   line, field blocks, caveats, available-on-request, contract, data fences).
@@ -21,6 +20,23 @@ reference implementation and conformance fixtures.
 - `cap.contract_response.v1.schema.json` — the structured model contract
   response (cited field IDs, follow-up requests, signals).
   See `specs/digest/09-followup-contract-and-gate.md`.
+- `cap.conformance_report.v1.schema.json` — the fixture/check report emitted by
+  the reference implementation.
+
+## CAP-Core draft schema sketches
+
+Core schema sketches live under `schemas/core/`:
+
+- `cap.core.artifact.v1.schema.json` — Artifact / ArtifactRef envelope.
+- `cap.core.capability.v1.schema.json` — Capability declaration.
+- `cap.core.binding.v1.schema.json` — generic typed Binding envelope.
+- `cap.core.assembly.v1.schema.json` — pre-run Assembly contract.
+- `cap.core.run.v1.schema.json` — Run record.
+- `cap.core.run_evidence.v1.schema.json` — RunEvidence envelope.
+
+These sketches align with `specs/core/RFC-0001.md` and
+`fixtures/core/local-analysis/`. They are not stable CAP-Core conformance
+requirements.
 
 Schema versioning and feature-state rules will follow
 `specs/digest/11-versioning-conformance-governance.md`.

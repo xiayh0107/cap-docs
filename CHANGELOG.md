@@ -2,7 +2,8 @@
 
 All notable changes to this repository will be documented here.
 
-This project currently tracks a draft CAP-Digest profile with CAP-Core reserved for future work.
+This project currently tracks a draft CAP-Digest profile and a non-normative
+CAP-Core draft proposal.
 
 ## Unreleased
 
@@ -14,10 +15,20 @@ This project currently tracks a draft CAP-Digest profile with CAP-Core reserved 
 - Initial `basic-table` conformance fixture.
 - Initial `table-basic` digest pack skeleton.
 - Initial Python reference implementation skeleton.
+- CAP-Core writing plan completion set: RFC-0001 draft proposal, reviewed source
+  map, boundary matrix, primitive reuse review, binding policy, ontology draft,
+  lifecycle draft, security/policy draft, conformance plan, example assembly,
+  open-question dispositions, and CAPP-0004 draft-entry proposal.
+- CAP-Core executable draft-track assets: schema sketches under `schemas/core/`,
+  `fixtures/core/local-analysis/`, negative Core fixtures, and a Python
+  validator/renderer prototype.
+- CAP-Digest follow-up fixture, negative validation cases, table-basic pack
+  loading, pack fixture, and conformance report generation.
 
 ### Changed
 
-- Future normative changes should go through the CAPP process when they alter behavior, schemas, digest grammar, security requirements, deprecations, or governance.
+- CAPP-0002 and CAPP-0003 are implemented by the current schema, fixture,
+  reference implementation, and pack assets.
 
 ### Security
 
