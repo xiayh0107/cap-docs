@@ -7,6 +7,10 @@ CAP-Core draft proposal.
 
 ## Unreleased
 
+No unreleased changes yet.
+
+## cap-digest-0.1.0-alpha - 2026-07-06
+
 ### Added
 
 - Repository governance baseline: license, contributing guide, security policy, code of conduct, citation metadata, status, roadmap, issue templates, pull request template, and CI skeleton.

@@ -20,8 +20,8 @@ create the release tag by itself.
 - [x] `CHANGELOG.md`, `STATUS.md`, and `ROADMAP.md` describe the alpha scope.
 - [x] Docs, schemas, reference, and conformance workflows pass on `main`.
 - [x] CAP-Core remains reserved, draft-track, and non-normative.
-- [ ] Release tag created.
-- [ ] GitHub release notes published.
+- [x] Release tag created.
+- [x] GitHub release notes published.
 
 ## Candidate Tag
 

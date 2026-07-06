@@ -100,8 +100,9 @@ CAP-Digest Level 3: table-basic Digest Pack metadata loading
 CAP-Core: non-normative local-analysis draft fixture
 ```
 
-The CAP-Digest `0.1.0-alpha` checklist is prepared, but the release tag has not
-been created.
+CAP-Digest `0.1.0-alpha` is tagged as `cap-digest-0.1.0-alpha`. GitHub release
+notes document the alpha scope, fixture coverage, reference implementation
+status, known limitations, and non-normative CAP-Core status.
 
 ## Contribution and Governance
 

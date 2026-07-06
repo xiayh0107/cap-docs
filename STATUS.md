@@ -2,12 +2,12 @@
 
 > Last updated: 2026-07-06
 
-This repository contains one drafted CAP-Digest profile and one non-normative
-CAP-Core draft proposal area.
+This repository contains one alpha CAP-Digest draft profile and one
+non-normative CAP-Core draft proposal area.
 
 | Area | Path | Status | Normative? | Notes |
 |---|---|---:|---:|---|
-| CAP-Digest overview and specification | `specs/digest/` | draft | yes | Current active specification work. |
+| CAP-Digest overview and specification | `specs/digest/` | alpha draft | yes | Current active specification work; `cap-digest-0.1.0-alpha` is tagged. |
 | CAP-Core | `specs/core/` | draft proposal + executable fixture prototype | no | RFC-0001 draft, schema sketches, local-analysis fixture, and validator/renderer; no stable conformance. |
 | Design and research notes | `notes/` | analysis | no | Non-normative material only. |
 | JSON schemas | `schemas/` | draft | yes when marked active | CAP-Digest schemas and CAP-Core schema sketches. |
@@ -33,7 +33,7 @@ The current executable targets are:
 CAP-Digest Level 0/1 for one source type: table
 CAP-Digest Level 2 follow-up gate for table sample rows
 CAP-Digest Level 3 table-basic pack metadata loading
-CAP-Digest alpha release checklist prepared
+CAP-Digest 0.1.0-alpha release tagged as cap-digest-0.1.0-alpha
 CAP-Core draft-track reader/assembly/run-evidence validator for local-analysis
 ```
 
