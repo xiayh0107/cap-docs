@@ -26,6 +26,9 @@ fixtures/
 - `basic-table/` — a small tabular source exercising CAP-Digest Level 0 (Digest Producer)
   and Level 1 (Safe Assembler): field catalog, budgeted selection, redaction
   before rendering, evidence validation of cited field IDs.
+- `digest-text-negative/` — parser and manifest/text consistency negative cases
+  for duplicate field IDs, invalid field IDs, malformed data fences, and
+  selected-field mismatches.
 - `followup-basic/` — a CAP-Digest Level 2 fixture exercising ContractResponse,
   gate decision, fingerprint/budget checks, and `cap.digest_patch.v1`.
 - `pack-table-basic/` — a CAP-Digest Level 3 fixture exercising pack discovery
