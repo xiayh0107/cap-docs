@@ -76,7 +76,10 @@ def validate_basic_table() -> list[str]:
 
     negative = load_json(fixture / "negative-validation.json")
     for case in negative["cases"]:
-        actual = validate_response(result.text, result.manifest, case["response"])
+        digest_text = result.text
+        if "digestTextFile" in case:
+            digest_text = (fixture / case["digestTextFile"]).resolve().read_text(encoding="utf-8")
+        actual = validate_response(digest_text, result.manifest, case["response"])
         if actual != case["validation"]:
             problems.append(f"negative validation mismatch: {case['name']}")
     return problems

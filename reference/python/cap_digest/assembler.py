@@ -5,6 +5,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from .text import parse_digest_text
+
 SENSITIVE_PATTERNS = ("password", "secret", "token", "api_key", "credential", "private_key")
 
 
@@ -378,17 +380,69 @@ def _yaml_scalar(value: str) -> Any:
 
 
 def validate_response(digest_text: str, manifest: dict[str, Any], response: dict[str, Any]) -> dict[str, Any]:
-    selected = {row["fieldId"] for row in manifest["fields"] if row.get("selected") is True}
-    errors: list[dict[str, str]] = []
+    errors: list[dict[str, Any]] = []
+    rows = {row["fieldId"]: row for row in manifest["fields"]}
+    selected = {field_id for field_id, row in rows.items() if row.get("selected") is True}
+    try:
+        text_ids = set(parse_digest_text(digest_text).field_ids)
+    except ValueError as exc:
+        text_ids = set()
+        errors.append(
+            {
+                "code": "digest_text_invalid",
+                "message": f"Digest text failed CAP-Digest text parsing: {exc}.",
+                "fieldId": None,
+                "path": None,
+            }
+        )
 
-    evidence = set(response.get("evidence", []))
-    for claim in response.get("claims", []):
+    normalized = {
+        "claims": response.get("claims", []),
+        "evidence": response.get("evidence", []),
+        "warnings": response.get("warnings", []),
+        "requests": response.get("requests", []),
+    }
+
+    evidence = set(normalized["evidence"])
+    for claim in normalized["claims"]:
         evidence.update(claim.get("evidence", []))
 
     for field_id in sorted(evidence):
-        if field_id not in selected:
-            errors.append({"code": "unknown_or_unselected_evidence", "fieldId": field_id})
-        elif field_id not in digest_text:
-            errors.append({"code": "evidence_not_in_digest_text", "fieldId": field_id})
+        row = rows.get(field_id)
+        if row is None:
+            errors.append(
+                {
+                    "code": "evidence_unknown_field",
+                    "message": "Evidence field is not present in DigestManifest.fields.",
+                    "fieldId": field_id,
+                    "path": "evidence",
+                }
+            )
+        elif field_id not in selected:
+            errors.append(
+                {
+                    "code": "evidence_rejected_field",
+                    "message": "Evidence field is present in the manifest but was not selected into digest text.",
+                    "fieldId": field_id,
+                    "path": "evidence",
+                }
+            )
+        elif field_id not in text_ids:
+            errors.append(
+                {
+                    "code": "evidence_missing_from_text",
+                    "message": "Evidence field is selected in the manifest but missing from digest text.",
+                    "fieldId": field_id,
+                    "path": "evidence",
+                }
+            )
 
-    return {"ok": not errors, "errors": errors}
+    return {
+        "schema": "cap.validation_result.v1",
+        "digestId": manifest["digestId"],
+        "fingerprint": manifest["fingerprint"],
+        "ok": not errors,
+        "errors": errors,
+        "warnings": [],
+        "normalizedResponse": normalized,
+    }
