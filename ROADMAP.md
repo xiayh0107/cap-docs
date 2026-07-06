@@ -77,6 +77,7 @@ Exit criteria:
 - [x] Reference implementation passes tests.
 - [x] CAPP statuses are updated.
 - [x] Changelog and status are updated.
+- [x] `0.1.0-alpha` release checklist is prepared.
 - [ ] Release tag created.
 
 ## Phase 7 - CAP-Core draft track
