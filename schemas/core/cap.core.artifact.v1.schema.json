@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cap-spec.org/schemas/core/cap.core.artifact.v1.schema.json",
+  "title": "CAP-Core Artifact v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema", "id", "kind", "ref"],
+  "properties": {
+    "schema": { "const": "cap.core.artifact.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "data",
+        "code",
+        "config",
+        "environment",
+        "result",
+        "log",
+        "report",
+        "model",
+        "document",
+        "collection"
+      ]
+    },
+    "mediaType": { "type": ["string", "null"] },
+    "profileType": { "type": ["string", "null"] },
+    "ref": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["uri", "scope"],
+      "properties": {
+        "uri": { "type": "string", "minLength": 1 },
+        "scope": { "type": "string", "minLength": 1 },
+        "kind": { "type": ["string", "null"] },
+        "integrity": {
+          "type": ["object", "null"],
+          "additionalProperties": true,
+          "properties": {
+            "algorithm": { "type": "string" },
+            "value": { "type": "string" }
+          }
+        },
+        "accessHints": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "version": { "type": ["string", "null"] },
+    "labels": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "metadata": { "type": "object", "additionalProperties": true },
+    "profiles": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "bindings": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

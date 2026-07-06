@@ -90,11 +90,12 @@ Goal: test CAP-Core as a draft assembly contract without making it normative.
 - [x] Add security/policy draft and conformance fixture plan.
 - [x] Add `specs/core/RFC-0001.md` as a draft proposal.
 - [x] Add CAPP-0004 to record whether CAP-Core should proceed to a draft specification.
-- [ ] Draft Core JSON schema sketches under a Core-scoped schema path.
-- [ ] Add `fixtures/core/local-analysis/`.
-- [ ] Add a Core validator/renderer reference prototype.
-- [ ] Decide whether CAPP-0004 should be accepted, revised, or deferred.
+- [x] Draft Core JSON schema sketches under a Core-scoped schema path.
+- [x] Add `fixtures/core/local-analysis/`.
+- [x] Add a Core validator/renderer reference prototype.
+- [x] Mark CAPP-0004 implemented for CAP-Core draft entry.
 
-Do not add normative CAP-Core schema, runtime binding, RunEvidence, service
-binding, or policy model until CAPP review accepts the required schemas,
-fixtures, and conformance language.
+CAP-Core now has a complete draft-track artifact set. Do not treat the Core
+schemas, runtime binding, RunEvidence, service binding, or policy model as
+stable normative requirements until a later CAPP promotes them beyond draft
+track.

@@ -58,4 +58,4 @@ A CAPP should not be accepted without:
 | CAPP-0001 | CAP-Digest / CAP-Core split | draft |
 | CAPP-0002 | Initial schemas and fixtures | draft |
 | CAPP-0003 | table-basic Digest Pack | draft |
-| CAPP-0004 | CAP-Core Draft Entry | proposed |
+| CAPP-0004 | CAP-Core Draft Entry | implemented |

@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cap-spec.org/schemas/core/cap.core.run_evidence.v1.schema.json",
+  "title": "CAP-Core RunEvidence v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema", "id", "runId", "subject", "materials", "products", "records", "completeness"],
+  "properties": {
+    "schema": { "const": "cap.core.run_evidence.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "runId": { "type": "string", "minLength": 1 },
+    "evidenceType": { "type": "string" },
+    "profile": { "type": ["string", "null"] },
+    "subject": { "type": "string", "minLength": 1 },
+    "materials": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "products": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "logs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "records": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "attestations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "provenanceRefs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "sbomRefs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "telemetryRefs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "digestViews": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "completeness": {
+      "type": "string",
+      "enum": ["complete", "partial", "failed", "unknown"]
+    },
+    "integrity": {
+      "type": "string",
+      "enum": ["unanchored", "digested", "signed", "verified", "external"]
+    }
+  }
+}

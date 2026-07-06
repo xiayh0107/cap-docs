@@ -1,11 +1,10 @@
-# Fixtures (Planned)
+# Fixtures
 
-> Status: planned · Last updated: 2026-07-05
+> Status: draft · Last updated: 2026-07-06
 
-This directory will hold conformance fixtures for CAP-Digest implementations.
-It currently contains **no fixtures**; the structure below is a planning sketch
-aligned with the conformance levels defined in
-`specs/digest/11-versioning-conformance-governance.md`.
+This directory holds draft fixtures for CAP-Digest and CAP-Core implementations.
+Fixtures define executable expectations for draft assets, but they are stable
+conformance requirements only when a CAPP marks them active.
 
 ## Planned layout
 
@@ -22,15 +21,18 @@ fixtures/
     └── expected-validation.json # expected evidence/gate validation outcome
 ```
 
-## Planned initial cases
+## Current fixture families
 
-- `basic-table/` — a small tabular source exercising Level 0 (Digest Producer)
+- `basic-table/` — a small tabular source exercising CAP-Digest Level 0 (Digest Producer)
   and Level 1 (Safe Assembler): field catalog, budgeted selection, redaction
   before rendering, evidence validation of cited field IDs.
+- `core/local-analysis/` — a CAP-Core draft fixture exercising artifact refs,
+  capability, Assembly, Binding records, policy decision, Run, RunEvidence,
+  DigestBinding, review rendering, and negative layer/security cases.
+
+## Planned additional cases
+
 - A follow-up case exercising Level 2 (Follow-Up Capable): contract response,
   gate decision, digest patch.
 - A digest-pack case exercising Level 3 (Digest Pack Ecosystem): pack-driven
   field definitions and renderers.
-
-Cases will be added when the schemas in `../schemas/` reach a stable draft and a
-reference implementation is available to validate them.

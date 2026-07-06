@@ -19,6 +19,9 @@ CAP-Core draft proposal.
   map, boundary matrix, primitive reuse review, binding policy, ontology draft,
   lifecycle draft, security/policy draft, conformance plan, example assembly,
   open-question dispositions, and CAPP-0004 draft-entry proposal.
+- CAP-Core executable draft-track assets: schema sketches under `schemas/core/`,
+  `fixtures/core/local-analysis/`, negative Core fixtures, and a Python
+  validator/renderer prototype.
 
 ### Changed
 

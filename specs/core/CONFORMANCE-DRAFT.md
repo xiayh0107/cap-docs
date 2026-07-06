@@ -5,6 +5,18 @@
 This document sketches how CAP-Core conformance should be tested after
 RFC-0001. It is not an accepted conformance program.
 
+## Implementation checkpoint
+
+As of 2026-07-06, the first draft-track assets exist:
+
+- schema sketches under `schemas/core/`;
+- positive and negative fixture cases under `fixtures/core/local-analysis/`;
+- a validator/renderer prototype under `reference/python/cap_core/`;
+- tests in `reference/python/tests/test_core_local_analysis.py`.
+
+These assets make the draft executable. They still do not create stable
+CAP-Core conformance requirements.
+
 ## Conformance principle
 
 CAP-Core conformance should begin with reading and writing reviewable records,
@@ -21,7 +33,8 @@ behavior.
 | 2 | Run Recorder | Records a `Run` from an `Assembly` and links outputs, logs, status, and `RunEvidence`. |
 | 3 | Binding Ecosystem | Validates at least one external runtime/evidence/policy binding and one CAP-Digest view reference. |
 
-No level should become normative until fixture files and a validator exist.
+No level should become normative until a later CAPP promotes the draft fixture
+files and validator behavior into stable conformance language.
 
 ## Schema sketch
 

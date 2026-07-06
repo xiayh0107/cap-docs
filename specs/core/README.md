@@ -10,8 +10,10 @@ CAP-Digest and has no stable conformance language.
 ## Current status
 
 CAP-Core remains non-normative. This directory contains a first draft proposal
-for CAP-Core RFC-0001 plus supporting planning and construction documents. None
-of these files define stable CAP-Core conformance.
+for CAP-Core RFC-0001 plus supporting planning and construction documents. The
+repository also contains Core-scoped schema sketches, a local-analysis fixture,
+and a validator/renderer prototype. None of these assets define stable CAP-Core
+conformance.
 
 Start here:
 
@@ -31,6 +33,12 @@ Start here:
    RFC drafting.
 13. [CAP-Core Open Questions](OPEN-QUESTIONS.md) — questions to resolve or defer
    before RFC-0001 advances.
+
+Executable draft assets:
+
+- `schemas/core/` — CAP-Core JSON Schema sketches.
+- `fixtures/core/local-analysis/` — first Core fixture with positive and negative cases.
+- `reference/python/cap_core/` — validator/renderer prototype.
 
 ## Problem statement (intended scope)
 

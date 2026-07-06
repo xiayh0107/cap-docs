@@ -13,8 +13,8 @@ cap-docs/
 ├── specs/
 │   ├── digest/               # CAP-Digest — current draft profile
 │   └── core/                 # CAP-Core — non-normative RFC-0001 proposal
-├── schemas/                  # CAP-Digest JSON schemas
-├── fixtures/                 # conformance fixtures
+├── schemas/                  # CAP-Digest schemas and CAP-Core schema sketches
+├── fixtures/                 # CAP-Digest and CAP-Core draft fixtures
 ├── packs/                    # Digest Packs
 ├── reference/                # experimental reference implementation
 ├── capps/                    # CAP proposal process
@@ -38,10 +38,11 @@ The central artifact is a **context digest**: a model-readable text object plus 
 machine-readable DigestManifest that records exactly what was included, omitted,
 redacted, downgraded, or made available for follow-up.
 
-**CAP-Core** (`specs/core/`) now has a **non-normative draft proposal**. It is
-intended as an upper layer covering artifact graphs, capability/runtime binding,
-RunEvidence, policy records, and external standard bindings. It does not define
-stable conformance; see `specs/core/README.md`.
+**CAP-Core** (`specs/core/`) now has a **non-normative draft proposal** plus
+Core-scoped schema sketches, a local-analysis fixture, and a validator/renderer
+prototype. It is intended as an upper layer covering artifact graphs,
+capability/runtime binding, RunEvidence, policy records, and external standard
+bindings. It does not define stable conformance; see `specs/core/README.md`.
 
 ## Start reading
 
@@ -62,15 +63,18 @@ stable conformance; see `specs/core/README.md`.
 
 ## Executable draft assets
 
-The repository now includes early executable assets for CAP-Digest:
+The repository now includes early executable assets:
 
-- `schemas/` — draft JSON schemas for CAP-Digest objects.
-- `fixtures/basic-table/` — the first conformance fixture.
+- `schemas/` — draft JSON schemas for CAP-Digest and CAP-Core objects.
+- `fixtures/basic-table/` — the first CAP-Digest conformance fixture.
+- `fixtures/core/local-analysis/` — the first CAP-Core draft fixture.
 - `packs/table-basic/` — the first experimental Digest Pack.
-- `reference/python/` — a minimal Python reference implementation and fixture checker.
+- `reference/python/` — minimal CAP-Digest and CAP-Core reference helpers and
+  fixture checker.
 
-These assets are intentionally narrow. The first target is CAP-Digest Level 0/1
-for one source type: `table`.
+These assets are intentionally narrow. The first CAP-Digest target is Level 0/1
+for one source type: `table`; the first CAP-Core target is a local scientific
+analysis assembly fixture with draft validator/renderer coverage.
 
 ## Contribution and governance
 
