@@ -59,13 +59,24 @@
         "exec",
         "level",
         "selected",
+        "rejectedReason",
         "estimatedCost",
         "actualCost",
+        "priorValue",
+        "renderMethod",
         "redacted",
-        "ok"
+        "ok",
+        "warnings",
+        "errorClass",
+        "elapsedMs",
+        "fingerprint",
+        "tokenizer"
       ],
       "properties": {
-        "fieldId": { "type": "string", "minLength": 1 },
+        "fieldId": {
+          "type": "string",
+          "pattern": "^f1:[a-z][a-z0-9_]*@[a-z][a-z0-9_]*(?:[-_][a-z0-9_]+)*#[a-z0-9]+(?:[-_][a-z0-9]+)*$"
+        },
         "fieldLabel": { "type": "string" },
         "sourceType": { "type": "string" },
         "timing": { "enum": ["assemble", "interactive"] },
@@ -73,7 +84,27 @@
         "exec": { "enum": ["local_cheap", "local_scan", "remote_query", "unsafe"] },
         "level": { "type": "integer", "minimum": 1 },
         "selected": { "type": "boolean" },
-        "rejectedReason": { "type": ["string", "null"] },
+        "rejectedReason": {
+          "anyOf": [
+            { "type": "null" },
+            {
+              "enum": [
+                "over_budget",
+                "lower_value",
+                "policy_blocked",
+                "interactive_only",
+                "exec_not_allowed",
+                "level_superseded",
+                "source_not_supported",
+                "field_validation_failed"
+              ]
+            },
+            {
+              "type": "string",
+              "pattern": "^x_[a-z0-9]+(?:[-_][a-z0-9]+)*$"
+            }
+          ]
+        },
         "estimatedCost": { "type": "integer", "minimum": 0 },
         "actualCost": { "type": "integer", "minimum": 0 },
         "priorValue": { "type": ["number", "null"] },

@@ -37,7 +37,12 @@ class BasicTableFixtureTest(unittest.TestCase):
         result = assemble_table(self.source, self.policy)
         for case in self.negative_validation["cases"]:
             with self.subTest(case=case["name"]):
-                validation = validate_response(result.text, result.manifest, case["response"])
+                digest_text = result.text
+                if "digestTextFile" in case:
+                    digest_text = (
+                        ROOT / "fixtures" / "basic-table" / case["digestTextFile"]
+                    ).resolve().read_text(encoding="utf-8")
+                validation = validate_response(digest_text, result.manifest, case["response"])
                 self.assertEqual(validation, case["validation"])
 
 

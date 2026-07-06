@@ -21,6 +21,22 @@ A CAP-Digest DigestManifest MUST record:
 - source fingerprint;
 - tokenizer or estimator identity.
 
+## Prose-To-Schema Mapping
+
+| Requirement | Schema field |
+|---|---|
+| Source reference | `source.uri`, `source.sourceType`, `source.label` |
+| Digest format version | `versions.text` |
+| Field ID scheme version | `versions.fields` |
+| Manifest schema version | `versions.manifest` |
+| Selected and rejected fields | `fields[].selected`, `fields[].rejectedReason` |
+| Estimated and actual cost | `budget.estimated`, `budget.used`, `fields[].estimatedCost`, `fields[].actualCost` |
+| Trust and execution classes | `fields[].trust`, `fields[].exec` |
+| Redaction status | `fields[].redacted` |
+| Warnings, errors, and elapsed time | `fields[].warnings`, `fields[].errorClass`, `fields[].elapsedMs` |
+| Source fingerprint | `fingerprint`, `fields[].fingerprint` |
+| Tokenizer or estimator identity | `budget.tokenizer`, `fields[].tokenizer` |
+
 ## Recommended JSON Shape
 
 ```json
@@ -76,6 +92,35 @@ A CAP-Digest DigestManifest MUST record:
 }
 ```
 
+### Required Field Row Properties
+
+The `cap.manifest.v1` schema requires these row properties:
+
+- `fieldId`
+- `fieldLabel`
+- `sourceType`
+- `timing`
+- `trust`
+- `exec`
+- `level`
+- `selected`
+- `rejectedReason`
+- `estimatedCost`
+- `actualCost`
+- `priorValue`
+- `renderMethod`
+- `redacted`
+- `ok`
+- `warnings`
+- `errorClass`
+- `elapsedMs`
+- `fingerprint`
+- `tokenizer`
+
+Values that are not applicable MUST be represented as `null` when the schema
+allows null, rather than omitted. Implementations MAY add extension properties,
+but they MUST NOT change the meaning of the required properties.
+
 ## Rejected Fields
 
 Rejected fields MUST be recorded when they were candidates.
@@ -92,6 +137,9 @@ level_superseded
 source_not_supported
 field_validation_failed
 ```
+
+Custom rejection reasons are allowed only with an `x_` prefix, for example
+`x_host_policy`. Unprefixed values are reserved for CAP-Digest.
 
 Rejected fields matter because they tell the model and host what was omitted and
 what may be available through follow-up.
@@ -110,6 +158,28 @@ For every evidence field ID:
 ```
 
 If a model cites a rejected or unknown field, validation fails.
+
+DigestEvidence validation uses the shared `cap.validation_result.v1` schema. The
+validator MUST normalize evidence by taking the union of:
+
+- top-level `response.evidence`;
+- every `response.claims[].evidence` list.
+
+The global evidence list exists for simple validators. Claim-level evidence is
+preferred for auditability, but it does not replace global evidence unless a host
+contract explicitly says so.
+
+Reserved validation error codes:
+
+| Code | Meaning |
+|---|---|
+| `evidence_unknown_field` | The cited field ID is absent from `DigestManifest.fields`. |
+| `evidence_rejected_field` | The cited field is present but `selected` is false. |
+| `evidence_missing_from_text` | The cited field is selected in the manifest but absent from digest text. |
+| `digest_text_invalid` | Digest text failed CAP-Digest text parsing before evidence validation. |
+
+Validation is mechanical. It checks field availability and digest/text
+consistency; it does not judge claim truth.
 
 ## What DigestEvidence Validation Does Not Prove
 
@@ -160,6 +230,10 @@ rejected_fields = manifest.fields where selected = false
 available_on_request = manifest.fields where timing = interactive
 ```
 
+The serialized `<available_on_request>` section is a rendering of manifest rows
+that are not selected and are available through follow-up. Hosts SHOULD derive it
+from the DigestManifest rather than maintaining an independent list.
+
 ## Token Accounting
 
 The DigestManifest SHOULD distinguish:
@@ -176,4 +250,3 @@ record a budget overflow caveat unless host policy requires fail-closed.
 Readers SHOULD tolerate unknown additional columns. Writers MUST NOT remove or
 change the meaning of required columns without changing the DigestManifest
 schema version.
-
