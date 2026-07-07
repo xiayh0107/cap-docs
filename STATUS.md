@@ -26,6 +26,23 @@ CAP-Core v1.0.0 covers minimal Core records and conformance evidence only. It
 does not define runtime execution, policy language semantics, credential
 exchange, scientific correctness, or CAP-Digest behavior changes.
 
+## Post-release maintenance
+
+The active post-release work is normal maintenance, not expansion of the
+CAP-Core v1.0.0 stability claim:
+
+- [#88](https://github.com/xiayh0107/cap-docs/issues/88) tracks v1.0.x errata
+  and patch releases under `specs/core/MAINTENANCE-v1.0.md`.
+- [#89](https://github.com/xiayh0107/cap-docs/issues/89) tracks real external
+  implementation feedback for L4 interoperability.
+- [#90](https://github.com/xiayh0107/cap-docs/issues/90) tracks Core v1.0.0
+  boundary hygiene.
+- [#91](https://github.com/xiayh0107/cap-docs/issues/91) tracks a separate
+  path for any future CAP-Digest stable work.
+
+CAP-Digest remains an alpha draft profile. CAP-Digest stable planning must use
+Digest-specific gates and must not be bundled into Core v1.0.x maintenance.
+
 ## Current implementation target
 
 The current executable targets are:

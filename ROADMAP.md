@@ -158,3 +158,29 @@ Trackers: [#61](https://github.com/xiayh0107/cap-docs/issues/61) and
 
 CAP-Core v1.0.0 remains limited to the minimal Core control-plane object
 contract. CAP-Digest behavior is unchanged.
+
+## Phase 10 - Post-release maintenance
+
+Goal: maintain CAP-Core v1.0.x without expanding the v1.0.0 stability claim,
+and keep any future CAP-Digest stable work on an independent track.
+
+Trackers:
+
+- [#88](https://github.com/xiayh0107/cap-docs/issues/88) - Maintain
+  CAP-Core v1.0.x errata and patch releases.
+- [#89](https://github.com/xiayh0107/cap-docs/issues/89) - Collect external
+  CAP-Core L4 interoperability feedback.
+- [#90](https://github.com/xiayh0107/cap-docs/issues/90) - Guard CAP-Core
+  v1.0.0 stable scope boundaries.
+- [#91](https://github.com/xiayh0107/cap-docs/issues/91) - Keep CAP-Digest
+  stable planning independent from Core v1.0.0.
+
+- [ ] Record v1.0.x errata and patch-release evidence under the maintenance
+  policy.
+- [ ] Review real external implementation reports before making broader L4
+  interoperability claims.
+- [ ] Keep runtime execution, policy language semantics, credential exchange,
+  scientific correctness, and CAP-Digest behavior outside the Core v1.0.0
+  stability claim.
+- [ ] Route any CAP-Digest stable effort through Digest-specific gates,
+  fixtures, review records, and release artifacts.
