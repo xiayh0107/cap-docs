@@ -6,6 +6,10 @@
 This checklist records the completed CAP-Digest `0.1.0-alpha` release. It does
 not define CAP-Core conformance.
 
+For the CAP-Digest v1.0.0 stable release, use
+`specs/digest/RELEASE-GATES-v1.0.md` and
+`release-artifacts/cap-digest-v1.0.0/`.
+
 ## Required Criteria
 
 - [x] Repository maintenance baseline is merged.
@@ -30,8 +34,7 @@ Use one of:
 - `cap-digest-0.1.0-alpha`
 - `v0.1.0-alpha`
 
-Prefer `cap-digest-0.1.0-alpha` while CAP-Core remains a draft-track area in
-the same repository.
+The historical alpha tag is `cap-digest-0.1.0-alpha`.
 
 ## Release Notes Outline
 

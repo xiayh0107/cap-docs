@@ -2,13 +2,22 @@
 
 All notable changes to this repository will be documented here.
 
-This project currently tracks a draft CAP-Digest profile and CAP-Core v1.0.0
-stable artifacts.
+This project currently tracks CAP-Digest v1.0.0 stable artifacts and CAP-Core
+v1.0.0 stable artifacts.
 
 ## Unreleased
 
 ### Added
 
+- Added CAP-Digest v1.0.0 stable release materials: CAPP-0008, CAPP-0009,
+  stable scope, text grammar, manifest/evidence contract, follow-up gate,
+  schema package, fixture index, pack compatibility, conformance levels,
+  security requirements, validator code registry, reference behavior baseline,
+  release gates, implementer guidance, interoperability evidence, maintenance
+  policy, RC1 package, final release package, and post-release adoption plan.
+- Added Digest release packaging support for `cap-digest-v1.0.0-rc1` and
+  `cap-digest-v1.0.0`, including conformance, independent structural interop,
+  comparison reports, and manifest validation.
 - Added CAP-Core v1.0.0 stable release materials: CAPP-0007, stable scope,
   conformance, schema package, fixture index, validator code registry,
   inspection report format, security requirements, policy/service boundary,

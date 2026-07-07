@@ -2,12 +2,12 @@
 
 > Last updated: 2026-07-07
 
-This repository contains one alpha CAP-Digest draft profile and CAP-Core
+This repository contains CAP-Digest v1.0.0 stable artifacts and CAP-Core
 v1.0.0 stable artifacts.
 
 | Area | Path | Status | Normative? | Notes |
 |---|---|---:|---:|---|
-| CAP-Digest overview and specification | `specs/digest/` | alpha draft | yes | Current active specification work; `cap-digest-0.1.0-alpha` is tagged. |
+| CAP-Digest overview and specification | `specs/digest/` | v1.0.0 stable | yes | CAPP-0009 accepted fixture-scoped CAP-Digest v1.0.0. Release artifact: `release-artifacts/cap-digest-v1.0.0/`; tag plan: `cap-digest-v1.0.0`. |
 | CAP-Core | `specs/core/` | v1.0.0 stable | yes | CAPP-0007 accepted CAP-Core v1.0.0 stable for the minimal control-plane object contract. Release artifact: `release-artifacts/cap-core-v1.0.0/`; tag: `cap-core-v1.0.0`. |
 | Design and research notes | `notes/` | analysis | no | Non-normative material only. |
 | JSON schemas | `schemas/` | mixed | yes when marked active | CAP-Digest draft schemas plus CAP-Core v1.0 schemas under `schemas/core/`. |
@@ -40,13 +40,12 @@ maintenance, not expansion of the CAP-Core v1.0.0 stability claim:
   closed with no external reports received.
 - [#90](https://github.com/xiayh0107/cap-docs/issues/90) tracks Core v1.0.0
   boundary hygiene; the initial audit keeps out-of-scope layers excluded.
-- [#91](https://github.com/xiayh0107/cap-docs/issues/91) tracks a separate
-  path for any future CAP-Digest stable work; #92 is now the independent Digest
-  stable tracker.
+- [#91](https://github.com/xiayh0107/cap-docs/issues/91) tracks layer
+  separation; #92 is the independent Digest stable tracker.
 
-CAP-Digest remains an alpha draft profile. CAP-Digest stable planning must use
-Digest-specific gates, documented in `specs/digest/STABLE-TRACK.md`, and must
-not be bundled into Core v1.0.x maintenance.
+CAP-Digest v1.0.0 stable uses Digest-specific gates documented in
+`specs/digest/STABLE-TRACK.md` and must not be bundled into Core v1.0.x
+maintenance.
 
 ## Current implementation target
 
@@ -56,7 +55,8 @@ The current executable targets are:
 CAP-Digest Level 0/1 for one source type: table
 CAP-Digest Level 2 follow-up gate for table sample rows
 CAP-Digest Level 3 table-basic pack metadata loading
-CAP-Digest 0.1.0-alpha release tagged as cap-digest-0.1.0-alpha
+CAP-Digest v1.0.0 stable release package and reports
+CAP-Digest 0.1.0-alpha historical release tagged as cap-digest-0.1.0-alpha
 CAP-Core v1.0.0 L0-L4 conformance reports and release package
 ```
 
@@ -80,4 +80,6 @@ reference/python/cap_core/
 release-artifacts/core-candidate-review/
 release-artifacts/cap-core-v1.0.0-rc1/
 release-artifacts/cap-core-v1.0.0/
+release-artifacts/cap-digest-v1.0.0-rc1/
+release-artifacts/cap-digest-v1.0.0/
 ```

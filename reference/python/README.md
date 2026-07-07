@@ -15,6 +15,7 @@ Current CAP-Digest scope:
 - digest patch: renders `f1:table@sample#k10` after gate approval;
 - pack loading: reads `packs/table-basic/fields/*.yaml`;
 - conformance report: `validate_fixtures.py --report conformance-report.json`.
+- release packages: `package_release_artifacts.py --release cap-digest-v1.0.0 --stable`.
 
 Current CAP-Core scope:
 
@@ -45,6 +46,8 @@ python reference/python/scripts/validate_core_fixtures.py --report core-conforma
 python reference/python/scripts/render_core_inspection_report.py --fixture local-analysis
 python reference/python/scripts/run_core_interop_harness.py --report core-interop-reference.json
 python reference/python/scripts/validate_core_release_manifest.py
+python reference/python/scripts/package_release_artifacts.py --release cap-digest-v1.0.0 --stable
+python reference/python/scripts/validate_digest_release_manifest.py
 ```
 
 The fixture validator covers `basic-table`, `digest-text-negative`,

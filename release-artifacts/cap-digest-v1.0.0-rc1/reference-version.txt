@@ -1,0 +1,8 @@
+release: cap-digest-v1.0.0-rc1
+sourceRevision: af9f750ac7f40e029ccde0ec5713611715f7c981
+referenceImplementation: reference/python
+status: release-candidate
+tagPlan: cap-digest-v1.0.0
+schemaScope: CAP-Digest schemas only; schemas/core is excluded
+fixtureScope: basic-table, digest-text-negative, followup-basic, pack-table-basic, security-adversarial
+secondSourceType: deferred by specs/digest/reviews/2026-07-07-second-source-type-decision.md

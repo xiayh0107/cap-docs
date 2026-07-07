@@ -1,7 +1,7 @@
 # Roadmap
 
-This roadmap keeps CAP-Digest executable and records CAP-Core's path from draft
-preparation through the accepted v1.0.0 stable release.
+This roadmap keeps CAP-Digest executable and records CAP-Digest and CAP-Core
+stable release paths.
 
 ## Phase 0 — Repository governance baseline
 
@@ -162,7 +162,7 @@ contract. CAP-Digest behavior is unchanged.
 ## Phase 10 - Post-release maintenance
 
 Goal: maintain CAP-Core v1.0.x without expanding the v1.0.0 stability claim,
-and keep any future CAP-Digest stable work on an independent track.
+and keep CAP-Digest stable work on an independent track.
 
 Trackers:
 
@@ -189,3 +189,28 @@ Trackers:
 
 Initial maintenance audit:
 `specs/core/reviews/2026-07-07-post-release-maintenance-audit.md`.
+
+## Phase 11 - CAP-Digest v1.0 stable release
+
+Goal: publish CAP-Digest v1.0.0 stable independently from CAP-Core v1.x.
+Tracker: [#92](https://github.com/xiayh0107/cap-docs/issues/92).
+
+- [x] Draft and implement CAPP-0008 stable entry gates.
+- [x] Freeze v1.0 scope, non-goals, terminology, text grammar,
+  DigestManifest/evidence anchors, follow-up gates, and schema package.
+- [x] Freeze positive, negative, safety, follow-up, and pack fixtures.
+- [x] Decide that a second source type is deferred from the v1.0.0 stable gate.
+- [x] Freeze `table-basic` pack compatibility rules, conformance levels,
+  security requirements, validator codes, and reference behavior.
+- [x] Add Digest release gates and implementer/adoption guidance.
+- [x] Generate reference and independent structural interoperability evidence
+  plus a comparison report.
+- [x] Prepare `cap-digest-v1.0.0-rc1` and complete RC blocker triage.
+- [x] Accept CAPP-0009 for CAP-Digest v1.0.0 stable release.
+- [x] Publish `release-artifacts/cap-digest-v1.0.0/` with release notes and
+  manifest validation.
+- [x] Establish CAP-Digest v1.0.x maintenance and errata policy.
+- [x] Update roadmap, status, changelog, and post-release adoption plan.
+
+CAP-Digest v1.0.0 remains limited to the published fixture-scoped Digest
+surface. CAP-Core behavior is unchanged.

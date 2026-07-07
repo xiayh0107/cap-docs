@@ -1,6 +1,6 @@
 # CAP-Digest Overview
 
-> Status: draft · Version: 2026-07-05-draft · Scope: CAP-Digest profile / context evidence layer
+> Status: v1.0 stable with historical draft text · Version: 2026-07-07 · Scope: CAP-Digest profile / context evidence layer
 
 CAP-Digest is a profile of CAP that turns complex source objects into safe,
 budgeted, traceable, redacted context artifacts for AI agents.
@@ -78,8 +78,8 @@ runtime/capability binding, RunEvidence, or external standard bindings. Those
 belong to **CAP-Core**, whose v1.0.0 stable release is tracked separately in
 `specs/core/`.
 
-CAP-Core v1.0.0 stability does not promote CAP-Digest beyond alpha draft
-status. Any future Digest stable work must use the independent track in
+CAP-Core v1.0.0 stability does not promote or change CAP-Digest. CAP-Digest
+v1.0.0 is accepted separately by CAPP-0009 through the independent track in
 `STABLE-TRACK.md`.
 
 When working in this directory, ask first:
@@ -108,3 +108,12 @@ Read these files in order:
 11. [Versioning, Conformance, and Governance](11-versioning-conformance-governance.md)
 12. [Implementation Guide](12-implementation-guide.md)
 13. [Stable Track](STABLE-TRACK.md)
+14. [Stable Scope v1.0](STABLE-SCOPE-v1.0.md)
+15. [Text Grammar v1.0](TEXT-GRAMMAR-v1.0.md)
+16. [DigestManifest and Evidence Anchors v1.0](MANIFEST-EVIDENCE-v1.0.md)
+17. [Follow-Up Gate v1.0](FOLLOWUP-GATE-v1.0.md)
+18. [Schema Package v1.0](SCHEMA-PACKAGE-v1.0.md)
+19. [Fixtures v1.0](FIXTURES-v1.0.md)
+20. [Conformance v1.0](CONFORMANCE-v1.0.md)
+21. [Security v1.0](SECURITY-v1.0.md)
+22. [Maintenance v1.0](MAINTENANCE-v1.0.md)

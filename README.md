@@ -1,21 +1,22 @@
 # CAP — Context Assembly Protocol
 
-> Status: draft · Version: 2026-07-06-draft · Scope: CAP-Digest draft profile plus CAP-Core v1.0.0 stable
+> Status: stable tracks · Version: 2026-07-07 · Scope: CAP-Digest v1.0.0 plus CAP-Core v1.0.0
 
 CAP is a family of specifications for turning complex source objects and
 machine-operable task records into safe, bounded, traceable context and assembly
 artifacts for AI agents.
 
-The repository currently has one normative-track draft profile, **CAP-Digest**,
-and a stable **CAP-Core v1.0.0** release for the minimal Core control-plane
-object contract.
+The repository currently has a stable **CAP-Digest v1.0.0** release for the
+fixture-scoped context evidence profile and a stable **CAP-Core v1.0.0**
+release for the minimal Core control-plane object contract.
 
 ## Current Scope
 
-**CAP-Digest** is the active draft specification. It defines a context evidence
-layer: how a source object is transformed into a model-readable digest plus a
-machine-readable `DigestManifest` with stable field anchors, budgeted selection,
-redaction, evidence validation, and gated follow-up.
+**CAP-Digest v1.0.0** defines a context evidence layer: how a source object is
+transformed into a model-readable digest plus a machine-readable
+`DigestManifest` with stable field anchors, budgeted selection, redaction,
+evidence validation, and gated follow-up. The v1.0.0 stable claim is
+fixture-scoped and currently covers the table source family.
 
 ```text
 source object -> field catalog -> context digest -> model response -> gated follow-up
@@ -32,7 +33,7 @@ changes.
 ```text
 cap-docs/
 ├── specs/
-│   ├── digest/               # CAP-Digest draft specification
+│   ├── digest/               # CAP-Digest v1.0 stable docs plus historical draft material
 │   └── core/                 # CAP-Core v1.0.0 stable docs plus historical drafts
 ├── schemas/                  # CAP-Digest schemas and CAP-Core v1.0 schemas
 ├── fixtures/                 # executable fixtures and conformance suites
@@ -40,12 +41,13 @@ cap-docs/
 ├── reference/                # experimental Python reference helpers
 ├── capps/                    # CAP proposal process
 ├── notes/                    # non-normative design and research notes
-├── RELEASE-CHECKLIST.md      # CAP-Digest 0.1.0-alpha checklist
+├── RELEASE-CHECKLIST.md      # CAP-Digest alpha checklist plus v1.0 gate pointer
 └── .github/                  # issue/PR templates and CI workflows
 ```
 
 ## Start Reading
 
+- CAP-Digest v1.0 stable track: [specs/digest/STABLE-TRACK.md](specs/digest/STABLE-TRACK.md)
 - Current CAP-Digest spec: [specs/digest/00-overview.md](specs/digest/00-overview.md)
 - Implementation guide: [specs/digest/12-implementation-guide.md](specs/digest/12-implementation-guide.md)
 - Current project status: [STATUS.md](STATUS.md)
@@ -69,6 +71,7 @@ CAP-Digest executable coverage now includes:
   renderer failure manifest shape.
 - `packs/table-basic/` — the first experimental Digest Pack.
 - `reference/python/` — experimental executable companion and fixture checker.
+- `release-artifacts/cap-digest-v1.0.0/` — CAP-Digest v1.0.0 stable package.
 
 CAP-Core v1.0 executable coverage includes:
 
@@ -95,6 +98,7 @@ python reference/python/scripts/validate_fixtures.py --report conformance-report
 python reference/python/scripts/validate_core_fixtures.py --report core-conformance-report.json
 python reference/python/scripts/render_core_inspection_report.py --fixture local-analysis
 python reference/python/scripts/run_core_interop_harness.py --report core-interop-reference.json
+python reference/python/scripts/validate_digest_release_manifest.py
 ```
 
 The conformance report uses `cap.conformance_report.v1` and currently covers
@@ -111,9 +115,9 @@ CAP-Digest Level 3: table-basic Digest Pack metadata loading
 CAP-Core v1.0.0: local-analysis, build-test, remote-service-binding, and negative fixtures
 ```
 
-CAP-Digest `0.1.0-alpha` is tagged as `cap-digest-0.1.0-alpha`. Those GitHub
-release notes document the alpha-era Digest scope, fixture coverage, reference
-implementation status, known limitations, and the then-current CAP-Core status.
+CAP-Digest v1.0.0 stable is accepted by CAPP-0009 and packaged under
+`release-artifacts/cap-digest-v1.0.0/`. CAP-Digest `0.1.0-alpha` remains tagged
+as `cap-digest-0.1.0-alpha` as the historical alpha release.
 
 ## Contribution and Governance
 

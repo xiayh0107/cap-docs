@@ -93,6 +93,10 @@ CAP-Digest release labels use:
 The `0.1.0-alpha` target is an alpha release. It must not be described as a
 stable standard.
 
+The `cap-digest-v1.0.0` target is the accepted stable release for the
+fixture-scoped Digest surface described by CAPP-0009 and the v1.0 documents
+under this directory.
+
 ## Conformance Levels
 
 ### Level 0: Digest Producer
