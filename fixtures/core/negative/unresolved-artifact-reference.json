@@ -1,0 +1,16 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "unresolved-artifact-reference",
+  "records": {
+    "artifactIds": ["artifact.input"],
+    "assembly": {
+      "schema": "cap.core.assembly.v1",
+      "id": "assembly.unresolved-artifact",
+      "artifacts": ["artifact.input", "artifact.missing"],
+      "capability": "capability.run",
+      "bindings": ["binding.runtime", "binding.policy"],
+      "policyBinding": "binding.policy",
+      "state": "authorized"
+    }
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "schema": "cap.core.artifact_set.v1",
+  "id": "artifact-set.remote-service-001",
+  "profiles": ["profile.remote-service-binding.v0"],
+  "artifacts": [
+    {
+      "schema": "cap.core.artifact.v1",
+      "id": "artifact.request.payload",
+      "kind": "data",
+      "mediaType": "application/json",
+      "profileType": "profile.service-request.v0",
+      "ref": {
+        "uri": "file://workspace/request/payload.json",
+        "scope": "workspace",
+        "kind": "file",
+        "integrity": {
+          "algorithm": "sha256",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "accessHints": ["read-only"]
+      },
+      "labels": ["input", "request"],
+      "profiles": ["profile.service-request.v0"],
+      "bindings": ["binding.data.workspace"],
+      "metadata": {
+        "containsCredentials": false
+      }
+    },
+    {
+      "schema": "cap.core.artifact.v1",
+      "id": "artifact.service.contract",
+      "kind": "document",
+      "mediaType": "application/json",
+      "profileType": "profile.service-contract.v0",
+      "ref": {
+        "uri": "https://api.example.invalid/openapi.json",
+        "scope": "external",
+        "kind": "openapi-document",
+        "integrity": null,
+        "accessHints": ["external-reference"]
+      },
+      "labels": ["service", "contract"],
+      "profiles": ["profile.service-contract.v0"],
+      "bindings": ["binding.service.remote-api"],
+      "metadata": {
+        "fetchedByFixture": false
+      }
+    },
+    {
+      "schema": "cap.core.artifact.v1",
+      "id": "artifact.environment.client",
+      "kind": "environment",
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "profileType": "profile.oci-runtime-reference.v0",
+      "ref": {
+        "uri": "oci://example/service-client@sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "scope": "external",
+        "kind": "oci-image",
+        "integrity": {
+          "algorithm": "sha256",
+          "value": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "accessHints": ["runtime-reference"]
+      },
+      "labels": ["environment"],
+      "profiles": ["profile.oci-runtime-reference.v0"],
+      "bindings": ["binding.runtime.service-client"],
+      "metadata": {
+        "platform": "linux/amd64"
+      }
+    },
+    {
+      "schema": "cap.core.artifact.v1",
+      "id": "artifact.output.response-metadata",
+      "kind": "report",
+      "mediaType": "application/json",
+      "profileType": "profile.remote-response-observation.v0",
+      "ref": {
+        "uri": "file://workspace/out/response-metadata.json",
+        "scope": "workspace",
+        "kind": "file",
+        "integrity": {
+          "algorithm": "sha256",
+          "value": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        },
+        "accessHints": ["created-by-run"]
+      },
+      "labels": ["output", "remote-observation"],
+      "profiles": ["profile.remote-response-observation.v0"],
+      "bindings": ["binding.evidence.remote-observation"],
+      "metadata": {
+        "semanticCorrectnessVerified": false
+      }
+    },
+    {
+      "schema": "cap.core.artifact.v1",
+      "id": "artifact.log.remote-call",
+      "kind": "log",
+      "mediaType": "text/plain",
+      "profileType": "profile.run-log.v0",
+      "ref": {
+        "uri": "file://workspace/out/remote-call.log",
+        "scope": "workspace",
+        "kind": "file",
+        "integrity": {
+          "algorithm": "sha256",
+          "value": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+        },
+        "accessHints": ["created-by-run"]
+      },
+      "labels": ["output", "log"],
+      "profiles": ["profile.run-log.v0"],
+      "bindings": ["binding.evidence.remote-observation"],
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "fixture": "remote-service-binding"
+  }
+}

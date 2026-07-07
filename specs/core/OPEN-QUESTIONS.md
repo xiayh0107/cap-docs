@@ -1,6 +1,6 @@
 # CAP-Core Open Questions
 
-> Status: planning · Non-normative · Last updated: 2026-07-05
+> Status: triaged for candidate prep · Non-normative · Last updated: 2026-07-07
 
 This file records unresolved CAP-Core design questions. These questions should
 be resolved, narrowed, or explicitly deferred before `RFC-0001.md` advances
@@ -90,6 +90,36 @@ are not final technical decisions.
 | 19 | Core editor | First fixture family: local scientific analysis assembly. | Plan fixture under `fixtures/core/local-analysis/` after schema sketch review. |
 | 20 | Core editor | Begin with parsing object graphs and producing one complete assembly example. | Levels 0-2 cover reader, assembly producer, run recorder. |
 | 21 | Core editor | Minimal reference implementation is a validator/renderer, not a runtime. | Defer execution engine behavior out of scope. |
+
+## Candidate-prep triage
+
+This table classifies each question for candidate normative preparation. The
+promotion gates in `capps/CAPP-0005-cap-core-candidate-normative-track.md`
+must cite all blocking items before any future candidate promotion.
+
+| # | Classification | Owner / follow-up | Evidence or disposition |
+|---:|---|---|---|
+| 1 | Closed | Core editor | RFC split uses "Machine-Operable Object Assembly Contract". |
+| 2 | Closed | Core editor | Core remains a control-plane contract; data-plane binding is external. |
+| 3 | Blocking | #41 | Minimal run lifecycle states must be candidate-defined. |
+| 4 | Closed | Core editor | `Assembly` is the review root; `Artifact` remains referenced. |
+| 5 | Blocking | #37 | Capability must stay first-class without implying authorization. |
+| 6 | Deferred-to-profile | #55 | Profiles own domain constraints and compatibility labels. |
+| 7 | Blocking | #38 | Binding role taxonomy must stabilize before candidate review. |
+| 8 | Deferred-to-binding | #52 | External standards need registry/profile guidance, not Core reimplementation. |
+| 9 | Non-blocking | Future profile CAPP | JSON-LD compatibility can remain profile-optional. |
+| 10 | Deferred-to-binding | #52 | Registry draft may use URI/profile references first. |
+| 11 | Blocking | #40 | `PolicyDecision` fail-closed semantics must stabilize. |
+| 12 | Blocking | #46 | Secret reference and service binding safety model required. |
+| 13 | Non-blocking | Security/profile docs | Consent/delegation evidence can bind to external policy systems. |
+| 14 | Blocking | #45 | Security invariants must map to fixture or validator coverage. |
+| 15 | Blocking | #41 | Minimal `Run` states and references are candidate inputs. |
+| 16 | Blocking | #42 | Minimal `RunEvidence` envelope and overclaim boundary required. |
+| 17 | Deferred-to-binding | #52 | PROV/RO-Crate remain evidence profiles. |
+| 18 | Blocking | #51 | CAP-Digest bridge tests must preserve evidence separation. |
+| 19 | Closed | Core editor | First fixture exists at `fixtures/core/local-analysis/`. |
+| 20 | Closed | Core editor | L0-L3 begin with object graph validation and complete assembly examples. |
+| 21 | Closed | Core editor | Reference scope is validator/renderer, not runtime. |
 
 ## Deferral rule
 

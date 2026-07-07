@@ -41,6 +41,11 @@ fixtures/
 - `core/build-test/` — a second CAP-Core draft fixture for a software build/test
   scenario, proving the object model outside the first scientific-analysis
   example.
+- `core/remote-service-binding/` — a third CAP-Core draft fixture for a
+  non-local service dependency with opaque secret references, policy-gated
+  network access, partial RunEvidence, and remote limitation disclosure.
+- `core/negative/` — a systematic candidate-prep negative suite with stable
+  expected error codes.
 
 ## Schema validation map
 
@@ -84,6 +89,12 @@ Schema-backed CAP-Core draft fixture files:
 - `core/*/negative/secret-value-in-service-binding.json` is schema valid but
   intentionally fails semantic Core validation because it carries a secret
   value.
+- `core/remote-service-binding/negative/embedded-secret-service-binding.json`
+  is schema valid but semantically rejected because it embeds a secret value.
+- `core/*/negative/*.json` harness cases with
+  `cap.core.negative_case.v1` validate against the negative-case harness schema.
+- `core/negative/expected-validation.json` validates against
+  `cap.core.negative_suite_expected.v1`.
 - `core/local-analysis/negative/run-without-assembly.json`,
   `core/build-test/negative/run-with-invalid-state.json`, and
   `core/build-test/negative/policy-decision-invalid-decision.json` are

@@ -1,6 +1,6 @@
 # CAP-Core Conformance Draft
 
-> Status: draft - Non-normative - Last updated: 2026-07-05
+> Status: candidate-prep draft - Non-normative - Last updated: 2026-07-07
 
 This document sketches how CAP-Core conformance should be tested after
 RFC-0001. It is not an accepted conformance program.
@@ -25,17 +25,31 @@ not with executing tasks. A conforming implementation should prove it can
 preserve the assembly contract and evidence links before it claims runtime
 behavior.
 
-## Candidate levels
+## Candidate levels L0-L4
 
-| Level | Name | Capability |
-|---:|---|---|
-| 0 | Core Object Reader | Parses `ArtifactRef`, `Capability`, `Binding`, `Assembly`, `Run`, and `RunEvidence` records and preserves unknown profile fields. |
-| 1 | Assembly Producer | Emits a complete pre-run `Assembly` with artifact refs, capability, profiles, runtime/resource/policy bindings, and unresolved items. |
-| 2 | Run Recorder | Records a `Run` from an `Assembly` and links outputs, logs, status, and `RunEvidence`. |
-| 3 | Binding Ecosystem | Validates at least one external runtime/evidence/policy binding and one CAP-Digest view reference. |
+These levels remain candidate-prep only until a promotion CAPP accepts them.
 
-No level should become normative until a later CAPP promotes the draft fixture
-files and validator behavior into stable conformance language.
+| Level | Name | Definition | Non-goals |
+|---:|---|---|---|
+| L0 | Structural Core Package / Object Reader | Reads Core records, validates schema names and required fields, preserves unknown profile fields, and inventories object IDs. | Producing assemblies or executing runs. |
+| L1 | Bound Assembly Package | Validates `ArtifactSet`, `Capability`, `Binding`, `Assembly`, and graph closure for artifacts, bindings, and policy binding. | Evaluating authorization or executing capability. |
+| L2 | Policy-Aware Assembly | Adds `PolicyDecision` validation, fail-closed missing policy behavior, secret-value rejection, and network/resource policy checks. | Defining a policy language or identity framework. |
+| L3 | Run-Evidence Producer | Adds `Run` and `RunEvidence` linkage, output/log/material references, DigestBinding separation, and overclaim warnings. | Proving scientific correctness or verifying all attestations. |
+| L4 | Interoperable Runner / Cross-implementation Conformance | Compares fixture reports across two implementations or one implementation plus an external harness. | Mandating one runtime, scheduler, transport, or service API. |
+
+## Level Matrix
+
+| Level | Required schemas | Fixture coverage | Validator checks | Required report fields |
+|---:|---|---|---|---|
+| L0 | `ArtifactSet`, `Artifact`, `Capability`, `Binding` | At least one positive Core fixture. | required fields, schema support, duplicate ID inventory. | validator version, target level, fixture id, schema checks. |
+| L1 | L0 + `Assembly` | Positive assembly fixture and graph-closure negative cases. | artifact refs, binding refs, capability refs, required binding roles. | ref-closure checks, object counts, error codes. |
+| L2 | L1 + `PolicyDecision` | Policy positive fixture plus missing-policy, secret-value, and undeclared-network negatives. | fail-closed policy, policy binding match, secret scan, network constraints. | policy checks, security warnings, unsupported features. |
+| L3 | L2 + `Run`, `RunEvidence`, DigestBinding profile | Run/evidence positive fixtures plus DigestEvidence/RunEvidence and overclaim negatives. | run assembly link, evidence refs, digest bridge separation, overclaim warnings. | run/evidence checks, digest bridge checks, warning codes. |
+| L4 | All candidate schemas | Cross-implementation fixture corpus. | report comparison and unsupported feature reconciliation. | implementation identity, fixture matrix, interoperability result. |
+
+Implementations may claim only the highest level whose required checks and
+fixtures pass. Reading or writing records is separate from actual runtime
+execution.
 
 ## Schema sketch
 
@@ -93,6 +107,8 @@ Current paths:
 ```text
 fixtures/core/local-analysis/
 fixtures/core/build-test/
+fixtures/core/remote-service-binding/
+fixtures/core/negative/
 ```
 
 Candidate files:
@@ -146,6 +162,11 @@ Negative fixtures should prove that validators reject or flag unsafe claims:
 | Unanchored artifact marked reproducible | Invalid or overclaim warning. |
 | External standard copied inline as Core schema | Boundary warning. |
 
+The systematic suite under `fixtures/core/negative/` maps these cases to L0-L3
+candidate checks. The remote-service fixture adds service-specific negatives for
+opaque secret references, missing policy decisions, undeclared network access,
+stale service bindings, and remote evidence overclaims.
+
 ## Reference implementation scope
 
 The smallest useful implementation is a validator and renderer:
@@ -182,8 +203,17 @@ Before any Core primitive becomes normative, the fixture plan should prove:
 - the primitive can be serialized without depending on one runtime or workflow
   engine.
 
+## Core conformance report
+
+The candidate-prep validator report is `cap.core.conformance_report.v1` and is
+schema-backed by `schemas/core/cap.core.conformance_report.v1.schema.json`.
+Reports include validator identity, target level, fixture identity, schema
+checks, reference-closure checks, policy checks, binding checks, RunEvidence
+checks, security warnings, unsupported features, and stable error/warning codes.
+
 ## First draft conclusion
 
-RFC-0001 may include this conformance strategy as a proposal. It should not
-claim CAP-Core conformance exists until schemas, fixtures, and a validator are
-added in a later CAPP.
+RFC-0001 and the split Core drafts may cite this conformance strategy as
+candidate-prep evidence. They still must not claim stable CAP-Core conformance
+until a future CAPP accepts the levels, schemas, fixtures, validator behavior,
+and interoperability evidence.

@@ -1,0 +1,24 @@
+{
+  "schema": "cap.core.policy_decision.v1",
+  "id": "policy-decision.remote-service-001",
+  "policyBinding": "binding.policy.remote-allowlist",
+  "policySystem": "host-policy",
+  "policyRef": "policy://fixture/remote-service-allowlist",
+  "policyVersion": "2026-07-07-fixture",
+  "principal": "user:fixture",
+  "action": "capability.call-remote-service",
+  "resource": "assembly.remote-service-001",
+  "decision": "allowed_with_constraints",
+  "decisionTime": "2026-07-07T00:00:00Z",
+  "conditions": {
+    "network": "allowlist",
+    "allowedHosts": ["api.example.invalid"],
+    "secretHandling": "secret-ref-only"
+  },
+  "obligations": [
+    "do-not-store-service-secret",
+    "record-remote-unverifiable-surfaces",
+    "do-not-claim-semantic-correctness"
+  ],
+  "auditRef": "audit://fixture/remote-service-001"
+}

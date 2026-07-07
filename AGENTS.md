@@ -19,13 +19,15 @@ python -m unittest discover reference/python/tests
 python reference/python/scripts/validate_schema_fixtures.py
 python reference/python/scripts/validate_fixtures.py
 python reference/python/scripts/validate_fixtures.py --report conformance-report.json
+python reference/python/scripts/validate_core_fixtures.py --report core-conformance-report.json
 git diff --check
 ```
 
 The unit tests cover the experimental reference implementation. Schema fixture
 validation checks mapped fixture JSON against active schema sketches. Fixture
 validation verifies expected digest, follow-up, pack, security, and Core draft
-behavior. `git diff --check` catches whitespace errors before commit.
+behavior. The Core report command emits the candidate-prep draft report used by
+CI. `git diff --check` catches whitespace errors before commit.
 
 ## Coding Style & Naming Conventions
 

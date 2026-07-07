@@ -46,6 +46,7 @@ DOCUMENTED_NO_SCHEMA: dict[str, str] = {
     "fixtures/core/local-analysis/negative/digest-evidence-as-run-evidence.json": (
         "negative layer-boundary case using a digest evidence schema not defined in this repo"
     ),
+    "fixtures/core/remote-service-binding/expected-validation.json": "Core validator expected-output harness",
     "fixtures/followup-basic/expected-gate.json": "legacy compact gate summary used by reference tests",
     "fixtures/followup-basic/policy.json": "fixture harness policy; policy schema is not defined for alpha",
     "fixtures/followup-basic/source.json": "fixture input source; source schema is not defined for alpha",
@@ -226,6 +227,38 @@ def build_targets() -> list[SchemaTarget]:
         "schemas/core/cap.core.run.v1.schema.json",
         note="negative fixture must fail run state enum validation",
     )
+    add_core_fixture_targets(targets, "remote-service-binding")
+    add(
+        targets,
+        "fixtures/core/remote-service-binding/negative/embedded-secret-service-binding.json",
+        "schemas/core/cap.core.binding.v1.schema.json",
+        note="schema-valid but semantically rejected by the Core validator",
+    )
+    for filename in (
+        "missing-policy-decision.json",
+        "remote-evidence-overclaim.json",
+        "stale-service-binding.json",
+        "undeclared-network-access.json",
+    ):
+        add(
+            targets,
+            f"fixtures/core/remote-service-binding/negative/{filename}",
+            "schemas/core/cap.core.negative_case.v1.schema.json",
+        )
+
+    add(
+        targets,
+        "fixtures/core/negative/expected-validation.json",
+        "schemas/core/cap.core.negative_suite_expected.v1.schema.json",
+    )
+    for path in sorted((ROOT / "fixtures" / "core" / "negative").glob("*.json")):
+        if path.name == "expected-validation.json":
+            continue
+        add(
+            targets,
+            path.relative_to(ROOT).as_posix(),
+            "schemas/core/cap.core.negative_case.v1.schema.json",
+        )
 
     return targets
 

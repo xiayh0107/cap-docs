@@ -1,0 +1,13 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "run-without-assembly-reference",
+  "record": {
+    "schema": "cap.core.run.v1",
+    "id": "run.no-assembly",
+    "state": "completed",
+    "startedAt": "2026-07-07T00:00:00Z",
+    "inputs": [],
+    "outputs": [],
+    "evidenceRefs": []
+  }
+}

@@ -87,11 +87,12 @@ python -m unittest discover reference/python/tests
 python reference/python/scripts/validate_schema_fixtures.py
 python reference/python/scripts/validate_fixtures.py
 python reference/python/scripts/validate_fixtures.py --report conformance-report.json
+python reference/python/scripts/validate_core_fixtures.py --report core-conformance-report.json
 ```
 
 The conformance report uses `cap.conformance_report.v1` and currently covers
-the CAP-Digest fixtures plus the CAP-Core local-analysis and build-test draft
-fixtures.
+the CAP-Digest fixtures plus the CAP-Core local-analysis, build-test, and
+remote-service-binding draft fixtures.
 
 ## Conformance Snapshot
 
@@ -101,7 +102,7 @@ Current executable target:
 CAP-Digest Level 0/1: table source digest assembly
 CAP-Digest Level 2: gated follow-up for table sample rows
 CAP-Digest Level 3: table-basic Digest Pack metadata loading
-CAP-Core: non-normative local-analysis and build-test draft fixtures
+CAP-Core: non-normative local-analysis, build-test, and remote-service-binding draft fixtures
 ```
 
 CAP-Digest `0.1.0-alpha` is tagged as `cap-digest-0.1.0-alpha`. GitHub release

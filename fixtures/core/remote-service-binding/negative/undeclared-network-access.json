@@ -1,0 +1,18 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "undeclared-network-access",
+  "record": {
+    "schema": "cap.core.binding.v1",
+    "id": "binding.service.remote-api",
+    "type": "service",
+    "target": "https://api.example.invalid/v1/quote",
+    "status": "resolved",
+    "constraints": {
+      "networkDeclaredByPolicy": false,
+      "credential": {
+        "secretRef": "secret://fixture/remote-api-token"
+      }
+    },
+    "evidenceRefs": []
+  }
+}

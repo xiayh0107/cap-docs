@@ -1,0 +1,17 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "stale-service-binding",
+  "record": {
+    "schema": "cap.core.binding.v1",
+    "id": "binding.service.remote-api",
+    "type": "service",
+    "target": "https://api.example.invalid/v1/quote",
+    "status": "stale",
+    "constraints": {
+      "credential": {
+        "secretRef": "secret://fixture/remote-api-token"
+      }
+    },
+    "evidenceRefs": []
+  }
+}

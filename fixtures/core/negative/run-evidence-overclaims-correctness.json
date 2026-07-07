@@ -1,0 +1,17 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "run-evidence-overclaims-correctness",
+  "record": {
+    "schema": "cap.core.run_evidence.v1",
+    "id": "evidence.overclaim",
+    "runId": "run.example",
+    "subject": "run.example",
+    "materials": [],
+    "products": [],
+    "records": {
+      "semanticCorrectnessVerifiedByCore": true
+    },
+    "completeness": "complete",
+    "integrity": "verified"
+  }
+}

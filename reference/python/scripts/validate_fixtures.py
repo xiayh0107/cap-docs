@@ -18,7 +18,15 @@ from cap_digest import (  # noqa: E402
     validate_manifest_text_consistency,
     validate_response,
 )
-from cap_core import load_core_fixture, render_review_summary, validate_core_fixture, validate_negative_record  # noqa: E402
+from cap_core import (  # noqa: E402
+    CORE_FIXTURE_NAMES,
+    load_core_fixture,
+    render_review_summary,
+    validate_core_fixture,
+    validate_core_negative_suite,
+    validate_negative_case,
+    validate_negative_record,
+)
 
 
 def load_json(path: Path):
@@ -37,8 +45,11 @@ def main() -> int:
         ("digest", "fixtures/followup-basic", validate_followup_basic),
         ("digest", "fixtures/pack-table-basic", validate_pack_table_basic),
         ("digest", "fixtures/security-adversarial", validate_security_adversarial),
-        ("core", "fixtures/core/local-analysis", lambda: validate_core_fixture_family("local-analysis")),
-        ("core", "fixtures/core/build-test", lambda: validate_core_fixture_family("build-test")),
+        *[
+            ("core", f"fixtures/core/{name}", lambda name=name: validate_core_fixture_family(name))
+            for name in CORE_FIXTURE_NAMES
+        ],
+        ("core", "fixtures/core/negative", validate_core_negative_suite_family),
     ]
     checks = [
         (name, validate())
@@ -254,13 +265,21 @@ def validate_core_fixture_family(name: str) -> list[str]:
 
     for filename, expected in expected_validation["negativeFixtures"].items():
         record = load_json(fixture_path / "negative" / filename)
-        negative = validate_negative_record(record, filename)
+        if record.get("schema") == "cap.core.negative_case.v1":
+            negative = validate_negative_case(record, filename)
+        else:
+            negative = validate_negative_record(record, filename)
         actual_codes = sorted({error["code"] for error in negative.errors})
         expected_codes = sorted(expected["errorCodes"])
         if negative.ok != expected["ok"] or actual_codes != expected_codes:
             problems.append(f"core {name} negative fixture mismatch: {filename}")
 
     return problems
+
+
+def validate_core_negative_suite_family() -> list[str]:
+    result = validate_core_negative_suite(ROOT)
+    return result["problems"]
 
 
 if __name__ == "__main__":

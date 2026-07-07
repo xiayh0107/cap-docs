@@ -18,10 +18,15 @@ Current CAP-Digest scope:
 
 Current CAP-Core scope:
 
-- fixture: `fixtures/core/local-analysis/`;
+- fixtures: `fixtures/core/local-analysis/`, `fixtures/core/build-test/`, and
+  `fixtures/core/remote-service-binding/`;
+- negative suite: `fixtures/core/negative/`;
 - objects: Artifact, Capability, Binding, Assembly, Run, RunEvidence, DigestBinding;
-- validation: required fields, known references, required binding types, policy/run/evidence linkage, no secret values in Core records, and CAP-Digest/CAP-Core evidence separation;
-- rendering: stable review summary for the local-analysis fixture.
+- validation: required fields, known references, required binding types,
+  policy/run/evidence linkage, no secret values in Core records,
+  remote-service safety checks, and CAP-Digest/CAP-Core evidence separation;
+- rendering: stable review summary for Core draft fixtures;
+- Core report: `validate_core_fixtures.py --report core-conformance-report.json`.
 
 Run tests from the repository root:
 
@@ -34,8 +39,9 @@ Run fixture validation from the repository root:
 ```bash
 python reference/python/scripts/validate_fixtures.py
 python reference/python/scripts/validate_fixtures.py --report conformance-report.json
+python reference/python/scripts/validate_core_fixtures.py --report core-conformance-report.json
 ```
 
 The fixture validator covers `basic-table`, `digest-text-negative`,
 `followup-basic`, `pack-table-basic`, `security-adversarial`, and the
-non-normative CAP-Core `core/local-analysis` draft fixture.
+non-normative CAP-Core draft fixtures and negative suite.

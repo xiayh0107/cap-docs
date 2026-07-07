@@ -1,0 +1,15 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "capability-implies-authorization",
+  "record": {
+    "schema": "cap.core.capability.v1",
+    "id": "capability.deploy",
+    "name": "Deploy",
+    "inputs": [],
+    "outputs": [],
+    "requiredBindings": ["runtime", "policy"],
+    "authorization": {
+      "allowed": true
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "cap.core.binding.v1",
+  "id": "binding.digest.remote-summary",
+  "type": "digest",
+  "target": "fixture://remote-service-binding/response-summary-digest",
+  "standard": "CAP-Digest",
+  "standardVersion": "2026-07-06-draft",
+  "profile": "profile.cap-digest-view.v0",
+  "constraints": {
+    "sourceRunEvidence": "evidence.remote-service-001",
+    "digestEvidenceIsRunEvidence": false
+  },
+  "integrity": null,
+  "freshness": null,
+  "status": "resolved",
+  "evidenceRefs": ["evidence.remote-service-001"]
+}

@@ -11,9 +11,10 @@ CAP-Digest and has no stable conformance language.
 
 CAP-Core remains non-normative. This directory contains the integrated RFC-0001
 overview, split draft RFCs, and supporting planning and construction documents.
-The repository also contains Core-scoped schema sketches, local-analysis and
-build-test fixtures, and a validator/renderer prototype. None of these assets
-define stable CAP-Core conformance.
+The repository also contains Core-scoped schema sketches, local-analysis,
+build-test, and remote-service-binding fixtures, a systematic negative suite,
+and a validator/renderer prototype. None of these assets define stable CAP-Core
+conformance.
 
 Start here:
 
@@ -32,12 +33,14 @@ Start here:
 12. [CAP-Core Lifecycle Draft](LIFECYCLE-DRAFT.md) — candidate assembly/run lifecycle checkpoints.
 13. [CAP-Core Security and Policy Draft](SECURITY-POLICY-DRAFT.md) — policy/security record model.
 14. [CAP-Core Conformance Draft](CONFORMANCE-DRAFT.md) — schema sketch and fixture plan.
-15. [Example Assembly 0001](EXAMPLE-ASSEMBLY-0001.md) — first scientific-analysis example.
-16. [CAP-Core Research Sources](RESEARCH-SOURCES.md) — reviewed source basis for
+15. [CAP-Core Versioning and Compatibility](VERSIONING-AND-COMPATIBILITY.md) — schema compatibility rules.
+16. [CAP-Core Security, Privacy, and Trust](SECURITY-PRIVACY-TRUST.md) — candidate-prep threat model.
+17. [Example Assembly 0001](EXAMPLE-ASSEMBLY-0001.md) — first scientific-analysis example.
+18. [CAP-Core Research Sources](RESEARCH-SOURCES.md) — reviewed source basis for
    RFC drafting.
-17. [CAP-Core Open Questions](OPEN-QUESTIONS.md) — questions to resolve or defer
+19. [CAP-Core Open Questions](OPEN-QUESTIONS.md) — questions to resolve or defer
    before RFC-0001 advances.
-18. [CAP-Core review decisions](reviews/) — non-normative decision notes for
+20. [CAP-Core review decisions](reviews/) — non-normative decision notes for
     object minimization, fixture value, schema boundaries, and RFC split
     planning.
 
@@ -46,6 +49,8 @@ Executable draft assets:
 - `schemas/core/` — CAP-Core JSON Schema sketches.
 - `fixtures/core/local-analysis/` — first Core fixture with positive and negative cases.
 - `fixtures/core/build-test/` — second Core fixture proving the object model outside scientific analysis.
+- `fixtures/core/remote-service-binding/` — non-local service-binding fixture without credentials.
+- `fixtures/core/negative/` — systematic candidate-prep negative suite.
 - `reference/python/cap_core/` — validator/renderer prototype.
 
 ## Problem statement (intended scope)

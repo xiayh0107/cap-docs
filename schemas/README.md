@@ -45,11 +45,17 @@ Core schema sketches live under `schemas/core/`:
 - `cap.core.policy_decision.v1.schema.json` — minimal policy decision record.
 - `cap.core.run.v1.schema.json` — Run record.
 - `cap.core.run_evidence.v1.schema.json` — RunEvidence envelope.
+- `cap.core.conformance_report.v1.schema.json` — candidate-prep Core validator
+  report shape.
+- `cap.core.negative_case.v1.schema.json` — Core negative fixture harness case.
+- `cap.core.negative_suite_expected.v1.schema.json` — expected error-code map
+  for the systematic Core negative suite.
 
 These sketches align with `specs/core/RFC-0001.md` and
 the split draft RFCs under `specs/core/`. They are exercised by
-`fixtures/core/local-analysis/` and `fixtures/core/build-test/`. They are not
-stable CAP-Core conformance requirements.
+`fixtures/core/local-analysis/`, `fixtures/core/build-test/`,
+`fixtures/core/remote-service-binding/`, and `fixtures/core/negative/`. They are
+not stable CAP-Core conformance requirements.
 
 Schema versioning and feature-state rules will follow
 `specs/digest/11-versioning-conformance-governance.md`.

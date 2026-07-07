@@ -6,6 +6,9 @@ from pathlib import Path
 from typing import Any
 
 
+CORE_VALIDATOR_VERSION = "0.1.0-candidate-prep"
+CORE_FIXTURE_NAMES = ("local-analysis", "build-test", "remote-service-binding")
+
 CORE_REQUIRED_FIELDS: dict[str, tuple[str, ...]] = {
     "cap.core.artifact_set.v1": ("schema", "artifacts"),
     "cap.core.artifact.v1": ("schema", "id", "kind", "ref"),
@@ -114,6 +117,147 @@ def validate_core_record(record: dict[str, Any], path: str) -> list[dict[str, st
     return errors
 
 
+def validate_negative_case(case: dict[str, Any], path: str) -> CoreValidationResult:
+    errors: list[dict[str, str]] = []
+    warnings: list[dict[str, str]] = []
+
+    if case.get("schema") != "cap.core.negative_case.v1":
+        return validate_negative_record(case, path)
+
+    case_name = case.get("case")
+    record = case.get("record")
+    records = case.get("records")
+    if isinstance(record, dict):
+        errors.extend(validate_core_record(record, f"{path}.record"))
+    if isinstance(records, dict):
+        for name, value in records.items():
+            if isinstance(value, dict) and "schema" in value:
+                errors.extend(validate_core_record(value, f"{path}.records.{name}"))
+            elif isinstance(value, list):
+                for index, item in enumerate(value):
+                    if isinstance(item, dict) and "schema" in item:
+                        errors.extend(validate_core_record(item, f"{path}.records.{name}[{index}]"))
+
+    if case_name == "assembly-action-without-capability" and isinstance(record, dict):
+        if "executableAction" in record and "capability" not in record:
+            errors.append(
+                {
+                    "code": "assembly_action_without_capability",
+                    "path": f"{path}.record",
+                    "message": "Executable Assembly actions must be declared through Capability.",
+                }
+            )
+            errors = _drop_error(errors, "missing_required_field", f"{path}.record.capability")
+    elif case_name == "capability-implies-authorization" and isinstance(record, dict):
+        if any(key in record for key in ("authorization", "authorized", "permissions")):
+            errors.append(
+                {
+                    "code": "capability_implies_authorization",
+                    "path": f"{path}.record",
+                    "message": "Capability declarations must not imply authorization.",
+                }
+            )
+    elif case_name == "duplicate-object-id" and isinstance(records, dict):
+        ids = _collect_ids(records)
+        duplicates = sorted(item for item in set(ids) if ids.count(item) > 1)
+        if duplicates:
+            errors.append(
+                {
+                    "code": "duplicate_object_id",
+                    "path": f"{path}.records",
+                    "message": f"Duplicate Core object id(s): {', '.join(duplicates)}.",
+                }
+            )
+    elif case_name == "external-standard-copied-inline" and isinstance(record, dict):
+        if _contains_key(record, "inlineExternalStandardSchema"):
+            errors.append(
+                {
+                    "code": "external_standard_copied_inline",
+                    "path": f"{path}.record",
+                    "message": "External standard schemas must be referenced or profiled, not copied into Core records.",
+                }
+            )
+    elif case_name == "missing-policy-decision" and isinstance(records, dict):
+        if "policy_decision" not in records and "policy-decision" not in records:
+            errors.append(
+                {
+                    "code": "missing_policy_decision",
+                    "path": f"{path}.records",
+                    "message": "Executable Assembly requires an explicit PolicyDecision for candidate conformance.",
+                }
+            )
+    elif case_name == "remote-evidence-overclaim" and isinstance(record, dict):
+        _append_overclaim_errors(record, f"{path}.record", errors)
+    elif case_name == "run-evidence-overclaims-correctness" and isinstance(record, dict):
+        _append_overclaim_errors(record, f"{path}.record", errors)
+    elif case_name == "run-without-assembly-reference" and isinstance(record, dict):
+        if record.get("schema") == "cap.core.run.v1" and "assemblyId" not in record:
+            errors.append(
+                {
+                    "code": "run_without_assembly_reference",
+                    "path": f"{path}.record.assemblyId",
+                    "message": "Run must reference an Assembly.",
+                }
+            )
+            errors = _drop_error(errors, "missing_required_field", f"{path}.record.assemblyId")
+    elif case_name == "runtime-oci-missing-image-reference" and isinstance(record, dict):
+        if record.get("type") == "runtime" and record.get("standard") == "OCI":
+            target = record.get("target", "")
+            if not isinstance(target, str) or not target.startswith("oci://") or "@sha256:" not in target:
+                errors.append(
+                    {
+                        "code": "runtime_binding_missing_image_reference",
+                        "path": f"{path}.record.target",
+                        "message": "OCI runtime binding must use a content-addressed OCI image reference.",
+                    }
+                )
+    elif case_name == "stale-service-binding" and isinstance(record, dict):
+        if record.get("type") == "service" and record.get("status") == "stale":
+            errors.append(
+                {
+                    "code": "stale_service_binding",
+                    "path": f"{path}.record.status",
+                    "message": "Stale service bindings are not acceptable for executable candidate checks.",
+                }
+            )
+    elif case_name == "unanchored-reproducible-artifact" and isinstance(record, dict):
+        integrity = record.get("ref", {}).get("integrity") if isinstance(record.get("ref"), dict) else None
+        if record.get("metadata", {}).get("reproducible") is True and not integrity:
+            errors.append(
+                {
+                    "code": "unanchored_reproducible_artifact",
+                    "path": f"{path}.record.ref.integrity",
+                    "message": "Artifacts marked reproducible need an integrity anchor or external evidence.",
+                }
+            )
+    elif case_name == "undeclared-network-access" and isinstance(record, dict):
+        if record.get("type") == "service" and record.get("constraints", {}).get("networkDeclaredByPolicy") is False:
+            errors.append(
+                {
+                    "code": "undeclared_network_access",
+                    "path": f"{path}.record.constraints.networkDeclaredByPolicy",
+                    "message": "Remote service access must be declared by policy and resource constraints.",
+                }
+            )
+    elif case_name == "unresolved-artifact-reference" and isinstance(records, dict):
+        assembly = records.get("assembly")
+        artifact_ids = set(records.get("artifactIds", []))
+        if isinstance(assembly, dict):
+            missing = [artifact for artifact in assembly.get("artifacts", []) if artifact not in artifact_ids]
+            if missing:
+                errors.append(
+                    {
+                        "code": "unresolved_artifact_reference",
+                        "path": f"{path}.records.assembly.artifacts",
+                        "message": f"Assembly references unknown artifact(s): {', '.join(missing)}.",
+                    }
+                )
+
+    errors = _dedupe_diagnostics(errors)
+    warnings = _dedupe_diagnostics(warnings)
+    return CoreValidationResult(ok=not errors, errors=errors, warnings=warnings, summary={"case": case_name})
+
+
 def _scan_for_secret_values(value: Any, path: str, errors: list[dict[str, str]]) -> None:
     if isinstance(value, dict):
         for key, child in value.items():
@@ -198,12 +342,37 @@ def validate_core_fixture(fixture: dict[str, Any]) -> CoreValidationResult:
     _require_subset(run.get("logs", []), artifact_ids, "run.logs", errors)
     _require_reference(run.get("runtimeBinding"), binding_ids, "run.runtimeBinding", errors)
     _require_reference(run.get("resourceBinding"), binding_ids, "run.resourceBinding", errors)
+    _require_subset(run.get("serviceBindings", []), binding_ids, "run.serviceBindings", errors)
+
+    service_bindings = [binding for binding in binding_records if binding.get("type") == "service"]
+    policy_network = policy_decision.get("conditions", {}).get("network")
+    for binding in service_bindings:
+        if binding.get("status") == "stale":
+            errors.append({"code": "stale_service_binding", "path": f"assembly.bindingRecords.{binding.get('id')}.status", "message": "Service binding is stale."})
+        target = binding.get("target", "")
+        if isinstance(target, str) and target.startswith(("http://", "https://")) and policy_network not in {"allowlist", "enabled"}:
+            errors.append(
+                {
+                    "code": "undeclared_network_access",
+                    "path": f"assembly.bindingRecords.{binding.get('id')}.target",
+                    "message": "Remote service access must be declared by policy conditions.",
+                }
+            )
 
     if run_evidence.get("runId") != run.get("id"):
         errors.append({"code": "run_evidence_mismatch", "path": "run-evidence.runId", "message": "RunEvidence must reference Run."})
+    _append_overclaim_errors(run_evidence, "run-evidence", errors)
     _require_subset(run_evidence.get("materials", []), artifact_ids, "run-evidence.materials", errors)
     _require_subset(run_evidence.get("products", []), artifact_ids, "run-evidence.products", errors)
     _require_subset(run_evidence.get("digestViews", []), binding_ids, "run-evidence.digestViews", errors)
+    if service_bindings and run_evidence.get("records", {}).get("remoteLimitations"):
+        warnings.append(
+            {
+                "code": "remote_unverifiable_surface",
+                "path": "run-evidence.records.remoteLimitations",
+                "message": "Remote service surfaces are recorded but not semantically verified by Core.",
+            }
+        )
 
     if digest_view_ref.get("id") not in binding_ids:
         errors.append({"code": "digest_binding_not_in_assembly", "path": "digest-view-ref.id", "message": "DigestBinding must be in Assembly."})
@@ -234,6 +403,87 @@ def validate_core_fixture(fixture: dict[str, Any]) -> CoreValidationResult:
 def validate_negative_record(record: dict[str, Any], path: str) -> CoreValidationResult:
     errors = validate_core_record(record, path)
     return CoreValidationResult(ok=not errors, errors=errors, warnings=[], summary={})
+
+
+def validate_core_negative_suite(root: Path) -> dict[str, Any]:
+    suite = root / "fixtures" / "core" / "negative"
+    expected = _load_json(suite / "expected-validation.json")["cases"]
+    cases = []
+    problems = []
+    for filename, expected_codes in sorted(expected.items()):
+        record = _load_json(suite / filename)
+        validation = validate_negative_case(record, filename)
+        actual_codes = sorted({error["code"] for error in validation.errors})
+        ok = actual_codes == sorted(expected_codes) and not validation.ok
+        if not ok:
+            problems.append(f"{filename}: expected {sorted(expected_codes)}, got {actual_codes}")
+        cases.append(
+            {
+                "name": filename,
+                "ok": ok,
+                "expectedErrorCodes": sorted(expected_codes),
+                "actualErrorCodes": actual_codes,
+            }
+        )
+    return {"ok": not problems, "cases": cases, "problems": problems}
+
+
+def build_core_conformance_report(root: Path, target_level: str = "L3") -> dict[str, Any]:
+    fixtures = []
+    for name in CORE_FIXTURE_NAMES:
+        fixture = load_core_fixture(root, name)
+        validation = validate_core_fixture(fixture)
+        fixtures.append(
+            {
+                "name": name,
+                "path": f"fixtures/core/{name}",
+                "ok": validation.ok,
+                "summary": validation.summary,
+                "errors": validation.errors,
+                "warnings": validation.warnings,
+                "checks": [
+                    _report_check("schema", validation.errors, {"unknown_schema", "missing_required_field", "invalid_binding_type", "invalid_binding_status", "invalid_run_state", "invalid_policy_decision"}),
+                    _report_check("ref-closure", validation.errors, {"unknown_reference", "invalid_reference_list", "missing_required_binding_type", "digest_binding_not_in_assembly"}),
+                    _report_check("policy", validation.errors, {"policy_binding_mismatch", "missing_policy_decision", "undeclared_network_access"}),
+                    _report_check("binding", validation.errors, {"stale_service_binding", "secret_value_in_core_record"}),
+                    _report_check("run-evidence", validation.errors, {"run_evidence_mismatch", "digest_binding_evidence_mismatch", "run_evidence_overclaims_correctness"}),
+                    {
+                        "category": "security",
+                        "ok": not validation.errors,
+                        "errorCodes": sorted({error["code"] for error in validation.errors if error["code"] in {"secret_value_in_core_record", "undeclared_network_access", "run_evidence_overclaims_correctness"}}),
+                        "warningCodes": sorted({warning["code"] for warning in validation.warnings}),
+                    },
+                ],
+            }
+        )
+    negative_suite = validate_core_negative_suite(root)
+    ok = all(fixture["ok"] for fixture in fixtures) and negative_suite["ok"]
+    return {
+        "schema": "cap.core.conformance_report.v1",
+        "validator": {
+            "name": "cap_core.reference_validator",
+            "version": CORE_VALIDATOR_VERSION,
+        },
+        "status": "draft-track-candidate-prep",
+        "targetLevel": target_level,
+        "ok": ok,
+        "fixtures": fixtures,
+        "negativeSuites": [
+            {
+                "name": "fixtures/core/negative",
+                "ok": negative_suite["ok"],
+                "cases": negative_suite["cases"],
+                "problems": negative_suite["problems"],
+            }
+        ],
+        "unsupportedFeatures": [
+            "workflow execution",
+            "external policy evaluation",
+            "secret retrieval",
+            "remote service semantic verification",
+            "cryptographic attestation verification",
+        ],
+    }
 
 
 def render_review_summary(fixture: dict[str, Any]) -> str:
@@ -281,3 +531,56 @@ def _require_subset(values: Any, allowed: set[str], path: str, errors: list[dict
     for index, value in enumerate(values):
         if value not in allowed:
             errors.append({"code": "unknown_reference", "path": f"{path}[{index}]", "message": f"Unknown reference {value!r}."})
+
+
+def _drop_error(errors: list[dict[str, str]], code: str, path: str) -> list[dict[str, str]]:
+    return [error for error in errors if not (error.get("code") == code and error.get("path") == path)]
+
+
+def _dedupe_diagnostics(items: list[dict[str, str]]) -> list[dict[str, str]]:
+    seen: set[tuple[str, str]] = set()
+    result: list[dict[str, str]] = []
+    for item in items:
+        key = (item.get("code", ""), item.get("path", ""))
+        if key not in seen:
+            seen.add(key)
+            result.append(item)
+    return result
+
+
+def _contains_key(value: Any, key: str) -> bool:
+    if isinstance(value, dict):
+        return key in value or any(_contains_key(child, key) for child in value.values())
+    if isinstance(value, list):
+        return any(_contains_key(child, key) for child in value)
+    return False
+
+
+def _collect_ids(value: Any) -> list[str]:
+    ids: list[str] = []
+    if isinstance(value, dict):
+        if isinstance(value.get("id"), str):
+            ids.append(value["id"])
+        for child in value.values():
+            ids.extend(_collect_ids(child))
+    elif isinstance(value, list):
+        for child in value:
+            ids.extend(_collect_ids(child))
+    return ids
+
+
+def _append_overclaim_errors(record: dict[str, Any], path: str, errors: list[dict[str, str]]) -> None:
+    records = record.get("records", {})
+    if isinstance(records, dict) and records.get("semanticCorrectnessVerifiedByCore") is True:
+        errors.append(
+            {
+                "code": "run_evidence_overclaims_correctness",
+                "path": f"{path}.records.semanticCorrectnessVerifiedByCore",
+                "message": "RunEvidence must not claim Core verified semantic correctness.",
+            }
+        )
+
+
+def _report_check(category: str, errors: list[dict[str, str]], codes: set[str]) -> dict[str, Any]:
+    error_codes = sorted({error["code"] for error in errors if error["code"] in codes})
+    return {"category": category, "ok": not error_codes, "errorCodes": error_codes, "warningCodes": []}

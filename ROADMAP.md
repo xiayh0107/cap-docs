@@ -106,3 +106,30 @@ CAP-Core now has a complete draft-track artifact set. Do not treat the Core
 schemas, runtime binding, RunEvidence, service binding, or policy model as
 stable normative requirements until a later CAPP promotes them beyond draft
 track.
+
+## Phase 8 - CAP-Core candidate normative preparation
+
+Goal: prepare CAP-Core for candidate normative review without promoting it.
+Tracker: #30.
+
+- [x] Draft CAPP-0005 for candidate normative promotion gates.
+- [x] Define candidate-prep conformance levels L0-L4.
+- [x] Define Core schema versioning and compatibility rules.
+- [x] Add a non-local `fixtures/core/remote-service-binding/` fixture.
+- [x] Add a systematic `fixtures/core/negative/` suite.
+- [x] Add a Core security, privacy, and trust threat model.
+- [x] Add a stable draft Core conformance report format.
+- [x] Wire Core draft checks into CI.
+- [x] Triage CAP-Core open questions for candidate-prep blockers.
+
+Remaining Phase 8 work is tracked in GitHub issues #30 and #36-#42, #46,
+#48, and #50-#60.
+
+Exit criteria:
+
+- CAPP-0005 promotion gates are either satisfied or explicitly deferred.
+- All minimal Core object schemas have positive and negative fixture coverage.
+- Core draft CI emits validator and fixture reports.
+- Security, service binding, policy, and RunEvidence boundaries are reviewed.
+- Candidate review artifacts and readiness report are recorded before any
+  normative promotion.

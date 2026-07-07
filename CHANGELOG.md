@@ -9,6 +9,10 @@ CAP-Core draft proposal.
 
 ### Added
 
+- Added CAP-Core Phase 8 candidate-prep assets: CAPP-0005, L0-L4 conformance
+  levels, schema versioning rules, security threat model, remote-service-binding
+  fixture, systematic negative suite, Core conformance report schema, Core
+  validator report command, and Core draft CI workflow.
 - Added a second CAP-Core executable draft fixture, `fixtures/core/build-test/`,
   covering a software build/test scenario with Core validation and negative
   fixture coverage.
