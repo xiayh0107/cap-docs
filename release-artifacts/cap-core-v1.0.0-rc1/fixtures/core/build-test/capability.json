@@ -1,0 +1,45 @@
+{
+  "schema": "cap.core.capability.v1",
+  "id": "capability.run-build-test",
+  "name": "run-build-test",
+  "description": "Run a bounded software test command over a checked-out source tree.",
+  "inputs": [
+    {
+      "role": "source",
+      "artifactKind": "code",
+      "required": true,
+      "profile": "profile.git-worktree.v0"
+    },
+    {
+      "role": "project-config",
+      "artifactKind": "config",
+      "required": true,
+      "profile": "profile.python-project.v0"
+    },
+    {
+      "role": "environment",
+      "artifactKind": "environment",
+      "required": true,
+      "profile": "profile.oci-runtime-reference.v0"
+    }
+  ],
+  "outputs": [
+    {
+      "role": "test-report",
+      "artifactKind": "report",
+      "required": true,
+      "profile": "profile.test-report.v0"
+    },
+    {
+      "role": "test-log",
+      "artifactKind": "log",
+      "required": true,
+      "profile": "profile.run-log.v0"
+    }
+  ],
+  "sideEffects": ["writes output directory"],
+  "requiredBindings": ["runtime", "resource", "policy", "evidence", "digest"],
+  "errorSemantics": "nonzero test exit code marks Run failed and still records RunEvidence",
+  "profiles": ["profile.software-build-test.v0"],
+  "implementationBindings": ["binding.transport.host-test-runner"]
+}

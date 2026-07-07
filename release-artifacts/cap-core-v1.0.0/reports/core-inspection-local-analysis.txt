@@ -1,0 +1,38 @@
+CAP-Core inspection report
+Status: stable-v1.0.0
+Fixture: local-analysis (fixtures/core/local-analysis)
+
+Object graph:
+- Assembly: assembly.local-analysis-001
+- Capability: capability.run-analysis
+- Artifacts: 7
+- Bindings: 7
+- PolicyDecision: policy-decision.local-analysis-001
+- Run: run-001
+- RunEvidence: evidence.run-001
+- DigestBinding: binding.digest.run-summary
+
+Bindings:
+- binding.runtime.local-process [runtime] status=resolved target=local-process://python
+- binding.resource.local-analysis [resource] status=resolved target=host-resource://local
+- binding.policy.no-network [policy] status=resolved target=policy://fixture/no-network
+- binding.evidence.local-files [evidence] status=resolved target=file://workspace/out/
+- binding.digest.run-summary [digest] status=resolved target=fixture://basic-table/expected-manifest.json
+- binding.data.local-filesystem [data-plane] status=resolved target=file://workspace/
+- binding.transport.host-tool [transport] status=resolved target=host-tool://run-python
+
+Policy:
+- Decision: allowed_with_constraints
+- Fail closed: true
+- Obligations: record-run-evidence, do-not-store-secret-values, render-digest-view-after-finalize
+
+Run and evidence:
+- Run state: completed
+- Outputs: artifact.output.summary, artifact.output.plot
+- Evidence completeness: partial
+- Evidence integrity: digested
+- Digest views: binding.digest.run-summary
+- Limitations: none recorded
+
+Diagnostics:
+- none

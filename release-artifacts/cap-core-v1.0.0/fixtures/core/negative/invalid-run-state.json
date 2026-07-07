@@ -1,0 +1,14 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "invalid-run-state",
+  "record": {
+    "schema": "cap.core.run.v1",
+    "id": "run.invalid-state",
+    "assemblyId": "assembly.example",
+    "state": "teleported",
+    "startedAt": "2026-07-07T00:00:00Z",
+    "inputs": [],
+    "outputs": [],
+    "evidenceRefs": []
+  }
+}

@@ -7,7 +7,8 @@ machine-operable task records into safe, bounded, traceable context and assembly
 artifacts for AI agents.
 
 The repository currently has one normative-track draft profile, **CAP-Digest**,
-and one non-normative upper-layer draft track, **CAP-Core**.
+and a stable **CAP-Core v1.0.0** release for the minimal Core control-plane
+object contract.
 
 ## Current Scope
 
@@ -20,10 +21,11 @@ redaction, evidence validation, and gated follow-up.
 source object -> field catalog -> context digest -> model response -> gated follow-up
 ```
 
-**CAP-Core** is a draft-track proposal area. It explores artifact graphs,
-capability/runtime binding, RunEvidence, policy records, and external standard
-bindings through split draft RFCs, but it does not define stable conformance
-yet.
+**CAP-Core v1.0.0** defines the minimal structural Core object contract,
+conformance levels, schema package, fixture suite, validator/report codes, and
+maintenance policy. It does not define runtime execution, policy language
+semantics, credential exchange, scientific correctness, or CAP-Digest behavior
+changes.
 
 ## Repository Layout
 
@@ -76,6 +78,7 @@ CAP-Core executable draft-track coverage includes:
 - `fixtures/core/remote-service-binding/`
 - `fixtures/core/negative/`
 - `reference/python/cap_core/`
+- `release-artifacts/cap-core-v1.0.0/`
 
 These Core assets are useful for design validation, but they are not stable
 CAP-Core conformance requirements.

@@ -1,10 +1,11 @@
 # Schemas
 
-> Status: draft · Last updated: 2026-07-07
+> Status: mixed · Last updated: 2026-07-07
 
 This directory holds machine-readable JSON schemas for CAP-Digest plus
-Core-scoped schema sketches for CAP-Core. These schemas are draft assets unless
-a CAPP marks a specific schema as active.
+Core-scoped JSON schemas for CAP-Core. CAP-Digest schemas remain alpha draft
+assets. CAP-Core schemas under `schemas/core/` are part of CAP-Core v1.0.0 as
+accepted by CAPP-0007.
 
 Schemas use JSON Schema Draft 2020-12. The schema dialect follows
 [JSON-SCHEMA-2020-12] in `../REFERENCES.md`.
@@ -33,9 +34,9 @@ Schemas use JSON Schema Draft 2020-12. The schema dialect follows
 - `cap.conformance_report.v1.schema.json` — the fixture/check report emitted by
   the reference implementation.
 
-## CAP-Core draft schema sketches
+## CAP-Core v1.0 schemas
 
-Core schema sketches live under `schemas/core/`:
+Core v1.0 schemas live under `schemas/core/`:
 
 - `cap.core.artifact.v1.schema.json` — Artifact / ArtifactRef envelope.
 - `cap.core.artifact_set.v1.schema.json` — fixture and assembly artifact-set wrapper.
@@ -45,23 +46,18 @@ Core schema sketches live under `schemas/core/`:
 - `cap.core.policy_decision.v1.schema.json` — minimal policy decision record.
 - `cap.core.run.v1.schema.json` — Run record.
 - `cap.core.run_evidence.v1.schema.json` — RunEvidence envelope.
-- `cap.core.conformance_report.v1.schema.json` — candidate-prep Core validator
+- `cap.core.conformance_report.v1.schema.json` — Core validator
   report shape.
-- `cap.core.inspection_report.v1.schema.json` — candidate-prep Core inspection
+- `cap.core.inspection_report.v1.schema.json` — Core inspection
   renderer report shape.
 - `cap.core.interop_report.v1.schema.json` — external implementation fixture
   result report shape.
 - `cap.core.interop_comparison.v1.schema.json` — report comparison result
-  shape for L4 candidate-prep checks.
+  shape for L4 checks.
 - `cap.core.negative_case.v1.schema.json` — Core negative fixture harness case.
 - `cap.core.negative_suite_expected.v1.schema.json` — expected error-code map
   for the systematic Core negative suite.
 
-These sketches align with `specs/core/RFC-0001.md` and
-the split draft RFCs under `specs/core/`. They are exercised by
+These schemas align with `specs/core/SCHEMA-PACKAGE-v1.0.md`. They are exercised by
 `fixtures/core/local-analysis/`, `fixtures/core/build-test/`,
-`fixtures/core/remote-service-binding/`, and `fixtures/core/negative/`. They are
-not stable CAP-Core conformance requirements.
-
-Schema versioning and feature-state rules will follow
-`specs/digest/11-versioning-conformance-governance.md`.
+`fixtures/core/remote-service-binding/`, and `fixtures/core/negative/`.

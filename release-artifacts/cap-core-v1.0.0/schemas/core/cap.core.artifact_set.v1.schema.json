@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cap-spec.org/schemas/core/cap.core.artifact_set.v1.schema.json",
+  "title": "CAP-Core ArtifactSet v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema", "id", "artifacts"],
+  "properties": {
+    "schema": { "const": "cap.core.artifact_set.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "cap.core.artifact.v1.schema.json" }
+    },
+    "profiles": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "metadata": { "type": "object", "additionalProperties": true }
+  }
+}

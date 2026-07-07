@@ -1,0 +1,23 @@
+{
+  "actualImplementation": "cap_core.external_structural_adapter",
+  "checks": [
+    {
+      "fixture": "build-test",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "fixture": "local-analysis",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "fixture": "remote-service-binding",
+      "ok": true,
+      "problems": []
+    }
+  ],
+  "expectedImplementation": "cap_core.reference_validator",
+  "ok": true,
+  "schema": "cap.core.interop_comparison.v1"
+}

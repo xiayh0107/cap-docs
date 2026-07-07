@@ -1,0 +1,57 @@
+{
+  "schema": "cap.core.capability.v1",
+  "id": "capability.run-analysis",
+  "name": "run-analysis",
+  "description": "Run a local scientific analysis over a dataset using a script and config.",
+  "inputs": [
+    {
+      "role": "dataset",
+      "artifactKind": "data",
+      "required": true,
+      "profile": "profile.table-analysis.v0"
+    },
+    {
+      "role": "script",
+      "artifactKind": "code",
+      "required": true,
+      "profile": "profile.python-script.v0"
+    },
+    {
+      "role": "config",
+      "artifactKind": "config",
+      "required": true,
+      "profile": "profile.analysis-config.v0"
+    },
+    {
+      "role": "environment",
+      "artifactKind": "environment",
+      "required": true,
+      "profile": "profile.oci-runtime-reference.v0"
+    }
+  ],
+  "outputs": [
+    {
+      "role": "summary",
+      "artifactKind": "result",
+      "required": true,
+      "profile": "profile.analysis-result.v0"
+    },
+    {
+      "role": "plot",
+      "artifactKind": "result",
+      "required": false,
+      "profile": "profile.analysis-result.v0"
+    },
+    {
+      "role": "run-log",
+      "artifactKind": "log",
+      "required": true,
+      "profile": "profile.run-log.v0"
+    }
+  ],
+  "sideEffects": ["writes output directory"],
+  "requiredBindings": ["runtime", "resource", "policy", "evidence", "digest"],
+  "errorSemantics": "nonzero exit code marks Run failed and still records RunEvidence",
+  "profiles": ["profile.local-scientific-analysis.v0"],
+  "implementationBindings": ["binding.transport.host-tool"]
+}

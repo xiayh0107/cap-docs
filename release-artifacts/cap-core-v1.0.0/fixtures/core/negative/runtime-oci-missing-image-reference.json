@@ -1,0 +1,13 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "runtime-oci-missing-image-reference",
+  "record": {
+    "schema": "cap.core.binding.v1",
+    "id": "binding.runtime.oci",
+    "type": "runtime",
+    "target": "registry.example/worker:latest",
+    "standard": "OCI",
+    "status": "resolved",
+    "evidenceRefs": []
+  }
+}

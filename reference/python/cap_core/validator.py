@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 
-CORE_VALIDATOR_VERSION = "0.1.0-candidate-prep"
+CORE_VALIDATOR_VERSION = "1.0.0"
 CORE_FIXTURE_NAMES = ("local-analysis", "build-test", "remote-service-binding")
 
 CORE_REQUIRED_FIELDS: dict[str, tuple[str, ...]] = {
@@ -553,7 +553,7 @@ def build_core_conformance_report(root: Path, target_level: str = "L3") -> dict[
             "name": "cap_core.reference_validator",
             "version": CORE_VALIDATOR_VERSION,
         },
-        "status": "draft-track-candidate-prep",
+        "status": "stable-v1.0.0",
         "targetLevel": target_level,
         "ok": ok,
         "fixtures": fixtures,
@@ -620,7 +620,7 @@ def build_core_inspection_report_from_fixture(fixture_name: str, fixture_path: s
             "name": "cap_core.reference_inspection_renderer",
             "version": CORE_VALIDATOR_VERSION,
         },
-        "status": "draft-track-candidate-prep-non-normative",
+        "status": "stable-v1.0.0",
         "fixture": {
             "name": fixture_name,
             "path": fixture_path,
@@ -776,7 +776,7 @@ def build_core_interop_report(root: Path, implementation_name: str = "cap_core.r
             "version": CORE_VALIDATOR_VERSION,
             "command": "python reference/python/scripts/validate_core_fixtures.py --report core-conformance-report.json",
         },
-        "status": "draft-track-candidate-prep-non-normative",
+        "status": "stable-v1.0.0",
         "fixtures": fixtures,
         "negativeSuites": [
             {
@@ -831,7 +831,7 @@ def build_external_core_interop_report(root: Path, implementation_name: str, com
             "version": "external",
             "command": command_template,
         },
-        "status": "draft-track-candidate-prep-non-normative",
+        "status": "stable-v1.0.0",
         "fixtures": fixtures,
         "negativeSuites": [],
     }

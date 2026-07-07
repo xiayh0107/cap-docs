@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cap-spec.org/schemas/core/cap.core.interop_report.v1.schema.json",
+  "title": "CAP-Core Interoperability Report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "implementation", "status", "fixtures", "negativeSuites"],
+  "properties": {
+    "schema": { "const": "cap.core.interop_report.v1" },
+    "implementation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "command"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "command": { "type": "string", "minLength": 1 }
+      }
+    },
+    "status": { "type": "string", "minLength": 1 },
+    "fixtures": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/fixture" }
+    },
+    "negativeSuites": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/negativeSuite" }
+    }
+  },
+  "$defs": {
+    "fixture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "path", "ok", "errorCodes", "warningCodes", "unsupportedFeatures"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "minLength": 1 },
+        "ok": { "type": "boolean" },
+        "errorCodes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "warningCodes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "unsupportedFeatures": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "negativeSuite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "ok", "cases"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "ok": { "type": "boolean" },
+        "cases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "ok", "errorCodes"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "ok": { "type": "boolean" },
+              "errorCodes": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

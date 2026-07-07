@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cap-spec.org/schemas/core/cap.core.assembly.v1.schema.json",
+  "title": "CAP-Core Assembly v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema", "id", "artifacts", "capability", "bindings", "bindingRecords", "policyBinding", "state"],
+  "properties": {
+    "schema": { "const": "cap.core.assembly.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "capability": { "type": "string", "minLength": 1 },
+    "profiles": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "bindings": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "bindingRecords": {
+      "type": "array",
+      "items": { "$ref": "cap.core.binding.v1.schema.json" }
+    },
+    "policyBinding": { "type": "string", "minLength": 1 },
+    "state": {
+      "type": "string",
+      "enum": ["candidate", "resolved", "authorized", "denied", "stale", "recorded"]
+    },
+    "createdAt": { "type": "string" },
+    "createdBy": { "type": "string" },
+    "unresolved": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

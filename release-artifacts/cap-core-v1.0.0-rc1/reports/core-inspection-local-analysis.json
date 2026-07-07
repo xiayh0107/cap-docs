@@ -1,0 +1,247 @@
+{
+  "bindings": [
+    {
+      "id": "binding.runtime.local-process",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "host-local-process",
+      "status": "resolved",
+      "target": "local-process://python",
+      "type": "runtime"
+    },
+    {
+      "id": "binding.resource.local-analysis",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "cap-resource-envelope",
+      "status": "resolved",
+      "target": "host-resource://local",
+      "type": "resource"
+    },
+    {
+      "id": "binding.policy.no-network",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "host-policy",
+      "status": "resolved",
+      "target": "policy://fixture/no-network",
+      "type": "policy"
+    },
+    {
+      "id": "binding.evidence.local-files",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "cap-run-evidence-envelope",
+      "status": "resolved",
+      "target": "file://workspace/out/",
+      "type": "evidence"
+    },
+    {
+      "id": "binding.digest.run-summary",
+      "limitations": [
+        "Digest view is model-visible context, not replacement RunEvidence"
+      ],
+      "secretRefs": [],
+      "standard": "CAP-Digest",
+      "status": "resolved",
+      "target": "fixture://basic-table/expected-manifest.json",
+      "type": "digest"
+    },
+    {
+      "id": "binding.data.local-filesystem",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "host-filesystem",
+      "status": "resolved",
+      "target": "file://workspace/",
+      "type": "data-plane"
+    },
+    {
+      "id": "binding.transport.host-tool",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "host-tool-api",
+      "status": "resolved",
+      "target": "host-tool://run-python",
+      "type": "transport"
+    }
+  ],
+  "capability": {
+    "authorizationBoundary": "Capability declares operation shape only; PolicyDecision records authorization.",
+    "inputs": [
+      {
+        "artifactKind": "data",
+        "profile": "profile.table-analysis.v0",
+        "required": true,
+        "role": "dataset"
+      },
+      {
+        "artifactKind": "code",
+        "profile": "profile.python-script.v0",
+        "required": true,
+        "role": "script"
+      },
+      {
+        "artifactKind": "config",
+        "profile": "profile.analysis-config.v0",
+        "required": true,
+        "role": "config"
+      },
+      {
+        "artifactKind": "environment",
+        "profile": "profile.oci-runtime-reference.v0",
+        "required": true,
+        "role": "environment"
+      }
+    ],
+    "name": "run-analysis",
+    "outputs": [
+      {
+        "artifactKind": "result",
+        "profile": "profile.analysis-result.v0",
+        "required": true,
+        "role": "summary"
+      },
+      {
+        "artifactKind": "result",
+        "profile": "profile.analysis-result.v0",
+        "required": false,
+        "role": "plot"
+      },
+      {
+        "artifactKind": "log",
+        "profile": "profile.run-log.v0",
+        "required": true,
+        "role": "run-log"
+      }
+    ],
+    "requiredBindings": [
+      "runtime",
+      "resource",
+      "policy",
+      "evidence",
+      "digest"
+    ],
+    "sideEffects": [
+      "writes output directory"
+    ]
+  },
+  "diagnostics": {
+    "errors": [],
+    "ok": true,
+    "warnings": []
+  },
+  "evidence": {
+    "completeness": "partial",
+    "digestViews": [
+      "binding.digest.run-summary"
+    ],
+    "evidenceType": "run-record",
+    "id": "evidence.run-001",
+    "integrity": "digested",
+    "limitations": [],
+    "logs": [
+      "artifact.log.run"
+    ],
+    "materials": [
+      "artifact.dataset.orders",
+      "artifact.script.analyze",
+      "artifact.config.analysis",
+      "artifact.environment.analysis"
+    ],
+    "overclaimBoundary": "RunEvidence records observations and attestations; it does not prove semantic correctness.",
+    "products": [
+      "artifact.output.summary",
+      "artifact.output.plot",
+      "artifact.log.run"
+    ],
+    "runId": "run-001"
+  },
+  "fixture": {
+    "name": "local-analysis",
+    "path": "fixtures/core/local-analysis"
+  },
+  "objectGraph": {
+    "artifactIds": [
+      "artifact.dataset.orders",
+      "artifact.script.analyze",
+      "artifact.config.analysis",
+      "artifact.environment.analysis",
+      "artifact.output.summary",
+      "artifact.output.plot",
+      "artifact.log.run"
+    ],
+    "artifactSetSchema": "cap.core.artifact_set.v1",
+    "assemblyId": "assembly.local-analysis-001",
+    "bindingIds": [
+      "binding.runtime.local-process",
+      "binding.resource.local-analysis",
+      "binding.policy.no-network",
+      "binding.evidence.local-files",
+      "binding.digest.run-summary",
+      "binding.data.local-filesystem",
+      "binding.transport.host-tool"
+    ],
+    "capabilityId": "capability.run-analysis",
+    "digestBindingId": "binding.digest.run-summary",
+    "policyDecisionId": "policy-decision.local-analysis-001",
+    "runEvidenceId": "evidence.run-001",
+    "runId": "run-001"
+  },
+  "policy": {
+    "conditions": {
+      "network": "disabled",
+      "timeout": "10m",
+      "writeScope": "file://workspace/out/"
+    },
+    "decision": "allowed_with_constraints",
+    "externalPolicyLanguage": "host-policy",
+    "failClosed": true,
+    "id": "policy-decision.local-analysis-001",
+    "obligations": [
+      "record-run-evidence",
+      "do-not-store-secret-values",
+      "render-digest-view-after-finalize"
+    ],
+    "policyBinding": "binding.policy.no-network"
+  },
+  "renderer": {
+    "name": "cap_core.reference_inspection_renderer",
+    "version": "1.0.0"
+  },
+  "run": {
+    "assemblyId": "assembly.local-analysis-001",
+    "evidenceRefs": [
+      "evidence.run-001"
+    ],
+    "id": "run-001",
+    "inputs": [
+      "artifact.dataset.orders",
+      "artifact.script.analyze",
+      "artifact.config.analysis",
+      "artifact.environment.analysis"
+    ],
+    "logs": [
+      "artifact.log.run"
+    ],
+    "outputs": [
+      "artifact.output.summary",
+      "artifact.output.plot"
+    ],
+    "state": "completed"
+  },
+  "schema": "cap.core.inspection_report.v1",
+  "status": "stable-v1.0.0"
+}

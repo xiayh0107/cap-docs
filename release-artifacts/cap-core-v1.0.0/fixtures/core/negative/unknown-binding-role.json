@@ -1,0 +1,12 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "unknown-binding-role",
+  "record": {
+    "schema": "cap.core.binding.v1",
+    "id": "binding.payment",
+    "type": "payment",
+    "target": "payment://example",
+    "status": "resolved",
+    "evidenceRefs": []
+  }
+}

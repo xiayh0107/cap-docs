@@ -87,6 +87,8 @@ jobs:
               assert 'Digest view:' in summary, name
               print(f'renderer ok: {name}')
           PY
+      - name: Validate Core release package manifests
+        run: python reference/python/scripts/validate_core_release_manifest.py
       - name: Upload Core draft reports
         uses: actions/upload-artifact@v4
         with:

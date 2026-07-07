@@ -1,0 +1,43 @@
+{
+  "ok": true,
+  "errors": [],
+  "warnings": [
+    {
+      "code": "remote_unverifiable_surface",
+      "path": "run-evidence.records.remoteLimitations",
+      "message": "Remote service surfaces are recorded but not semantically verified by Core."
+    }
+  ],
+  "summary": {
+    "artifacts": 5,
+    "bindings": 8,
+    "assembly": "assembly.remote-service-001",
+    "capability": "capability.call-remote-service",
+    "run": "run-remote-service-001",
+    "runEvidence": "evidence.remote-service-001",
+    "digestBinding": "binding.digest.remote-summary",
+    "policyDecision": "allowed_with_constraints"
+  },
+  "negativeFixtures": {
+    "embedded-secret-service-binding.json": {
+      "ok": false,
+      "errorCodes": ["secret_value_in_core_record"]
+    },
+    "missing-policy-decision.json": {
+      "ok": false,
+      "errorCodes": ["missing_policy_decision"]
+    },
+    "remote-evidence-overclaim.json": {
+      "ok": false,
+      "errorCodes": ["run_evidence_overclaims_correctness"]
+    },
+    "stale-service-binding.json": {
+      "ok": false,
+      "errorCodes": ["stale_service_binding"]
+    },
+    "undeclared-network-access.json": {
+      "ok": false,
+      "errorCodes": ["undeclared_network_access"]
+    }
+  }
+}

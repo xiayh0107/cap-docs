@@ -136,20 +136,25 @@ Exit criteria:
 - Candidate review artifacts and readiness report are recorded before any
   normative promotion.
 
-## Phase 9 - CAP-Core candidate normative review
+## Phase 9 - CAP-Core candidate normative review and v1.0 stable release
 
-Goal: run the governance review that decides whether CAP-Core should enter
-candidate normative status without publishing a stable release.
-Tracker: [#61](https://github.com/xiayh0107/cap-docs/issues/61).
+Goal: run candidate normative review and publish CAP-Core v1.0.0 stable after
+all stable-track gates pass.
+Trackers: [#61](https://github.com/xiayh0107/cap-docs/issues/61) and
+[#62](https://github.com/xiayh0107/cap-docs/issues/62).
 
 - [x] Open the candidate review decision issue.
 - [x] Propose CAPP-0006 for CAP-Core candidate normative review entry.
-- [ ] Decide whether to accept, defer, or revise CAPP-0006.
-- [ ] If accepted, record the candidate normative review status without
-  freezing Core schemas as stable.
-- [ ] If additional evidence is requested, split blockers into focused issues
-  or CAPPs.
+- [x] Accept CAPP-0006 and record the candidate review disposition.
+- [x] Freeze v1.0 scope, conformance, schema, fixture, validator, renderer,
+  security, policy/service, RunEvidence, bridge, and registry baselines.
+- [x] Add v1.0 release-gate manifest validation.
+- [x] Record second implementation L0-L2 evidence, L3 evidence, and L4
+  comparison evidence.
+- [x] Prepare `cap-core-v1.0.0-rc1` and complete RC blocker triage.
+- [x] Accept CAPP-0007 for CAP-Core v1.0.0 stable release.
+- [x] Publish `release-artifacts/cap-core-v1.0.0/` and tag `cap-core-v1.0.0`.
+- [x] Establish v1.0.x maintenance and errata policy.
 
-Candidate review is not a stable release. CAP-Core schemas, fixtures,
-RunEvidence, bindings, profiles, and reference implementation behavior remain
-non-stable until a later accepted CAPP says otherwise.
+CAP-Core v1.0.0 remains limited to the minimal Core control-plane object
+contract. CAP-Digest behavior is unchanged.

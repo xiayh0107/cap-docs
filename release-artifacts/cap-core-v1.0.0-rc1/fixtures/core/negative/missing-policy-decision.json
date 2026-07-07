@@ -1,0 +1,15 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "missing-policy-decision",
+  "records": {
+    "assembly": {
+      "schema": "cap.core.assembly.v1",
+      "id": "assembly.no-policy-decision",
+      "artifacts": ["artifact.input"],
+      "capability": "capability.run",
+      "bindings": ["binding.runtime", "binding.policy"],
+      "policyBinding": "binding.policy",
+      "state": "authorized"
+    }
+  }
+}

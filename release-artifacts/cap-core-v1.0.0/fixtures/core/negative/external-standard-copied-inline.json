@@ -1,0 +1,18 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "external-standard-copied-inline",
+  "record": {
+    "schema": "cap.core.binding.v1",
+    "id": "binding.prov.inline",
+    "type": "evidence",
+    "target": "prov://example/run",
+    "standard": "W3C PROV",
+    "status": "resolved",
+    "constraints": {
+      "inlineExternalStandardSchema": {
+        "prov:Activity": {}
+      }
+    },
+    "evidenceRefs": []
+  }
+}

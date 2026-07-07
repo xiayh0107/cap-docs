@@ -1,0 +1,15 @@
+{
+  "schema": "cap.core.policy_decision.v1",
+  "id": "policy-decision.invalid",
+  "policyBinding": "binding.policy.no-network",
+  "policySystem": "host-policy",
+  "policyRef": "policy://fixture/no-network-tests",
+  "principal": "user:fixture",
+  "action": "run-tests",
+  "resource": "assembly.build-test-001",
+  "decision": "allow_with_no_audit",
+  "decisionTime": "2026-07-06T13:00:00Z",
+  "conditions": {},
+  "obligations": [],
+  "auditRef": "audit://fixture/build-test-invalid"
+}

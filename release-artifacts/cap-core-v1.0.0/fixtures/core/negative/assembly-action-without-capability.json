@@ -1,0 +1,13 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "assembly-action-without-capability",
+  "record": {
+    "schema": "cap.core.assembly.v1",
+    "id": "assembly.hidden-action",
+    "artifacts": ["artifact.input"],
+    "bindings": ["binding.runtime.hidden"],
+    "policyBinding": "binding.policy.hidden",
+    "state": "authorized",
+    "executableAction": "run-hidden-command"
+  }
+}

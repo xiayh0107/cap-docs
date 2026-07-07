@@ -60,4 +60,5 @@ A CAPP should not be accepted without:
 | CAPP-0003 | table-basic Digest Pack | implemented |
 | CAPP-0004 | CAP-Core Draft Entry | implemented |
 | CAPP-0005 | CAP-Core Candidate Normative Track | implemented |
-| CAPP-0006 | CAP-Core Candidate Normative Review Entry | proposed |
+| CAPP-0006 | CAP-Core Candidate Normative Review Entry | accepted |
+| CAPP-0007 | CAP-Core v1.0.0 Stable Release | accepted |

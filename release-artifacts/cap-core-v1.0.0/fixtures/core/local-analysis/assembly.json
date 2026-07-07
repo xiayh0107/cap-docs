@@ -1,0 +1,154 @@
+{
+  "schema": "cap.core.assembly.v1",
+  "id": "assembly.local-analysis-001",
+  "artifacts": [
+    "artifact.dataset.orders",
+    "artifact.script.analyze",
+    "artifact.config.analysis",
+    "artifact.environment.analysis"
+  ],
+  "capability": "capability.run-analysis",
+  "profiles": ["profile.local-scientific-analysis.v0", "profile.table-analysis.v0"],
+  "bindings": [
+    "binding.runtime.local-process",
+    "binding.resource.local-analysis",
+    "binding.policy.no-network",
+    "binding.evidence.local-files",
+    "binding.digest.run-summary",
+    "binding.data.local-filesystem",
+    "binding.transport.host-tool"
+  ],
+  "bindingRecords": [
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.runtime.local-process",
+      "type": "runtime",
+      "target": "local-process://python",
+      "standard": "host-local-process",
+      "standardVersion": "2026-07-05-fixture",
+      "profile": "profile.local-process-runtime.v0",
+      "constraints": {
+        "entrypoint": "python workspace/scripts/analyze.py --config workspace/config/analysis.json",
+        "isolation": "workspace"
+      },
+      "integrity": null,
+      "freshness": {
+        "observedAt": "2026-07-05T12:00:00Z"
+      },
+      "status": "resolved",
+      "evidenceRefs": []
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.resource.local-analysis",
+      "type": "resource",
+      "target": "host-resource://local",
+      "standard": "cap-resource-envelope",
+      "standardVersion": "draft-2026-07-05",
+      "profile": "profile.resource-envelope.v0",
+      "constraints": {
+        "cpu": 2,
+        "memory": "4GiB",
+        "timeout": "10m",
+        "network": "disabled",
+        "storage": "1GiB",
+        "locality": "workspace"
+      },
+      "integrity": null,
+      "freshness": null,
+      "status": "resolved",
+      "evidenceRefs": []
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.policy.no-network",
+      "type": "policy",
+      "target": "policy://fixture/no-network",
+      "standard": "host-policy",
+      "standardVersion": "2026-07-05-fixture",
+      "profile": "profile.policy-decision.v0",
+      "constraints": {
+        "decision": "allowed_with_constraints",
+        "network": "disabled",
+        "writeScope": "file://workspace/out/",
+        "principal": "user:fixture"
+      },
+      "integrity": null,
+      "freshness": {
+        "decisionTime": "2026-07-05T12:00:00Z"
+      },
+      "status": "resolved",
+      "evidenceRefs": ["policy-decision.local-analysis-001"]
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.evidence.local-files",
+      "type": "evidence",
+      "target": "file://workspace/out/",
+      "standard": "cap-run-evidence-envelope",
+      "standardVersion": "draft-2026-07-05",
+      "profile": "profile.local-file-evidence.v0",
+      "constraints": {
+        "outputs": ["summary.json", "plot.png", "run.log"]
+      },
+      "integrity": null,
+      "freshness": null,
+      "status": "resolved",
+      "evidenceRefs": []
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.digest.run-summary",
+      "type": "digest",
+      "target": "fixture://basic-table/expected-manifest.json",
+      "standard": "CAP-Digest",
+      "standardVersion": "2026-07-05-draft",
+      "profile": "profile.cap-digest-view.v0",
+      "constraints": {
+        "sourceRunEvidence": "evidence.run-001",
+        "digestEvidenceIsRunEvidence": false
+      },
+      "integrity": null,
+      "freshness": null,
+      "status": "resolved",
+      "evidenceRefs": ["evidence.run-001"]
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.data.local-filesystem",
+      "type": "data-plane",
+      "target": "file://workspace/",
+      "standard": "host-filesystem",
+      "standardVersion": "2026-07-05-fixture",
+      "profile": "profile.local-file-reference.v0",
+      "constraints": {
+        "largeBytesInCore": false
+      },
+      "integrity": null,
+      "freshness": null,
+      "status": "resolved",
+      "evidenceRefs": []
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.transport.host-tool",
+      "type": "transport",
+      "target": "host-tool://run-python",
+      "standard": "host-tool-api",
+      "standardVersion": "2026-07-05-fixture",
+      "profile": "profile.host-tool-binding.v0",
+      "constraints": {
+        "interactive": false
+      },
+      "integrity": null,
+      "freshness": null,
+      "status": "resolved",
+      "evidenceRefs": []
+    }
+  ],
+  "policyBinding": "binding.policy.no-network",
+  "state": "authorized",
+  "createdAt": "2026-07-05T12:00:00Z",
+  "createdBy": "user:fixture",
+  "unresolved": []
+}

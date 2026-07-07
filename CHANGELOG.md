@@ -9,6 +9,12 @@ CAP-Core draft proposal.
 
 ### Added
 
+- Added CAP-Core v1.0.0 stable release materials: CAPP-0007, stable scope,
+  conformance, schema package, fixture index, validator code registry,
+  inspection report format, security requirements, policy/service boundary,
+  RunEvidence requirements, CAP-Digest bridge boundary, registry snapshot,
+  maintenance policy, RC1 package, final release package, interop reports, and
+  release manifest validation.
 - Added CAPP-0006 and a CAP-Core candidate normative review-entry agenda for
   issue #61, while keeping CAP-Core non-stable and CAP-Digest unchanged.
 - Added CAP-Core candidate-prep schema rules, normative-language policy,

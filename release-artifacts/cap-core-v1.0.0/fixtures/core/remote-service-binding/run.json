@@ -1,0 +1,19 @@
+{
+  "schema": "cap.core.run.v1",
+  "id": "run-remote-service-001",
+  "assemblyId": "assembly.remote-service-001",
+  "state": "completed",
+  "startedAt": "2026-07-07T00:01:00Z",
+  "endedAt": "2026-07-07T00:01:02Z",
+  "inputs": [
+    "artifact.request.payload",
+    "artifact.service.contract",
+    "artifact.environment.client"
+  ],
+  "outputs": ["artifact.output.response-metadata"],
+  "runtimeBinding": "binding.runtime.service-client",
+  "resourceBinding": "binding.resource.remote-call",
+  "serviceBindings": ["binding.service.remote-api"],
+  "logs": ["artifact.log.remote-call"],
+  "evidenceRefs": ["evidence.remote-service-001"]
+}

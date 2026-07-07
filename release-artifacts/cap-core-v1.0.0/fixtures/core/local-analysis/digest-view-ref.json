@@ -1,0 +1,17 @@
+{
+  "schema": "cap.core.binding.v1",
+  "id": "binding.digest.run-summary",
+  "type": "digest",
+  "target": "fixture://basic-table/expected-manifest.json",
+  "standard": "CAP-Digest",
+  "standardVersion": "2026-07-05-draft",
+  "profile": "profile.cap-digest-view.v0",
+  "constraints": {
+    "sourceRunEvidence": "evidence.run-001",
+    "digestEvidenceIsRunEvidence": false
+  },
+  "integrity": null,
+  "freshness": null,
+  "status": "resolved",
+  "evidenceRefs": ["evidence.run-001"]
+}

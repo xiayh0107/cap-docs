@@ -2,6 +2,8 @@
 .DS_Store
 *.swp
 *~
+__pycache__/
+*.py[cod]
 
 # Keep tool temp out of history
 .zcode/

@@ -1,7 +1,7 @@
 # CAP Python Reference Implementation
 
-This is an experimental executable companion for the CAP-Digest and CAP-Core
-drafts. It is not the specification and is not intended as a production SDK.
+This is an experimental executable companion for CAP-Digest and CAP-Core v1.0.
+It is not the specification and is not intended as a production SDK.
 
 Current CAP-Digest scope:
 
@@ -25,9 +25,10 @@ Current CAP-Core scope:
 - validation: required fields, known references, required binding types,
   policy/run/evidence linkage, no secret values in Core records,
   remote-service safety checks, and CAP-Digest/CAP-Core evidence separation;
-- rendering: stable review summary and inspection reports for Core draft fixtures;
+- rendering: review summary and inspection reports for Core v1.0 fixtures;
 - Core report: `validate_core_fixtures.py --report core-conformance-report.json`.
 - interop report: `run_core_interop_harness.py --report core-interop-reference.json`.
+- release packages: `package_core_release_artifacts.py --release cap-core-v1.0.0 --stable`.
 
 Run tests from the repository root:
 
@@ -43,8 +44,9 @@ python reference/python/scripts/validate_fixtures.py --report conformance-report
 python reference/python/scripts/validate_core_fixtures.py --report core-conformance-report.json
 python reference/python/scripts/render_core_inspection_report.py --fixture local-analysis
 python reference/python/scripts/run_core_interop_harness.py --report core-interop-reference.json
+python reference/python/scripts/validate_core_release_manifest.py
 ```
 
 The fixture validator covers `basic-table`, `digest-text-negative`,
 `followup-basic`, `pack-table-basic`, `security-adversarial`, and the
-non-normative CAP-Core draft fixtures and negative suite.
+CAP-Core v1.0 fixture suites.

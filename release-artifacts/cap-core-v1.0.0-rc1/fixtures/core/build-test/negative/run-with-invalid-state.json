@@ -1,0 +1,10 @@
+{
+  "schema": "cap.core.run.v1",
+  "id": "run-build-test-invalid",
+  "assemblyId": "assembly.build-test-001",
+  "state": "succeeded",
+  "startedAt": "2026-07-06T13:01:00Z",
+  "inputs": ["artifact.repo.source"],
+  "outputs": ["artifact.output.test-report"],
+  "evidenceRefs": ["evidence.build-test-001"]
+}

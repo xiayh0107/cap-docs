@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cap-spec.org/schemas/core/cap.core.policy_decision.v1.schema.json",
+  "title": "CAP-Core PolicyDecision v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema",
+    "id",
+    "policyBinding",
+    "policySystem",
+    "policyRef",
+    "principal",
+    "action",
+    "resource",
+    "decision",
+    "decisionTime",
+    "conditions",
+    "obligations"
+  ],
+  "properties": {
+    "schema": { "const": "cap.core.policy_decision.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "policyBinding": { "type": "string", "minLength": 1 },
+    "policySystem": { "type": "string", "minLength": 1 },
+    "policyRef": { "type": "string", "minLength": 1 },
+    "policyVersion": { "type": ["string", "null"] },
+    "principal": { "type": "string", "minLength": 1 },
+    "action": { "type": "string", "minLength": 1 },
+    "resource": { "type": "string", "minLength": 1 },
+    "decision": {
+      "type": "string",
+      "enum": ["allowed", "denied", "allowed_with_constraints", "needs_confirmation", "stale_context"]
+    },
+    "decisionTime": { "type": "string", "minLength": 1 },
+    "conditions": { "type": "object", "additionalProperties": true },
+    "obligations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "auditRef": { "type": ["string", "null"] }
+  }
+}

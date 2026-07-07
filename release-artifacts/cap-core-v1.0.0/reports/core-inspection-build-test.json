@@ -1,0 +1,241 @@
+{
+  "bindings": [
+    {
+      "id": "binding.runtime.oci-reference",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "OCI",
+      "status": "resolved",
+      "target": "oci://example/python-test@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "type": "runtime"
+    },
+    {
+      "id": "binding.resource.local-test",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "cap-resource-envelope",
+      "status": "resolved",
+      "target": "host-resource://local-test",
+      "type": "resource"
+    },
+    {
+      "id": "binding.policy.no-network",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "host-policy",
+      "status": "resolved",
+      "target": "policy://fixture/no-network-tests",
+      "type": "policy"
+    },
+    {
+      "id": "binding.evidence.test-files",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "cap-run-evidence-envelope",
+      "status": "resolved",
+      "target": "file://workspace/out/",
+      "type": "evidence"
+    },
+    {
+      "id": "binding.digest.test-report",
+      "limitations": [
+        "Digest view is model-visible context, not replacement RunEvidence"
+      ],
+      "secretRefs": [],
+      "standard": "CAP-Digest",
+      "status": "resolved",
+      "target": "fixture://build-test/test-report-digest",
+      "type": "digest"
+    },
+    {
+      "id": "binding.data.workspace",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "host-filesystem",
+      "status": "resolved",
+      "target": "file://workspace/",
+      "type": "data-plane"
+    },
+    {
+      "id": "binding.transport.host-test-runner",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "host-tool-api",
+      "status": "resolved",
+      "target": "host-tool://run-tests",
+      "type": "transport"
+    },
+    {
+      "id": "binding.schema.pyproject",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "JSON Schema",
+      "status": "resolved",
+      "target": "schema://python/pyproject-build-test",
+      "type": "schema"
+    }
+  ],
+  "capability": {
+    "authorizationBoundary": "Capability declares operation shape only; PolicyDecision records authorization.",
+    "inputs": [
+      {
+        "artifactKind": "code",
+        "profile": "profile.git-worktree.v0",
+        "required": true,
+        "role": "source"
+      },
+      {
+        "artifactKind": "config",
+        "profile": "profile.python-project.v0",
+        "required": true,
+        "role": "project-config"
+      },
+      {
+        "artifactKind": "environment",
+        "profile": "profile.oci-runtime-reference.v0",
+        "required": true,
+        "role": "environment"
+      }
+    ],
+    "name": "run-build-test",
+    "outputs": [
+      {
+        "artifactKind": "report",
+        "profile": "profile.test-report.v0",
+        "required": true,
+        "role": "test-report"
+      },
+      {
+        "artifactKind": "log",
+        "profile": "profile.run-log.v0",
+        "required": true,
+        "role": "test-log"
+      }
+    ],
+    "requiredBindings": [
+      "runtime",
+      "resource",
+      "policy",
+      "evidence",
+      "digest"
+    ],
+    "sideEffects": [
+      "writes output directory"
+    ]
+  },
+  "diagnostics": {
+    "errors": [],
+    "ok": true,
+    "warnings": []
+  },
+  "evidence": {
+    "completeness": "complete",
+    "digestViews": [
+      "binding.digest.test-report"
+    ],
+    "evidenceType": "run-record",
+    "id": "evidence.build-test-001",
+    "integrity": "digested",
+    "limitations": [],
+    "logs": [
+      "artifact.log.test"
+    ],
+    "materials": [
+      "artifact.repo.source",
+      "artifact.config.pyproject",
+      "artifact.environment.python"
+    ],
+    "overclaimBoundary": "RunEvidence records observations and attestations; it does not prove semantic correctness.",
+    "products": [
+      "artifact.output.test-report",
+      "artifact.log.test"
+    ],
+    "runId": "run-build-test-001"
+  },
+  "fixture": {
+    "name": "build-test",
+    "path": "fixtures/core/build-test"
+  },
+  "objectGraph": {
+    "artifactIds": [
+      "artifact.repo.source",
+      "artifact.config.pyproject",
+      "artifact.environment.python",
+      "artifact.output.test-report",
+      "artifact.log.test"
+    ],
+    "artifactSetSchema": "cap.core.artifact_set.v1",
+    "assemblyId": "assembly.build-test-001",
+    "bindingIds": [
+      "binding.runtime.oci-reference",
+      "binding.resource.local-test",
+      "binding.policy.no-network",
+      "binding.evidence.test-files",
+      "binding.digest.test-report",
+      "binding.data.workspace",
+      "binding.transport.host-test-runner",
+      "binding.schema.pyproject"
+    ],
+    "capabilityId": "capability.run-build-test",
+    "digestBindingId": "binding.digest.test-report",
+    "policyDecisionId": "policy-decision.build-test-001",
+    "runEvidenceId": "evidence.build-test-001",
+    "runId": "run-build-test-001"
+  },
+  "policy": {
+    "conditions": {
+      "network": "disabled",
+      "timeout": "5m",
+      "writeScope": "file://workspace/out/"
+    },
+    "decision": "allowed_with_constraints",
+    "externalPolicyLanguage": "host-policy",
+    "failClosed": true,
+    "id": "policy-decision.build-test-001",
+    "obligations": [
+      "record-run-evidence",
+      "do-not-store-secret-values",
+      "render-digest-view-after-finalize"
+    ],
+    "policyBinding": "binding.policy.no-network"
+  },
+  "renderer": {
+    "name": "cap_core.reference_inspection_renderer",
+    "version": "1.0.0"
+  },
+  "run": {
+    "assemblyId": "assembly.build-test-001",
+    "evidenceRefs": [
+      "evidence.build-test-001"
+    ],
+    "id": "run-build-test-001",
+    "inputs": [
+      "artifact.repo.source",
+      "artifact.config.pyproject",
+      "artifact.environment.python"
+    ],
+    "logs": [
+      "artifact.log.test"
+    ],
+    "outputs": [
+      "artifact.output.test-report"
+    ],
+    "state": "completed"
+  },
+  "schema": "cap.core.inspection_report.v1",
+  "status": "stable-v1.0.0"
+}

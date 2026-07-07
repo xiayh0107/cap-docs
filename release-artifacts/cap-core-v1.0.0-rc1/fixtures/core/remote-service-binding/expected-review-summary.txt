@@ -1,0 +1,9 @@
+CAP-Core review summary
+Assembly: assembly.remote-service-001
+Capability: capability.call-remote-service
+Run: run-remote-service-001 state=completed
+Policy: allowed_with_constraints network=allowlist
+Artifacts: 5
+Bindings: 8
+Evidence: evidence.remote-service-001 completeness=partial integrity=external
+Digest view: binding.digest.remote-summary

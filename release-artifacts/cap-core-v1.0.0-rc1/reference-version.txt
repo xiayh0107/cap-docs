@@ -1,0 +1,5 @@
+release: cap-core-v1.0.0-rc1
+sourceRevision: recorded by repository tag cap-core-v1.0.0
+validator: cap_core.reference_validator 1.0.0
+status: release-candidate
+tagPlan: cap-core-v1.0.0

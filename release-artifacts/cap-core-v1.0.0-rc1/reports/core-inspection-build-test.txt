@@ -1,0 +1,39 @@
+CAP-Core inspection report
+Status: stable-v1.0.0
+Fixture: build-test (fixtures/core/build-test)
+
+Object graph:
+- Assembly: assembly.build-test-001
+- Capability: capability.run-build-test
+- Artifacts: 5
+- Bindings: 8
+- PolicyDecision: policy-decision.build-test-001
+- Run: run-build-test-001
+- RunEvidence: evidence.build-test-001
+- DigestBinding: binding.digest.test-report
+
+Bindings:
+- binding.runtime.oci-reference [runtime] status=resolved target=oci://example/python-test@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+- binding.resource.local-test [resource] status=resolved target=host-resource://local-test
+- binding.policy.no-network [policy] status=resolved target=policy://fixture/no-network-tests
+- binding.evidence.test-files [evidence] status=resolved target=file://workspace/out/
+- binding.digest.test-report [digest] status=resolved target=fixture://build-test/test-report-digest
+- binding.data.workspace [data-plane] status=resolved target=file://workspace/
+- binding.transport.host-test-runner [transport] status=resolved target=host-tool://run-tests
+- binding.schema.pyproject [schema] status=resolved target=schema://python/pyproject-build-test
+
+Policy:
+- Decision: allowed_with_constraints
+- Fail closed: true
+- Obligations: record-run-evidence, do-not-store-secret-values, render-digest-view-after-finalize
+
+Run and evidence:
+- Run state: completed
+- Outputs: artifact.output.test-report
+- Evidence completeness: complete
+- Evidence integrity: digested
+- Digest views: binding.digest.test-report
+- Limitations: none recorded
+
+Diagnostics:
+- none

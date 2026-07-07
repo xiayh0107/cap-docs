@@ -1,0 +1,39 @@
+{
+  "schema": "cap.core.capability.v1",
+  "id": "capability.call-remote-service",
+  "name": "Call remote service",
+  "description": "Submit a bounded request to an allowlisted remote service and record observation evidence.",
+  "inputs": [
+    {
+      "role": "request",
+      "artifactKind": "data",
+      "required": true,
+      "profile": "profile.service-request.v0"
+    },
+    {
+      "role": "service-contract",
+      "artifactKind": "document",
+      "required": true,
+      "profile": "profile.service-contract.v0"
+    }
+  ],
+  "outputs": [
+    {
+      "role": "response-metadata",
+      "artifactKind": "report",
+      "required": true,
+      "profile": "profile.remote-response-observation.v0"
+    },
+    {
+      "role": "log",
+      "artifactKind": "log",
+      "required": true,
+      "profile": "profile.run-log.v0"
+    }
+  ],
+  "sideEffects": ["network"],
+  "requiredBindings": ["runtime", "resource", "service", "policy", "evidence", "digest", "transport", "data-plane"],
+  "errorSemantics": "Remote response semantics are profile-owned and not proven by Core.",
+  "profiles": ["profile.remote-service-binding.v0"],
+  "implementationBindings": ["binding.runtime.service-client", "binding.service.remote-api"]
+}

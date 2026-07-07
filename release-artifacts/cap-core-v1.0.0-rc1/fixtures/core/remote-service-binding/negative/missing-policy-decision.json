@@ -1,0 +1,15 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "missing-policy-decision",
+  "records": {
+    "assembly": {
+      "schema": "cap.core.assembly.v1",
+      "id": "assembly.remote-service-001",
+      "artifacts": ["artifact.request.payload"],
+      "capability": "capability.call-remote-service",
+      "bindings": ["binding.service.remote-api"],
+      "policyBinding": "binding.policy.remote-allowlist",
+      "state": "authorized"
+    }
+  }
+}

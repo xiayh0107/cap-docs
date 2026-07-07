@@ -1,0 +1,17 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "digest-binding-collapses-evidence",
+  "record": {
+    "schema": "cap.core.binding.v1",
+    "id": "binding.digest.collapsed",
+    "type": "digest",
+    "target": "fixture://basic-table/expected-manifest.json",
+    "standard": "CAP-Digest",
+    "status": "resolved",
+    "constraints": {
+      "sourceRunEvidence": "evidence.run-001",
+      "digestEvidenceIsRunEvidence": true
+    },
+    "evidenceRefs": ["evidence.run-001"]
+  }
+}

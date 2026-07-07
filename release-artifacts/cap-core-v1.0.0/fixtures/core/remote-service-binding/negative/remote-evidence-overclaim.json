@@ -1,0 +1,18 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "remote-evidence-overclaim",
+  "record": {
+    "schema": "cap.core.run_evidence.v1",
+    "id": "evidence.remote-service-001",
+    "runId": "run-remote-service-001",
+    "subject": "run-remote-service-001",
+    "materials": ["artifact.request.payload"],
+    "products": ["artifact.output.response-metadata"],
+    "records": {
+      "semanticCorrectnessVerifiedByCore": true,
+      "claim": "remote result is correct"
+    },
+    "completeness": "complete",
+    "integrity": "external"
+  }
+}

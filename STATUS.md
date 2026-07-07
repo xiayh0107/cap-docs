@@ -2,13 +2,13 @@
 
 > Last updated: 2026-07-07
 
-This repository contains one alpha CAP-Digest draft profile and one
-non-normative CAP-Core draft proposal area.
+This repository contains one alpha CAP-Digest draft profile and CAP-Core
+v1.0.0 stable artifacts.
 
 | Area | Path | Status | Normative? | Notes |
 |---|---|---:|---:|---|
 | CAP-Digest overview and specification | `specs/digest/` | alpha draft | yes | Current active specification work; `cap-digest-0.1.0-alpha` is tagged. |
-| CAP-Core | `specs/core/` | candidate-prep complete; candidate normative review proposed | no | CAPP-0006 and issue #61 propose review entry. Integrated RFC-0001 overview, split draft RFCs, schema sketches, three fixture families, systematic negative suite, validator/renderer, inspection report, interop harness, candidate review package, and readiness report exist; no stable conformance. |
+| CAP-Core | `specs/core/` | v1.0.0 stable | yes | CAPP-0007 accepted CAP-Core v1.0.0 stable for the minimal control-plane object contract. Release artifact: `release-artifacts/cap-core-v1.0.0/`; tag: `cap-core-v1.0.0`. |
 | Design and research notes | `notes/` | analysis | no | Non-normative material only. |
 | JSON schemas | `schemas/` | draft | yes when marked active | CAP-Digest schemas and CAP-Core schema sketches. |
 | Conformance fixtures | `fixtures/` | draft | yes when marked active | CAP-Digest basic, negative, follow-up, pack, and security fixtures plus three CAP-Core fixture families and the Core negative suite. |
@@ -22,9 +22,9 @@ Every change should answer:
 
 > Is this refining CAP-Digest, or does it actually belong in CAP-Core?
 
-CAP-Core content must remain non-normative until a future CAPP accepts Core
-schemas, fixtures, and conformance language. CAPP-0006 proposes candidate
-normative review entry; it is not a stable release.
+CAP-Core v1.0.0 covers minimal Core records and conformance evidence only. It
+does not define runtime execution, policy language semantics, credential
+exchange, scientific correctness, or CAP-Digest behavior changes.
 
 ## Current implementation target
 
@@ -35,7 +35,7 @@ CAP-Digest Level 0/1 for one source type: table
 CAP-Digest Level 2 follow-up gate for table sample rows
 CAP-Digest Level 3 table-basic pack metadata loading
 CAP-Digest 0.1.0-alpha release tagged as cap-digest-0.1.0-alpha
-CAP-Core candidate-prep reader/assembly/run-evidence validator for local-analysis, build-test, and remote-service-binding
+CAP-Core v1.0.0 L0-L4 conformance reports and release package
 ```
 
 Key executable paths are:
@@ -56,4 +56,6 @@ fixtures/core/remote-service-binding/
 fixtures/core/negative/
 reference/python/cap_core/
 release-artifacts/core-candidate-review/
+release-artifacts/cap-core-v1.0.0-rc1/
+release-artifacts/cap-core-v1.0.0/
 ```

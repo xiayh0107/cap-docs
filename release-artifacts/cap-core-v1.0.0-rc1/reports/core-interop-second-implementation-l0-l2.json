@@ -1,0 +1,86 @@
+{
+  "fixtures": [
+    {
+      "errorCodes": [],
+      "name": "local-analysis",
+      "ok": true,
+      "path": "fixtures/core/local-analysis",
+      "unsupportedFeatures": [
+        "L3 RunEvidence production",
+        "runtime execution",
+        "external policy evaluation",
+        "secret retrieval"
+      ],
+      "warningCodes": []
+    },
+    {
+      "errorCodes": [],
+      "name": "build-test",
+      "ok": true,
+      "path": "fixtures/core/build-test",
+      "unsupportedFeatures": [
+        "L3 RunEvidence production",
+        "runtime execution",
+        "external policy evaluation",
+        "secret retrieval"
+      ],
+      "warningCodes": []
+    },
+    {
+      "errorCodes": [],
+      "name": "remote-service-binding",
+      "ok": true,
+      "path": "fixtures/core/remote-service-binding",
+      "unsupportedFeatures": [
+        "L3 RunEvidence production",
+        "runtime execution",
+        "external policy evaluation",
+        "secret retrieval"
+      ],
+      "warningCodes": []
+    }
+  ],
+  "implementation": {
+    "command": "independent structural JSON adapter over fixture files",
+    "name": "cap_core.external_structural_adapter",
+    "version": "1.0.0-l0-l2"
+  },
+  "negativeSuites": [
+    {
+      "cases": [
+        {
+          "errorCodes": [
+            "capability_implies_authorization"
+          ],
+          "name": "capability-implies-authorization.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "missing_policy_decision"
+          ],
+          "name": "missing-policy-decision.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "secret_value_in_core_record"
+          ],
+          "name": "secret-value-service-binding.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "unresolved_artifact_reference"
+          ],
+          "name": "unresolved-artifact-reference.json",
+          "ok": true
+        }
+      ],
+      "name": "fixtures/core/negative",
+      "ok": true
+    }
+  ],
+  "schema": "cap.core.interop_report.v1",
+  "status": "stable-v1.0.0"
+}

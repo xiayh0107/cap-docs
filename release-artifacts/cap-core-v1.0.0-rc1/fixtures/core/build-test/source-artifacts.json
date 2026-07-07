@@ -1,0 +1,123 @@
+{
+  "schema": "cap.core.artifact_set.v1",
+  "id": "artifact-set.build-test-001",
+  "profiles": ["profile.software-build-test.v0"],
+  "artifacts": [
+    {
+      "schema": "cap.core.artifact.v1",
+      "id": "artifact.repo.source",
+      "kind": "code",
+      "mediaType": "application/vnd.git",
+      "profileType": "profile.git-worktree.v0",
+      "ref": {
+        "uri": "git+file://workspace/repo#abc1234",
+        "scope": "workspace",
+        "kind": "git-worktree",
+        "integrity": {
+          "algorithm": "git-commit",
+          "value": "abc1234"
+        },
+        "accessHints": ["read-only"]
+      },
+      "labels": ["input", "source"],
+      "profiles": ["profile.git-worktree.v0"],
+      "bindings": ["binding.data.workspace"],
+      "metadata": {
+        "language": "python"
+      }
+    },
+    {
+      "schema": "cap.core.artifact.v1",
+      "id": "artifact.config.pyproject",
+      "kind": "config",
+      "mediaType": "application/toml",
+      "profileType": "profile.python-project.v0",
+      "ref": {
+        "uri": "file://workspace/repo/pyproject.toml",
+        "scope": "workspace",
+        "kind": "file",
+        "integrity": {
+          "algorithm": "sha256",
+          "value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        "accessHints": ["read-only"]
+      },
+      "labels": ["input", "config"],
+      "profiles": ["profile.python-project.v0"],
+      "bindings": ["binding.schema.pyproject"],
+      "metadata": {}
+    },
+    {
+      "schema": "cap.core.artifact.v1",
+      "id": "artifact.environment.python",
+      "kind": "environment",
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "profileType": "profile.oci-runtime-reference.v0",
+      "ref": {
+        "uri": "oci://example/python-test@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "scope": "external",
+        "kind": "oci-image",
+        "integrityState": "verified",
+        "integrity": {
+          "algorithm": "sha256",
+          "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "accessHints": ["runtime-reference"]
+      },
+      "labels": ["environment"],
+      "profiles": ["profile.oci-runtime-reference.v0"],
+      "bindings": ["binding.runtime.oci-reference"],
+      "metadata": {
+        "platform": "linux/amd64"
+      }
+    },
+    {
+      "schema": "cap.core.artifact.v1",
+      "id": "artifact.output.test-report",
+      "kind": "report",
+      "mediaType": "application/json",
+      "profileType": "profile.test-report.v0",
+      "ref": {
+        "uri": "file://workspace/out/test-report.json",
+        "scope": "workspace",
+        "kind": "file",
+        "integrity": {
+          "algorithm": "sha256",
+          "value": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "accessHints": ["created-by-run"]
+      },
+      "labels": ["output", "test-report"],
+      "profiles": ["profile.test-report.v0"],
+      "bindings": ["binding.evidence.test-files"],
+      "metadata": {
+        "tests": 12,
+        "failures": 0
+      }
+    },
+    {
+      "schema": "cap.core.artifact.v1",
+      "id": "artifact.log.test",
+      "kind": "log",
+      "mediaType": "text/plain",
+      "profileType": "profile.run-log.v0",
+      "ref": {
+        "uri": "file://workspace/out/test.log",
+        "scope": "workspace",
+        "kind": "file",
+        "integrity": {
+          "algorithm": "sha256",
+          "value": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        },
+        "accessHints": ["created-by-run"]
+      },
+      "labels": ["output", "log"],
+      "profiles": ["profile.run-log.v0"],
+      "bindings": ["binding.evidence.test-files"],
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "scenario": "software build and test"
+  }
+}

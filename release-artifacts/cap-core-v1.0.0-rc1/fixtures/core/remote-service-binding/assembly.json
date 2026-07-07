@@ -1,0 +1,183 @@
+{
+  "schema": "cap.core.assembly.v1",
+  "id": "assembly.remote-service-001",
+  "artifacts": [
+    "artifact.request.payload",
+    "artifact.service.contract",
+    "artifact.environment.client"
+  ],
+  "capability": "capability.call-remote-service",
+  "profiles": ["profile.remote-service-binding.v0"],
+  "bindings": [
+    "binding.runtime.service-client",
+    "binding.resource.remote-call",
+    "binding.service.remote-api",
+    "binding.policy.remote-allowlist",
+    "binding.evidence.remote-observation",
+    "binding.digest.remote-summary",
+    "binding.transport.https",
+    "binding.data.workspace"
+  ],
+  "bindingRecords": [
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.runtime.service-client",
+      "type": "runtime",
+      "target": "oci://example/service-client@sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "standard": "OCI",
+      "standardVersion": "image-spec-1.1",
+      "profile": "profile.oci-runtime-reference.v0",
+      "constraints": {
+        "entrypoint": "service-client --request workspace/request/payload.json",
+        "isolation": "workspace"
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "value": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      "freshness": {
+        "observedAt": "2026-07-07T00:00:00Z"
+      },
+      "status": "resolved",
+      "evidenceRefs": []
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.resource.remote-call",
+      "type": "resource",
+      "target": "host-resource://remote-service-call",
+      "standard": "cap-resource-envelope",
+      "standardVersion": "draft-2026-07-07",
+      "profile": "profile.resource-envelope.v0",
+      "constraints": {
+        "cpu": 1,
+        "memory": "512MiB",
+        "timeout": "30s",
+        "network": "allowlist",
+        "allowedHosts": ["api.example.invalid"],
+        "storage": "64MiB",
+        "locality": "workspace"
+      },
+      "integrity": null,
+      "freshness": null,
+      "status": "resolved",
+      "evidenceRefs": []
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.service.remote-api",
+      "type": "service",
+      "target": "https://api.example.invalid/v1/quote",
+      "standard": "HTTP",
+      "standardVersion": "1.1",
+      "profile": "profile.remote-service-binding.v0",
+      "constraints": {
+        "method": "POST",
+        "credential": {
+          "secretRef": "secret://fixture/remote-api-token",
+          "required": true
+        },
+        "storesSecretValue": false,
+        "semanticCorrectnessVerifiedByCore": false
+      },
+      "integrity": null,
+      "freshness": {
+        "observedAt": "2026-07-07T00:00:00Z"
+      },
+      "status": "resolved",
+      "evidenceRefs": ["evidence.remote-service-001"]
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.policy.remote-allowlist",
+      "type": "policy",
+      "target": "policy://fixture/remote-service-allowlist",
+      "standard": "host-policy",
+      "standardVersion": "2026-07-07-fixture",
+      "profile": "profile.policy-decision.v0",
+      "constraints": {
+        "decision": "allowed_with_constraints",
+        "network": "allowlist",
+        "allowedHosts": ["api.example.invalid"],
+        "principal": "user:fixture"
+      },
+      "integrity": null,
+      "freshness": {
+        "decisionTime": "2026-07-07T00:00:00Z"
+      },
+      "status": "resolved",
+      "evidenceRefs": ["policy-decision.remote-service-001"]
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.evidence.remote-observation",
+      "type": "evidence",
+      "target": "file://workspace/out/",
+      "standard": "cap-run-evidence-envelope",
+      "standardVersion": "draft-2026-07-07",
+      "profile": "profile.remote-observation-evidence.v0",
+      "constraints": {
+        "outputs": ["response-metadata.json", "remote-call.log"],
+        "remoteUnverifiable": true
+      },
+      "integrity": null,
+      "freshness": null,
+      "status": "resolved",
+      "evidenceRefs": []
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.digest.remote-summary",
+      "type": "digest",
+      "target": "fixture://remote-service-binding/response-summary-digest",
+      "standard": "CAP-Digest",
+      "standardVersion": "2026-07-06-draft",
+      "profile": "profile.cap-digest-view.v0",
+      "constraints": {
+        "sourceRunEvidence": "evidence.remote-service-001",
+        "digestEvidenceIsRunEvidence": false
+      },
+      "integrity": null,
+      "freshness": null,
+      "status": "resolved",
+      "evidenceRefs": ["evidence.remote-service-001"]
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.transport.https",
+      "type": "transport",
+      "target": "https://api.example.invalid/",
+      "standard": "HTTPS",
+      "standardVersion": "1.1",
+      "profile": "profile.https-transport.v0",
+      "constraints": {
+        "tlsRequired": true
+      },
+      "integrity": null,
+      "freshness": null,
+      "status": "resolved",
+      "evidenceRefs": []
+    },
+    {
+      "schema": "cap.core.binding.v1",
+      "id": "binding.data.workspace",
+      "type": "data-plane",
+      "target": "file://workspace/",
+      "standard": "host-filesystem",
+      "standardVersion": "2026-07-07-fixture",
+      "profile": "profile.local-file-reference.v0",
+      "constraints": {
+        "largeBytesInCore": false
+      },
+      "integrity": null,
+      "freshness": null,
+      "status": "resolved",
+      "evidenceRefs": []
+    }
+  ],
+  "policyBinding": "binding.policy.remote-allowlist",
+  "state": "authorized",
+  "createdAt": "2026-07-07T00:00:00Z",
+  "createdBy": "user:fixture",
+  "unresolved": ["remote-result-semantic-correctness"]
+}

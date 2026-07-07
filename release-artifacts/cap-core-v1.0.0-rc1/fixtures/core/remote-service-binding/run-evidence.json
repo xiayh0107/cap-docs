@@ -1,0 +1,32 @@
+{
+  "schema": "cap.core.run_evidence.v1",
+  "id": "evidence.remote-service-001",
+  "runId": "run-remote-service-001",
+  "evidenceType": "remote-service-observation",
+  "profile": "profile.remote-observation-evidence.v0",
+  "subject": "run-remote-service-001",
+  "materials": [
+    "artifact.request.payload",
+    "artifact.service.contract",
+    "artifact.environment.client"
+  ],
+  "products": ["artifact.output.response-metadata"],
+  "logs": ["artifact.log.remote-call"],
+  "records": {
+    "httpStatus": 200,
+    "requestId": "fixture-request-001",
+    "remoteLimitations": [
+      "Core records observed status and metadata only.",
+      "Core does not verify remote service semantic correctness.",
+      "Service contract is externally referenced and not copied into Core."
+    ],
+    "semanticCorrectnessVerifiedByCore": false
+  },
+  "attestations": [],
+  "provenanceRefs": ["prov://fixture/remote-service-001"],
+  "sbomRefs": [],
+  "telemetryRefs": ["otel://fixture/remote-service-001"],
+  "digestViews": ["binding.digest.remote-summary"],
+  "completeness": "partial",
+  "integrity": "external"
+}

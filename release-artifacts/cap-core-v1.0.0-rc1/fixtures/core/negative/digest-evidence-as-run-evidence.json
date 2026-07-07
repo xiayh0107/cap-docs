@@ -1,0 +1,9 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "digest-evidence-as-run-evidence",
+  "record": {
+    "schema": "cap.digest.evidence.v1",
+    "fieldId": "f1:table@columns#compact",
+    "digestId": "digest.example"
+  }
+}

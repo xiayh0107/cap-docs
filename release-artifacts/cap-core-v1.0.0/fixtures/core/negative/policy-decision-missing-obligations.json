@@ -1,0 +1,18 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "policy-decision-missing-obligations",
+  "record": {
+    "schema": "cap.core.policy_decision.v1",
+    "id": "policy-decision.no-obligations",
+    "policyBinding": "binding.policy.example",
+    "policySystem": "host-policy",
+    "policyRef": "policy://fixture/no-obligations",
+    "principal": "user:fixture",
+    "action": "run",
+    "resource": "assembly.example",
+    "decision": "allowed",
+    "decisionTime": "2026-07-07T00:00:00Z",
+    "conditions": {},
+    "obligations": []
+  }
+}

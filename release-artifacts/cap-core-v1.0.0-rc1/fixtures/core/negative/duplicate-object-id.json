@@ -1,0 +1,26 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "duplicate-object-id",
+  "records": {
+    "artifacts": [
+      {
+        "schema": "cap.core.artifact.v1",
+        "id": "artifact.duplicate",
+        "kind": "data",
+        "ref": {
+          "uri": "file://workspace/a",
+          "scope": "workspace"
+        }
+      },
+      {
+        "schema": "cap.core.artifact.v1",
+        "id": "artifact.duplicate",
+        "kind": "log",
+        "ref": {
+          "uri": "file://workspace/b",
+          "scope": "workspace"
+        }
+      }
+    ]
+  }
+}

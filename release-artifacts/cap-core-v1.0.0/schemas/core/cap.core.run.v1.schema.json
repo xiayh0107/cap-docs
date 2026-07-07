@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cap-spec.org/schemas/core/cap.core.run.v1.schema.json",
+  "title": "CAP-Core Run v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema",
+    "id",
+    "assemblyId",
+    "state",
+    "startedAt",
+    "inputs",
+    "outputs",
+    "runtimeBinding",
+    "resourceBinding",
+    "serviceBindings",
+    "logs",
+    "evidenceRefs"
+  ],
+  "properties": {
+    "schema": { "const": "cap.core.run.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "assemblyId": { "type": "string", "minLength": 1 },
+    "state": {
+      "type": "string",
+      "enum": ["planned", "starting", "running", "waiting", "completed", "failed", "cancelled", "stale"]
+    },
+    "startedAt": { "type": "string" },
+    "endedAt": { "type": ["string", "null"] },
+    "inputs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "outputs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "runtimeBinding": { "type": "string" },
+    "resourceBinding": { "type": "string" },
+    "serviceBindings": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "logs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "evidenceRefs": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}
