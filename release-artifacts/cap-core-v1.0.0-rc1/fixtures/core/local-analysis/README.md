@@ -1,9 +1,9 @@
 # local-analysis
 
-> Status: CAP-Core candidate-prep draft fixture - Non-normative
+> Status: CAP-Core v1.0 positive fixture
 
-This fixture exercises a local scientific analysis object graph. It remains a
-draft-track example and does not define stable Core conformance.
+This fixture exercises a local scientific analysis object graph. It is one
+positive fixture family for CAP-Core v1.0 validation and report generation.
 
 It covers:
 

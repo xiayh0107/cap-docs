@@ -10,8 +10,8 @@ v1.0.0 stable artifacts.
 | CAP-Digest overview and specification | `specs/digest/` | alpha draft | yes | Current active specification work; `cap-digest-0.1.0-alpha` is tagged. |
 | CAP-Core | `specs/core/` | v1.0.0 stable | yes | CAPP-0007 accepted CAP-Core v1.0.0 stable for the minimal control-plane object contract. Release artifact: `release-artifacts/cap-core-v1.0.0/`; tag: `cap-core-v1.0.0`. |
 | Design and research notes | `notes/` | analysis | no | Non-normative material only. |
-| JSON schemas | `schemas/` | draft | yes when marked active | CAP-Digest schemas and CAP-Core schema sketches. |
-| Conformance fixtures | `fixtures/` | draft | yes when marked active | CAP-Digest basic, negative, follow-up, pack, and security fixtures plus three CAP-Core fixture families and the Core negative suite. |
+| JSON schemas | `schemas/` | mixed | yes when marked active | CAP-Digest draft schemas plus CAP-Core v1.0 schemas under `schemas/core/`. |
+| Conformance fixtures | `fixtures/` | mixed | yes when marked active | CAP-Digest basic, negative, follow-up, pack, and security fixtures plus CAP-Core v1.0 positive and negative fixture suites. |
 | Digest packs | `packs/` | draft | yes when marked active | `table-basic` has field metadata, renderer notes, redactor notes, and pack fixture coverage. |
 | Reference implementation | `reference/` | experimental | no | Executable companion to test fixtures; not the specification itself. |
 | CAPP process | `capps/` | draft | yes for accepted CAPPs | Normative changes should route through this process when required. |

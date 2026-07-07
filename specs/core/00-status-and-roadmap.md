@@ -1,9 +1,9 @@
 # CAP-Core Status and Roadmap
 
-> Status: candidate-prep draft - Non-normative - Last updated: 2026-07-07
+> Status: CAP-Core v1.0.0 stable status page - Last updated: 2026-07-07
 
-This page standardizes how CAP-Core pages describe their status. It does not
-promote any Core schema, fixture, or validator behavior.
+This page standardizes how CAP-Core pages describe their status after
+CAPP-0007 accepted CAP-Core v1.0.0 stable.
 
 ## Status Terms
 
@@ -11,15 +11,15 @@ promote any Core schema, fixture, or validator behavior.
 |---|---|---|
 | Draft proposal | Design text under review. It may change without compatibility promises. | `RFC-0001.md`, `RFC-0001-core-object-model.md` |
 | Draft profile proposal | Profile-owned constraints over Core records. It does not change minimal Core. | `RFC-0003-scientific-computation-profile.md`, `RFC-0004-cap-digest-bridge-profile.md` |
-| Candidate-prep draft | Executable review material prepared for a future CAPP decision. | `schemas/core/`, `fixtures/core/`, `reference/python/cap_core/` |
-| Candidate normative | A future state allowed only after the promotion CAPP accepts gates. | Not active |
-| Normative | Accepted specification text or schema with explicit governance status. | Not active for CAP-Core |
+| Candidate-prep draft | Historical executable review material prepared before CAPP-0007. | `CONFORMANCE-DRAFT.md`, `SCHEMA-CANDIDATE-RULES.md` |
+| Stable v1.0 | Accepted minimal Core object contract, schema package, fixtures, reports, and maintenance policy. | `STABLE-SCOPE-v1.0.md`, `CONFORMANCE-v1.0.md`, `release-artifacts/cap-core-v1.0.0/` |
+| Normative | Accepted specification text or schema with explicit governance status. | CAP-Core v1.0.0 stable docs and schemas cited by CAPP-0007 |
 
 ## Current Scope
 
-CAP-Core draft-track material covers the Core object model, profile drafts,
-binding envelope, schema sketches, fixtures, validator, renderer, conformance
-report, and interop harness. These assets are reviewable evidence only.
+CAP-Core v1.0.0 covers the minimal Core object model, binding envelope, schema
+package, positive and negative fixtures, validator codes, renderer/report
+formats, conformance reports, interop evidence, and maintenance policy.
 
 CAP-Digest remains the active digest profile. CAP-Core bridge material can
 reference CAP-Digest views, but it does not alter digest text grammar,
@@ -27,16 +27,17 @@ DigestManifest semantics, or follow-up gate behavior.
 
 ## Stability Boundaries
 
-- Core object schemas are candidate-prep sketches, not stable requirements.
-- Core fixtures are executable examples and negative checks, not a release
-  corpus.
-- Validator and renderer outputs are reference behavior for review, not the
-  specification itself.
+- Core object schemas under `schemas/core/` are the v1.0 schema package.
+- Core fixtures under `fixtures/core/` are the v1.0 release fixture corpus.
+- Validator and renderer outputs are reference evidence for conformance and
+  interoperability reports; the specification remains the accepted docs and
+  schemas.
 - Profiles and bindings may add stricter rules only in their own namespace.
-- Any candidate normative wording is gated by `capps/CAPP-0005-cap-core-candidate-normative-track.md`.
+- CAP-Core v1.0.0 still excludes runtime execution, policy language semantics,
+  credential exchange, scientific correctness, and CAP-Digest behavior changes.
 
 ## Roadmap Link
 
-Phase 8 is tracked by GitHub issue #30. The exit criteria are recorded in
-`ROADMAP.md`, this status page, the Core conformance draft, and the candidate
-readiness report.
+Phase 9 completed the stable release path tracked by issues #61 and #62.
+The accepted stable release is recorded in `capps/CAPP-0007-cap-core-v1.0.0-stable-release.md`,
+`ROADMAP.md`, `STATUS.md`, and `release-artifacts/cap-core-v1.0.0/`.

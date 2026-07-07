@@ -2,8 +2,8 @@
 
 All notable changes to this repository will be documented here.
 
-This project currently tracks a draft CAP-Digest profile and a non-normative
-CAP-Core draft proposal.
+This project currently tracks a draft CAP-Digest profile and CAP-Core v1.0.0
+stable artifacts.
 
 ## Unreleased
 
@@ -16,7 +16,7 @@ CAP-Core draft proposal.
   maintenance policy, RC1 package, final release package, interop reports, and
   release manifest validation.
 - Added CAPP-0006 and a CAP-Core candidate normative review-entry agenda for
-  issue #61, while keeping CAP-Core non-stable and CAP-Digest unchanged.
+  issue #61, preserving CAP-Digest behavior during review.
 - Added CAP-Core candidate-prep schema rules, normative-language policy,
   status map, secret/service binding safety model, inspection report schema,
   interoperability report schemas, profile/binding registry, profile
@@ -39,9 +39,9 @@ CAP-Core draft proposal.
 ### Changed
 
 - Expanded Core fixture validation, schema-fixture validation, tests, and
-  conformance reporting to cover both Core draft fixtures.
+  conformance reporting to cover the Core fixture suites.
 - Updated Core documentation to keep artifact-set, policy-decision, binding,
-  and profile boundaries explicit before any future normative promotion.
+  and profile boundaries explicit through the v1.0 stable release.
 - Synced project status, Core README, FAQ, maintenance guidance, release
   checklist status, and citation metadata with the post-alpha CAP-Core
   draft-track state.

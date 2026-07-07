@@ -1,9 +1,9 @@
 # build-test
 
-> Status: CAP-Core candidate-prep draft fixture - Non-normative
+> Status: CAP-Core v1.0 positive fixture
 
-This CAP-Core draft fixture exercises a software build/test scenario. It is a
-second proof point for the Core object graph and remains non-normative.
+This CAP-Core fixture exercises a software build/test scenario. It is one
+positive fixture family for CAP-Core v1.0 validation and interop evidence.
 
 It covers:
 

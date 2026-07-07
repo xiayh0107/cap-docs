@@ -1,7 +1,7 @@
 # Roadmap
 
-This roadmap keeps CAP-Digest executable while keeping CAP-Core non-normative
-until schemas, fixtures, and conformance work justify normative Core text.
+This roadmap keeps CAP-Digest executable and records CAP-Core's path from draft
+preparation through the accepted v1.0.0 stable release.
 
 ## Phase 0 — Repository governance baseline
 

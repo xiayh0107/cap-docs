@@ -1,9 +1,9 @@
 # CAP-Core Interoperability Harness
 
-> Status: candidate-prep draft - Non-normative - Last updated: 2026-07-07
+> Status: CAP-Core v1.0 interoperability harness - Last updated: 2026-07-07
 
 The interop harness compares fixture pass/fail status and stable error codes
-across implementations. It is the candidate-prep basis for L4 review.
+across implementations. It is the CAP-Core v1.0 basis for L4 review.
 
 ## Report Format
 
@@ -67,5 +67,5 @@ python reference/python/scripts/compare_core_interop_reports.py \
   --report core-interop-comparison.json
 ```
 
-L4 candidate-prep review uses this harness when a second implementation or
-external adapter report exists.
+L4 review uses this harness when a second implementation or external adapter
+report exists.

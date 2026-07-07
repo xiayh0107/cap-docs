@@ -1,6 +1,6 @@
 # CAP — Context Assembly Protocol
 
-> Status: draft · Version: 2026-07-06-draft · Scope: CAP-Digest draft profile plus non-normative CAP-Core draft track
+> Status: draft · Version: 2026-07-06-draft · Scope: CAP-Digest draft profile plus CAP-Core v1.0.0 stable
 
 CAP is a family of specifications for turning complex source objects and
 machine-operable task records into safe, bounded, traceable context and assembly
@@ -33,9 +33,9 @@ changes.
 cap-docs/
 ├── specs/
 │   ├── digest/               # CAP-Digest draft specification
-│   └── core/                 # CAP-Core non-normative draft proposal track
-├── schemas/                  # CAP-Digest schemas and CAP-Core schema sketches
-├── fixtures/                 # executable draft fixtures
+│   └── core/                 # CAP-Core v1.0.0 stable docs plus historical drafts
+├── schemas/                  # CAP-Digest schemas and CAP-Core v1.0 schemas
+├── fixtures/                 # executable fixtures and conformance suites
 ├── packs/                    # experimental Digest Packs
 ├── reference/                # experimental Python reference helpers
 ├── capps/                    # CAP proposal process
@@ -52,7 +52,7 @@ cap-docs/
 - Roadmap: [ROADMAP.md](ROADMAP.md)
 - Alpha release checklist: [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md)
 - Governance and CAPP process: [capps/README.md](capps/README.md)
-- CAP-Core draft track: [specs/core/README.md](specs/core/README.md)
+- CAP-Core v1.0.0 stable: [specs/core/README.md](specs/core/README.md)
 
 ## Executable Draft Assets
 
@@ -70,7 +70,7 @@ CAP-Digest executable coverage now includes:
 - `packs/table-basic/` — the first experimental Digest Pack.
 - `reference/python/` — experimental executable companion and fixture checker.
 
-CAP-Core executable draft-track coverage includes:
+CAP-Core v1.0 executable coverage includes:
 
 - `schemas/core/`
 - `fixtures/core/local-analysis/`
@@ -80,8 +80,8 @@ CAP-Core executable draft-track coverage includes:
 - `reference/python/cap_core/`
 - `release-artifacts/cap-core-v1.0.0/`
 
-These Core assets are useful for design validation, but they are not stable
-CAP-Core conformance requirements.
+These Core assets are the CAP-Core v1.0.0 fixture and report surface described
+by the stable Core documents and release package.
 
 ## Run Checks
 
@@ -98,8 +98,7 @@ python reference/python/scripts/run_core_interop_harness.py --report core-intero
 ```
 
 The conformance report uses `cap.conformance_report.v1` and currently covers
-the CAP-Digest fixtures plus the CAP-Core local-analysis, build-test, and
-remote-service-binding draft fixtures.
+the CAP-Digest fixtures plus the CAP-Core v1.0 fixture families.
 
 ## Conformance Snapshot
 
@@ -109,12 +108,12 @@ Current executable target:
 CAP-Digest Level 0/1: table source digest assembly
 CAP-Digest Level 2: gated follow-up for table sample rows
 CAP-Digest Level 3: table-basic Digest Pack metadata loading
-CAP-Core: non-normative local-analysis, build-test, and remote-service-binding draft fixtures
+CAP-Core v1.0.0: local-analysis, build-test, remote-service-binding, and negative fixtures
 ```
 
-CAP-Digest `0.1.0-alpha` is tagged as `cap-digest-0.1.0-alpha`. GitHub release
-notes document the alpha scope, fixture coverage, reference implementation
-status, known limitations, and non-normative CAP-Core status.
+CAP-Digest `0.1.0-alpha` is tagged as `cap-digest-0.1.0-alpha`. Those GitHub
+release notes document the alpha-era Digest scope, fixture coverage, reference
+implementation status, known limitations, and the then-current CAP-Core status.
 
 ## Contribution and Governance
 
@@ -139,5 +138,6 @@ selection, and evidence validation into an implicit runtime protocol.
 The CAP-Digest spec uses **MUST**, **MUST NOT**, **SHOULD**, and **MAY** as
 defined in [specs/digest/00-overview.md](specs/digest/00-overview.md).
 
-Documents in `notes/`, `reference/`, draft fixtures, and CAP-Core draft-track
-assets are non-normative unless a future accepted CAPP explicitly promotes them.
+Documents in `notes/` and `reference/` are non-normative. Historical CAP-Core
+draft documents remain design records unless cited by CAPP-0007 or the v1.0
+stable documents.
