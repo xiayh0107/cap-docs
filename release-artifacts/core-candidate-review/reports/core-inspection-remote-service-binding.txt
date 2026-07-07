@@ -1,0 +1,39 @@
+CAP-Core inspection report
+Status: draft-track-candidate-prep-non-normative
+Fixture: remote-service-binding (fixtures/core/remote-service-binding)
+
+Object graph:
+- Assembly: assembly.remote-service-001
+- Capability: capability.call-remote-service
+- Artifacts: 5
+- Bindings: 8
+- PolicyDecision: policy-decision.remote-service-001
+- Run: run-remote-service-001
+- RunEvidence: evidence.remote-service-001
+- DigestBinding: binding.digest.remote-summary
+
+Bindings:
+- binding.runtime.service-client [runtime] status=resolved target=oci://example/service-client@sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+- binding.resource.remote-call [resource] status=resolved target=host-resource://remote-service-call
+- binding.service.remote-api [service] status=resolved target=https://api.example.invalid/v1/quote
+- binding.policy.remote-allowlist [policy] status=resolved target=policy://fixture/remote-service-allowlist
+- binding.evidence.remote-observation [evidence] status=resolved target=file://workspace/out/
+- binding.digest.remote-summary [digest] status=resolved target=fixture://remote-service-binding/response-summary-digest
+- binding.transport.https [transport] status=resolved target=https://api.example.invalid/
+- binding.data.workspace [data-plane] status=resolved target=file://workspace/
+
+Policy:
+- Decision: allowed_with_constraints
+- Fail closed: true
+- Obligations: do-not-store-service-secret, record-remote-unverifiable-surfaces, do-not-claim-semantic-correctness
+
+Run and evidence:
+- Run state: completed
+- Outputs: artifact.output.response-metadata
+- Evidence completeness: partial
+- Evidence integrity: external
+- Digest views: binding.digest.remote-summary
+- Limitations: Core records observed status and metadata only. | Core does not verify remote service semantic correctness. | Service contract is externally referenced and not copied into Core.
+
+Diagnostics:
+- WARNING remote_unverifiable_surface at run-evidence.records.remoteLimitations: Remote service surfaces are recorded but not semantically verified by Core.

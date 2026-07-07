@@ -49,6 +49,15 @@ The bridge is exercised by:
 Both fixtures include negative cases where CAP-Digest evidence is rejected as a
 substitute for CAP-Core RunEvidence.
 
+The systematic suite also includes
+`fixtures/core/negative/digest-binding-collapses-evidence.json`, which rejects
+DigestBinding records where `constraints.digestEvidenceIsRunEvidence` is not
+explicitly `false`.
+
+Positive digest binding coverage appears in `digest-view-ref.json` and the
+matching Assembly `bindingRecords` for local-analysis, build-test, and
+remote-service-binding.
+
 ## Coordination Rule
 
 Any future change that alters CAP-Digest behavior, digest grammar, manifest

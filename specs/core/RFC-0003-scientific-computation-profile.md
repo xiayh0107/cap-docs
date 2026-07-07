@@ -28,6 +28,10 @@ These semantics belong to this profile or external standards, not to Core:
 - domain-specific metadata;
 - provenance profile selection.
 
+Core-level validators should not enforce these semantics unless a profile check
+is explicitly active. The current reference validator stays at Core level for
+shared object closure, policy, secret, binding, Run, and RunEvidence checks.
+
 ## Fixture Basis
 
 The profile is currently represented by:
@@ -44,6 +48,26 @@ That fixture demonstrates:
 - policy decision with network disabled;
 - completed Run;
 - RunEvidence with output, log, provenance, telemetry, and digest references.
+
+## Fixture Mapping
+
+| Profile role | Fixture artifact or field | Core object surface |
+|---|---|---|
+| dataset | `artifact.dataset.orders` | `Artifact.kind = data`, profile-owned table semantics |
+| script | `artifact.script.analyze` | `Artifact.kind = code`, profile-owned Python semantics |
+| config | `artifact.config.analysis` | `Artifact.kind = config`, profile-owned analysis config |
+| environment | `artifact.environment.analysis` | `Artifact.kind = environment`, OCI binding reference |
+| output summary | `artifact.output.summary` | `Artifact.kind = result`, product of RunEvidence |
+| plot | `artifact.output.plot` | `Artifact.kind = result`, optional profile output |
+| run log | `artifact.log.run` | `Artifact.kind = log`, Run and RunEvidence log ref |
+| resource envelope | `binding.resource.local-analysis` | Binding with profile-owned CPU/memory/network details |
+| digest view | `binding.digest.run-summary` | CAP-Digest bridge binding, not replacement evidence |
+
+## Non-Claims
+
+The fixture does not prove scientific correctness, reproducibility scoring,
+statistical validity, or workflow-language compatibility. Reproducibility
+caveats are evidence limitations unless a future profile adds explicit checks.
 
 ## Relationship to Build/Test
 

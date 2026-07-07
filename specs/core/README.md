@@ -1,6 +1,6 @@
 # CAP-Core
 
-> Status: draft proposal area · Non-normative · Last updated: 2026-07-06
+> Status: candidate-prep draft proposal area · Non-normative · Last updated: 2026-07-07
 
 CAP-Core is the upper layer of CAP proposed for assembling machine-operable
 research/engineering objects into a runnable, traceable, policy-governed
@@ -13,34 +13,44 @@ CAP-Core remains non-normative. This directory contains the integrated RFC-0001
 overview, split draft RFCs, and supporting planning and construction documents.
 The repository also contains Core-scoped schema sketches, local-analysis,
 build-test, and remote-service-binding fixtures, a systematic negative suite,
-and a validator/renderer prototype. None of these assets define stable CAP-Core
-conformance.
+and validator/renderer/inspection/interop prototypes. None of these assets
+define stable CAP-Core conformance.
 
 Start here:
 
-1. [CAP-Core Writing Plan](WRITING-PLAN.md) — how to research and write CAP-Core.
-2. [CAP-Core RFC-0001](RFC-0001.md) — first integrated draft proposal retained as an overview.
-3. [RFC-0001 Core Object Model](RFC-0001-core-object-model.md) — split draft for minimal Core objects.
-4. [RFC-0002 Binding Model](RFC-0002-binding-model.md) — split draft for generic bindings and binding roles.
-5. [RFC-0003 Scientific Computation Profile](RFC-0003-scientific-computation-profile.md) — split profile draft.
-6. [RFC-0004 CAP-Digest Bridge Profile](RFC-0004-cap-digest-bridge-profile.md) — split bridge profile draft.
-7. [CAP-Core RFC-0001 Outline](RFC-0001-outline.md) — reviewed structure for the
+1. [CAP-Core Status and Roadmap](00-status-and-roadmap.md) — shared status language and CAPP gate reminder.
+2. [CAP-Core Normative Language Policy](NORMATIVE-LANGUAGE.md) — future requirement-keyword policy.
+3. [CAP-Core Writing Plan](WRITING-PLAN.md) — how to research and write CAP-Core.
+4. [CAP-Core RFC-0001](RFC-0001.md) — first integrated draft proposal retained as an overview.
+5. [RFC-0001 Core Object Model](RFC-0001-core-object-model.md) — split draft for minimal Core objects.
+6. [RFC-0002 Binding Model](RFC-0002-binding-model.md) — split draft for generic bindings and binding roles.
+7. [RFC-0003 Scientific Computation Profile](RFC-0003-scientific-computation-profile.md) — split profile draft.
+8. [RFC-0004 CAP-Digest Bridge Profile](RFC-0004-cap-digest-bridge-profile.md) — split bridge profile draft.
+9. [CAP-Core Schema Candidate Rules](SCHEMA-CANDIDATE-RULES.md) — candidate-prep object rules and error codes.
+10. [Secret Reference and Service Binding Safety](SECRET-SERVICE-BINDING-SAFETY.md) — opaque secret and service rules.
+11. [CAP-Core Inspection Report](INSPECTION-REPORT.md) — renderer report format and command.
+12. [CAP-Core Interoperability Harness](INTEROPERABILITY-HARNESS.md) — implementation report and comparison path.
+13. [Profile and Binding Registry Draft](PROFILE-AND-BINDING-REGISTRY.md) — profile/binding family registry.
+14. [CAP-Core Profile Governance](PROFILE-GOVERNANCE.md) — profile lifecycle and extension rules.
+15. [Terminology Collision Audit](TERMINOLOGY-COLLISION-AUDIT.md) — CAP-Core/CAP-Digest term boundaries.
+16. [CAP-Core Draft Implementer Guide](IMPLEMENTATION-GUIDE.md) — validation, renderer, and interop commands.
+17. [CAP-Core RFC-0001 Outline](RFC-0001-outline.md) — reviewed structure for the
    first CAP-Core RFC.
-8. [CAP-Core Boundary Matrix](BOUNDARY-MATRIX.md) — Core/Profile/Binding/Digest/external split.
-9. [CAP-Core Primitive Reuse Review](PRIMITIVE-REUSE.md) — primitive-by-primitive reuse/gap review.
-10. [CAP-Core External Standard Binding Policy](BINDING-POLICY.md) — how Core binds to external standards.
-11. [CAP-Core Ontology Draft](ONTOLOGY-DRAFT.md) — candidate Core objects and relationships.
-12. [CAP-Core Lifecycle Draft](LIFECYCLE-DRAFT.md) — candidate assembly/run lifecycle checkpoints.
-13. [CAP-Core Security and Policy Draft](SECURITY-POLICY-DRAFT.md) — policy/security record model.
-14. [CAP-Core Conformance Draft](CONFORMANCE-DRAFT.md) — schema sketch and fixture plan.
-15. [CAP-Core Versioning and Compatibility](VERSIONING-AND-COMPATIBILITY.md) — schema compatibility rules.
-16. [CAP-Core Security, Privacy, and Trust](SECURITY-PRIVACY-TRUST.md) — candidate-prep threat model.
-17. [Example Assembly 0001](EXAMPLE-ASSEMBLY-0001.md) — first scientific-analysis example.
-18. [CAP-Core Research Sources](RESEARCH-SOURCES.md) — reviewed source basis for
+18. [CAP-Core Boundary Matrix](BOUNDARY-MATRIX.md) — Core/Profile/Binding/Digest/external split.
+19. [CAP-Core Primitive Reuse Review](PRIMITIVE-REUSE.md) — primitive-by-primitive reuse/gap review.
+20. [CAP-Core External Standard Binding Policy](BINDING-POLICY.md) — how Core binds to external standards.
+21. [CAP-Core Ontology Draft](ONTOLOGY-DRAFT.md) — candidate Core objects and relationships.
+22. [CAP-Core Lifecycle Draft](LIFECYCLE-DRAFT.md) — candidate assembly/run lifecycle checkpoints.
+23. [CAP-Core Security and Policy Draft](SECURITY-POLICY-DRAFT.md) — policy/security record model.
+24. [CAP-Core Conformance Draft](CONFORMANCE-DRAFT.md) — schema sketch and fixture plan.
+25. [CAP-Core Versioning and Compatibility](VERSIONING-AND-COMPATIBILITY.md) — schema compatibility rules.
+26. [CAP-Core Security, Privacy, and Trust](SECURITY-PRIVACY-TRUST.md) — candidate-prep threat model.
+27. [Example Assembly 0001](EXAMPLE-ASSEMBLY-0001.md) — first scientific-analysis example.
+28. [CAP-Core Research Sources](RESEARCH-SOURCES.md) — reviewed source basis for
    RFC drafting.
-19. [CAP-Core Open Questions](OPEN-QUESTIONS.md) — questions to resolve or defer
+29. [CAP-Core Open Questions](OPEN-QUESTIONS.md) — questions to resolve or defer
    before RFC-0001 advances.
-20. [CAP-Core review decisions](reviews/) — non-normative decision notes for
+30. [CAP-Core review decisions](reviews/) — non-normative decision notes for
     object minimization, fixture value, schema boundaries, and RFC split
     planning.
 
@@ -51,7 +61,7 @@ Executable draft assets:
 - `fixtures/core/build-test/` — second Core fixture proving the object model outside scientific analysis.
 - `fixtures/core/remote-service-binding/` — non-local service-binding fixture without credentials.
 - `fixtures/core/negative/` — systematic candidate-prep negative suite.
-- `reference/python/cap_core/` — validator/renderer prototype.
+- `reference/python/cap_core/` — validator, renderer, inspection, and interop prototype.
 
 ## Problem statement (intended scope)
 

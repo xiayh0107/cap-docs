@@ -14,7 +14,9 @@
     "action",
     "resource",
     "decision",
-    "decisionTime"
+    "decisionTime",
+    "conditions",
+    "obligations"
   ],
   "properties": {
     "schema": { "const": "cap.core.policy_decision.v1" },

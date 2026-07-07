@@ -9,6 +9,13 @@ CAP-Core draft proposal.
 
 ### Added
 
+- Added CAP-Core candidate-prep schema rules, normative-language policy,
+  status map, secret/service binding safety model, inspection report schema,
+  interoperability report schemas, profile/binding registry, profile
+  governance, terminology collision audit, implementer guide, candidate review
+  package, and readiness report.
+- Added Core inspection and interoperability CLI scripts plus tests for renderer
+  diagnostics, Digest bridge separation, and report comparison.
 - Added CAP-Core Phase 8 candidate-prep assets: CAPP-0005, L0-L4 conformance
   levels, schema versioning rules, security threat model, remote-service-binding
   fixture, systematic negative suite, Core conformance report schema, Core

@@ -110,7 +110,7 @@ track.
 ## Phase 8 - CAP-Core candidate normative preparation
 
 Goal: prepare CAP-Core for candidate normative review without promoting it.
-Tracker: #30.
+Tracker: [#30](https://github.com/xiayh0107/cap-docs/issues/30).
 
 - [x] Draft CAPP-0005 for candidate normative promotion gates.
 - [x] Define candidate-prep conformance levels L0-L4.
@@ -121,9 +121,11 @@ Tracker: #30.
 - [x] Add a stable draft Core conformance report format.
 - [x] Wire Core draft checks into CI.
 - [x] Triage CAP-Core open questions for candidate-prep blockers.
-
-Remaining Phase 8 work is tracked in GitHub issues #30 and #36-#42, #46,
-#48, and #50-#60.
+- [x] Promote the eight Core object schema sketches to candidate-prep review
+  rules with negative coverage and validator error codes.
+- [x] Define normative-language, status, secret-reference, profile governance,
+  registry, terminology, renderer, interop, and implementer-guide documents.
+- [x] Prepare candidate review artifacts and a dated readiness report.
 
 Exit criteria:
 

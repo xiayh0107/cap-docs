@@ -25,8 +25,9 @@ Current CAP-Core scope:
 - validation: required fields, known references, required binding types,
   policy/run/evidence linkage, no secret values in Core records,
   remote-service safety checks, and CAP-Digest/CAP-Core evidence separation;
-- rendering: stable review summary for Core draft fixtures;
+- rendering: stable review summary and inspection reports for Core draft fixtures;
 - Core report: `validate_core_fixtures.py --report core-conformance-report.json`.
+- interop report: `run_core_interop_harness.py --report core-interop-reference.json`.
 
 Run tests from the repository root:
 
@@ -40,6 +41,8 @@ Run fixture validation from the repository root:
 python reference/python/scripts/validate_fixtures.py
 python reference/python/scripts/validate_fixtures.py --report conformance-report.json
 python reference/python/scripts/validate_core_fixtures.py --report core-conformance-report.json
+python reference/python/scripts/render_core_inspection_report.py --fixture local-analysis
+python reference/python/scripts/run_core_interop_harness.py --report core-interop-reference.json
 ```
 
 The fixture validator covers `basic-table`, `digest-text-negative`,

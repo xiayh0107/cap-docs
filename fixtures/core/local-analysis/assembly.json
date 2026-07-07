@@ -105,7 +105,8 @@
       "standardVersion": "2026-07-05-draft",
       "profile": "profile.cap-digest-view.v0",
       "constraints": {
-        "sourceRunEvidence": "evidence.run-001"
+        "sourceRunEvidence": "evidence.run-001",
+        "digestEvidenceIsRunEvidence": false
       },
       "integrity": null,
       "freshness": null,

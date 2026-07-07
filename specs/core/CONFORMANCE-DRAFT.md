@@ -211,6 +211,19 @@ Reports include validator identity, target level, fixture identity, schema
 checks, reference-closure checks, policy checks, binding checks, RunEvidence
 checks, security warnings, unsupported features, and stable error/warning codes.
 
+## Interoperability Harness
+
+L4 candidate-prep review uses `specs/core/INTEROPERABILITY-HARNESS.md`.
+Implementation reports use `cap.core.interop_report.v1`; comparison reports use
+`cap.core.interop_comparison.v1`. The harness compares fixture pass/fail status
+and stable error codes, not runtime execution behavior.
+
+## Inspection Renderer
+
+Human review uses `specs/core/INSPECTION-REPORT.md`. The JSON report schema is
+`cap.core.inspection_report.v1`, and the text renderer displays object graph,
+binding, policy, run/evidence, limitation, warning, and error summaries.
+
 ## First draft conclusion
 
 RFC-0001 and the split Core drafts may cite this conformance strategy as

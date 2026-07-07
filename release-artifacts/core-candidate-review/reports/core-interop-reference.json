@@ -1,0 +1,186 @@
+{
+  "fixtures": [
+    {
+      "errorCodes": [],
+      "name": "local-analysis",
+      "ok": true,
+      "path": "fixtures/core/local-analysis",
+      "unsupportedFeatures": [
+        "workflow execution",
+        "external policy evaluation",
+        "secret retrieval",
+        "remote service semantic verification"
+      ],
+      "warningCodes": []
+    },
+    {
+      "errorCodes": [],
+      "name": "build-test",
+      "ok": true,
+      "path": "fixtures/core/build-test",
+      "unsupportedFeatures": [
+        "workflow execution",
+        "external policy evaluation",
+        "secret retrieval",
+        "remote service semantic verification"
+      ],
+      "warningCodes": []
+    },
+    {
+      "errorCodes": [],
+      "name": "remote-service-binding",
+      "ok": true,
+      "path": "fixtures/core/remote-service-binding",
+      "unsupportedFeatures": [
+        "workflow execution",
+        "external policy evaluation",
+        "secret retrieval",
+        "remote service semantic verification"
+      ],
+      "warningCodes": [
+        "remote_unverifiable_surface"
+      ]
+    }
+  ],
+  "implementation": {
+    "command": "python reference/python/scripts/validate_core_fixtures.py --report core-conformance-report.json",
+    "name": "cap_core.reference_validator",
+    "version": "0.1.0-candidate-prep"
+  },
+  "negativeSuites": [
+    {
+      "cases": [
+        {
+          "errorCodes": [
+            "assembly_action_without_capability"
+          ],
+          "name": "assembly-action-without-capability.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "capability_implies_authorization"
+          ],
+          "name": "capability-implies-authorization.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "digest_binding_collapses_evidence_layers"
+          ],
+          "name": "digest-binding-collapses-evidence.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "digest_evidence_used_as_run_evidence"
+          ],
+          "name": "digest-evidence-as-run-evidence.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "duplicate_object_id"
+          ],
+          "name": "duplicate-object-id.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "artifact_integrity_state_missing"
+          ],
+          "name": "external-artifact-unverified-integrity.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "external_standard_copied_inline"
+          ],
+          "name": "external-standard-copied-inline.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "invalid_run_state"
+          ],
+          "name": "invalid-run-state.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "missing_policy_decision"
+          ],
+          "name": "missing-policy-decision.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "policy_decision_missing_obligations"
+          ],
+          "name": "policy-decision-missing-obligations.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "run_completed_without_output"
+          ],
+          "name": "run-completed-without-output.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "run_evidence_overclaims_correctness"
+          ],
+          "name": "run-evidence-overclaims-correctness.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "run_without_assembly_reference"
+          ],
+          "name": "run-without-assembly-reference.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "runtime_binding_missing_image_reference"
+          ],
+          "name": "runtime-oci-missing-image-reference.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "secret_value_in_core_record"
+          ],
+          "name": "secret-value-service-binding.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "unanchored_reproducible_artifact"
+          ],
+          "name": "unanchored-reproducible-artifact.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "invalid_binding_type"
+          ],
+          "name": "unknown-binding-role.json",
+          "ok": true
+        },
+        {
+          "errorCodes": [
+            "unresolved_artifact_reference"
+          ],
+          "name": "unresolved-artifact-reference.json",
+          "ok": true
+        }
+      ],
+      "name": "fixtures/core/negative",
+      "ok": true
+    }
+  ],
+  "schema": "cap.core.interop_report.v1",
+  "status": "draft-track-candidate-prep-non-normative"
+}

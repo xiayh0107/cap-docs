@@ -1,6 +1,6 @@
 # Schemas
 
-> Status: draft · Last updated: 2026-07-06
+> Status: draft · Last updated: 2026-07-07
 
 This directory holds machine-readable JSON schemas for CAP-Digest plus
 Core-scoped schema sketches for CAP-Core. These schemas are draft assets unless
@@ -47,6 +47,12 @@ Core schema sketches live under `schemas/core/`:
 - `cap.core.run_evidence.v1.schema.json` — RunEvidence envelope.
 - `cap.core.conformance_report.v1.schema.json` — candidate-prep Core validator
   report shape.
+- `cap.core.inspection_report.v1.schema.json` — candidate-prep Core inspection
+  renderer report shape.
+- `cap.core.interop_report.v1.schema.json` — external implementation fixture
+  result report shape.
+- `cap.core.interop_comparison.v1.schema.json` — report comparison result
+  shape for L4 candidate-prep checks.
 - `cap.core.negative_case.v1.schema.json` — Core negative fixture harness case.
 - `cap.core.negative_suite_expected.v1.schema.json` — expected error-code map
   for the systematic Core negative suite.

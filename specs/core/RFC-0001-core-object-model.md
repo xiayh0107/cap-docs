@@ -1,6 +1,6 @@
 # CAP-Core RFC-0001: Core Object Model
 
-> Status: draft proposal - Non-normative - Last updated: 2026-07-06
+> Status: draft proposal - Non-normative - Last updated: 2026-07-07
 
 This split draft contains only the minimal CAP-Core object model. It does not
 define stable CAP-Core conformance and does not promote CAP-Core beyond
@@ -89,6 +89,10 @@ RunEvidence
 - `RunEvidence` is an envelope. W3C PROV, Workflow Run RO-Crate, in-toto,
   Sigstore, SPDX, CycloneDX, and OpenTelemetry remain external evidence systems.
 - Core records may reference secrets but must not carry secret values.
+- External ArtifactRef records use `integrityState` to distinguish verified,
+  unverified, and unavailable integrity.
+- RunEvidence records observations and limitations; it does not prove semantic
+  correctness or scientific validity.
 
 ## Draft Schemas
 
@@ -105,6 +109,8 @@ cap.core.run_evidence.v1.schema.json
 ```
 
 These schemas are executable draft assets, not stable conformance requirements.
+Candidate-prep rules and validator error codes are summarized in
+`SCHEMA-CANDIDATE-RULES.md`.
 
 ## Fixtures
 
@@ -112,8 +118,10 @@ The draft object model is exercised by:
 
 - `fixtures/core/local-analysis/`
 - `fixtures/core/build-test/`
+- `fixtures/core/remote-service-binding/`
+- `fixtures/core/negative/`
 
-Both fixtures remain draft-track and non-normative.
+All listed fixtures remain draft-track and non-normative.
 
 ## Deferrals
 

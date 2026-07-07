@@ -4,7 +4,18 @@
   "title": "CAP-Core RunEvidence v1",
   "type": "object",
   "additionalProperties": true,
-  "required": ["schema", "id", "runId", "subject", "materials", "products", "records", "completeness"],
+  "required": [
+    "schema",
+    "id",
+    "runId",
+    "subject",
+    "materials",
+    "products",
+    "logs",
+    "records",
+    "completeness",
+    "integrity"
+  ],
   "properties": {
     "schema": { "const": "cap.core.run_evidence.v1" },
     "id": { "type": "string", "minLength": 1 },

@@ -4,10 +4,10 @@
   "title": "CAP-Core ArtifactSet v1",
   "type": "object",
   "additionalProperties": true,
-  "required": ["schema", "artifacts"],
+  "required": ["schema", "id", "artifacts"],
   "properties": {
     "schema": { "const": "cap.core.artifact_set.v1" },
-    "id": { "type": ["string", "null"] },
+    "id": { "type": "string", "minLength": 1 },
     "artifacts": {
       "type": "array",
       "minItems": 1,

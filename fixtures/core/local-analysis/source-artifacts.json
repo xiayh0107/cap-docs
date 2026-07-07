@@ -1,5 +1,6 @@
 {
   "schema": "cap.core.artifact_set.v1",
+  "id": "artifact-set.local-analysis-001",
   "artifacts": [
     {
       "schema": "cap.core.artifact.v1",
@@ -79,6 +80,7 @@
         "uri": "oci://example/analysis@sha256:4444444444444444444444444444444444444444444444444444444444444444",
         "scope": "external",
         "kind": "oci-image",
+        "integrityState": "verified",
         "integrity": {
           "algorithm": "sha256",
           "value": "4444444444444444444444444444444444444444444444444444444444444444"

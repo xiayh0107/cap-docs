@@ -1,5 +1,7 @@
 # remote-service-binding
 
+> Status: CAP-Core candidate-prep draft fixture - Non-normative
+
 This CAP-Core draft fixture exercises a non-local service dependency without
 embedding credentials or defining service API semantics.
 

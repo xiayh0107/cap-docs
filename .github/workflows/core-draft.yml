@@ -19,6 +19,18 @@ jobs:
         run: python reference/python/scripts/validate_fixtures.py --scope core --report core-draft-fixtures.json
       - name: Generate Core draft conformance report
         run: python reference/python/scripts/validate_core_fixtures.py --report core-conformance-report.json
+      - name: Generate Core inspection and interop reports
+        run: |
+          python reference/python/scripts/render_core_inspection_report.py \
+            --fixture remote-service-binding \
+            --json-report core-inspection-report.json \
+            --text-report core-inspection-report.txt
+          python reference/python/scripts/run_core_interop_harness.py \
+            --report core-interop-reference.json
+          python reference/python/scripts/compare_core_interop_reports.py \
+            --expected core-interop-reference.json \
+            --actual core-interop-reference.json \
+            --report core-interop-comparison.json
       - name: Validate Core draft conformance report schema
         run: |
           python - <<'PY'
@@ -35,6 +47,29 @@ jobs:
                   print(error.message)
               raise SystemExit(1)
           print('core conformance report schema ok')
+          PY
+      - name: Validate Core inspection and interop report schemas
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema import Draft202012Validator
+
+          pairs = [
+              ('schemas/core/cap.core.inspection_report.v1.schema.json', 'core-inspection-report.json'),
+              ('schemas/core/cap.core.interop_report.v1.schema.json', 'core-interop-reference.json'),
+              ('schemas/core/cap.core.interop_comparison.v1.schema.json', 'core-interop-comparison.json'),
+          ]
+          for schema_path, report_path in pairs:
+              schema = json.loads(Path(schema_path).read_text(encoding='utf-8'))
+              report = json.loads(Path(report_path).read_text(encoding='utf-8'))
+              Draft202012Validator.check_schema(schema)
+              errors = sorted(Draft202012Validator(schema).iter_errors(report), key=lambda error: list(error.absolute_path))
+              if errors:
+                  for error in errors:
+                      print(f'{report_path}: {error.message}')
+                  raise SystemExit(1)
+              print(f'{report_path} schema ok')
           PY
       - name: Core renderer smoke test
         run: |
@@ -59,3 +94,7 @@ jobs:
           path: |
             core-draft-fixtures.json
             core-conformance-report.json
+            core-inspection-report.json
+            core-inspection-report.txt
+            core-interop-reference.json
+            core-interop-comparison.json

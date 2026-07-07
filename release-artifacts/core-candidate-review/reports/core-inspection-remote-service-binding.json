@@ -1,0 +1,252 @@
+{
+  "bindings": [
+    {
+      "id": "binding.runtime.service-client",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "OCI",
+      "status": "resolved",
+      "target": "oci://example/service-client@sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "type": "runtime"
+    },
+    {
+      "id": "binding.resource.remote-call",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "cap-resource-envelope",
+      "status": "resolved",
+      "target": "host-resource://remote-service-call",
+      "type": "resource"
+    },
+    {
+      "id": "binding.service.remote-api",
+      "limitations": [
+        "external or profile-owned semantics",
+        "Core does not authorize credential exchange or verify remote semantic correctness"
+      ],
+      "secretRefs": [
+        "secret://fixture/remote-api-token"
+      ],
+      "standard": "HTTP",
+      "status": "resolved",
+      "target": "https://api.example.invalid/v1/quote",
+      "type": "service"
+    },
+    {
+      "id": "binding.policy.remote-allowlist",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "host-policy",
+      "status": "resolved",
+      "target": "policy://fixture/remote-service-allowlist",
+      "type": "policy"
+    },
+    {
+      "id": "binding.evidence.remote-observation",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "cap-run-evidence-envelope",
+      "status": "resolved",
+      "target": "file://workspace/out/",
+      "type": "evidence"
+    },
+    {
+      "id": "binding.digest.remote-summary",
+      "limitations": [
+        "Digest view is model-visible context, not replacement RunEvidence"
+      ],
+      "secretRefs": [],
+      "standard": "CAP-Digest",
+      "status": "resolved",
+      "target": "fixture://remote-service-binding/response-summary-digest",
+      "type": "digest"
+    },
+    {
+      "id": "binding.transport.https",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "HTTPS",
+      "status": "resolved",
+      "target": "https://api.example.invalid/",
+      "type": "transport"
+    },
+    {
+      "id": "binding.data.workspace",
+      "limitations": [
+        "external or profile-owned semantics"
+      ],
+      "secretRefs": [],
+      "standard": "host-filesystem",
+      "status": "resolved",
+      "target": "file://workspace/",
+      "type": "data-plane"
+    }
+  ],
+  "capability": {
+    "authorizationBoundary": "Capability declares operation shape only; PolicyDecision records authorization.",
+    "inputs": [
+      {
+        "artifactKind": "data",
+        "profile": "profile.service-request.v0",
+        "required": true,
+        "role": "request"
+      },
+      {
+        "artifactKind": "document",
+        "profile": "profile.service-contract.v0",
+        "required": true,
+        "role": "service-contract"
+      }
+    ],
+    "name": "Call remote service",
+    "outputs": [
+      {
+        "artifactKind": "report",
+        "profile": "profile.remote-response-observation.v0",
+        "required": true,
+        "role": "response-metadata"
+      },
+      {
+        "artifactKind": "log",
+        "profile": "profile.run-log.v0",
+        "required": true,
+        "role": "log"
+      }
+    ],
+    "requiredBindings": [
+      "runtime",
+      "resource",
+      "service",
+      "policy",
+      "evidence",
+      "digest",
+      "transport",
+      "data-plane"
+    ],
+    "sideEffects": [
+      "network"
+    ]
+  },
+  "diagnostics": {
+    "errors": [],
+    "ok": true,
+    "warnings": [
+      {
+        "code": "remote_unverifiable_surface",
+        "message": "Remote service surfaces are recorded but not semantically verified by Core.",
+        "path": "run-evidence.records.remoteLimitations"
+      }
+    ]
+  },
+  "evidence": {
+    "completeness": "partial",
+    "digestViews": [
+      "binding.digest.remote-summary"
+    ],
+    "evidenceType": "remote-service-observation",
+    "id": "evidence.remote-service-001",
+    "integrity": "external",
+    "limitations": [
+      "Core records observed status and metadata only.",
+      "Core does not verify remote service semantic correctness.",
+      "Service contract is externally referenced and not copied into Core."
+    ],
+    "logs": [
+      "artifact.log.remote-call"
+    ],
+    "materials": [
+      "artifact.request.payload",
+      "artifact.service.contract",
+      "artifact.environment.client"
+    ],
+    "overclaimBoundary": "RunEvidence records observations and attestations; it does not prove semantic correctness.",
+    "products": [
+      "artifact.output.response-metadata"
+    ],
+    "runId": "run-remote-service-001"
+  },
+  "fixture": {
+    "name": "remote-service-binding",
+    "path": "fixtures/core/remote-service-binding"
+  },
+  "objectGraph": {
+    "artifactIds": [
+      "artifact.request.payload",
+      "artifact.service.contract",
+      "artifact.environment.client",
+      "artifact.output.response-metadata",
+      "artifact.log.remote-call"
+    ],
+    "artifactSetSchema": "cap.core.artifact_set.v1",
+    "assemblyId": "assembly.remote-service-001",
+    "bindingIds": [
+      "binding.runtime.service-client",
+      "binding.resource.remote-call",
+      "binding.service.remote-api",
+      "binding.policy.remote-allowlist",
+      "binding.evidence.remote-observation",
+      "binding.digest.remote-summary",
+      "binding.transport.https",
+      "binding.data.workspace"
+    ],
+    "capabilityId": "capability.call-remote-service",
+    "digestBindingId": "binding.digest.remote-summary",
+    "policyDecisionId": "policy-decision.remote-service-001",
+    "runEvidenceId": "evidence.remote-service-001",
+    "runId": "run-remote-service-001"
+  },
+  "policy": {
+    "conditions": {
+      "allowedHosts": [
+        "api.example.invalid"
+      ],
+      "network": "allowlist",
+      "secretHandling": "secret-ref-only"
+    },
+    "decision": "allowed_with_constraints",
+    "externalPolicyLanguage": "host-policy",
+    "failClosed": true,
+    "id": "policy-decision.remote-service-001",
+    "obligations": [
+      "do-not-store-service-secret",
+      "record-remote-unverifiable-surfaces",
+      "do-not-claim-semantic-correctness"
+    ],
+    "policyBinding": "binding.policy.remote-allowlist"
+  },
+  "renderer": {
+    "name": "cap_core.reference_inspection_renderer",
+    "version": "0.1.0-candidate-prep"
+  },
+  "run": {
+    "assemblyId": "assembly.remote-service-001",
+    "evidenceRefs": [
+      "evidence.remote-service-001"
+    ],
+    "id": "run-remote-service-001",
+    "inputs": [
+      "artifact.request.payload",
+      "artifact.service.contract",
+      "artifact.environment.client"
+    ],
+    "logs": [
+      "artifact.log.remote-call"
+    ],
+    "outputs": [
+      "artifact.output.response-metadata"
+    ],
+    "state": "completed"
+  },
+  "schema": "cap.core.inspection_report.v1",
+  "status": "draft-track-candidate-prep-non-normative"
+}

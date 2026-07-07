@@ -1,0 +1,15 @@
+{
+  "schema": "cap.core.negative_case.v1",
+  "case": "external-artifact-unverified-integrity",
+  "record": {
+    "schema": "cap.core.artifact.v1",
+    "id": "artifact.external.unstated-integrity",
+    "kind": "document",
+    "ref": {
+      "uri": "https://example.invalid/external-schema.json",
+      "scope": "external",
+      "kind": "schema-document",
+      "integrity": null
+    }
+  }
+}

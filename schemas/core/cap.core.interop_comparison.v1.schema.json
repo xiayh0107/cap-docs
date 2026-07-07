@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cap-spec.org/schemas/core/cap.core.interop_comparison.v1.schema.json",
+  "title": "CAP-Core Interoperability Comparison v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "expectedImplementation", "actualImplementation", "ok", "checks"],
+  "properties": {
+    "schema": { "const": "cap.core.interop_comparison.v1" },
+    "expectedImplementation": { "type": ["string", "null"] },
+    "actualImplementation": { "type": ["string", "null"] },
+    "ok": { "type": "boolean" },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fixture", "ok", "problems"],
+        "properties": {
+          "fixture": { "type": "string", "minLength": 1 },
+          "ok": { "type": "boolean" },
+          "problems": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

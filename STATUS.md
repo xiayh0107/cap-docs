@@ -1,6 +1,6 @@
 # Project Status
 
-> Last updated: 2026-07-06
+> Last updated: 2026-07-07
 
 This repository contains one alpha CAP-Digest draft profile and one
 non-normative CAP-Core draft proposal area.
@@ -8,7 +8,7 @@ non-normative CAP-Core draft proposal area.
 | Area | Path | Status | Normative? | Notes |
 |---|---|---:|---:|---|
 | CAP-Digest overview and specification | `specs/digest/` | alpha draft | yes | Current active specification work; `cap-digest-0.1.0-alpha` is tagged. |
-| CAP-Core | `specs/core/` | candidate-prep draft proposal + executable fixture prototypes | no | Integrated RFC-0001 overview, split draft RFCs, schema sketches, three fixture families, systematic negative suite, and validator/renderer; no stable conformance. |
+| CAP-Core | `specs/core/` | candidate-prep draft proposal + executable fixture prototypes | no | Integrated RFC-0001 overview, split draft RFCs, schema sketches, three fixture families, systematic negative suite, validator/renderer, inspection report, interop harness, candidate review package, and readiness report; no stable conformance. |
 | Design and research notes | `notes/` | analysis | no | Non-normative material only. |
 | JSON schemas | `schemas/` | draft | yes when marked active | CAP-Digest schemas and CAP-Core schema sketches. |
 | Conformance fixtures | `fixtures/` | draft | yes when marked active | CAP-Digest basic, negative, follow-up, pack, and security fixtures plus three CAP-Core fixture families and the Core negative suite. |
@@ -54,4 +54,5 @@ fixtures/core/build-test/
 fixtures/core/remote-service-binding/
 fixtures/core/negative/
 reference/python/cap_core/
+release-artifacts/core-candidate-review/
 ```

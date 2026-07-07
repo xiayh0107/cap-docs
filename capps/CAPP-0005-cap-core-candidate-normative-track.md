@@ -5,7 +5,8 @@
 ## Motivation
 
 CAP-Core has completed its draft-track asset set: split draft RFCs, Core schema
-sketches, two executable fixture families, and a validator/renderer prototype.
+sketches, three executable fixture families, a systematic negative suite, and
+a validator/renderer prototype.
 Those assets are enough to prepare candidate review, but they are not enough to
 declare stable CAP-Core conformance.
 
@@ -61,6 +62,11 @@ change CAP-Digest behavior.
 | Non-local fixture | `fixtures/core/remote-service-binding/` |
 | Negative suite | `fixtures/core/negative/` |
 | Validator report | `schemas/core/cap.core.conformance_report.v1.schema.json` |
+| Inspection report | `schemas/core/cap.core.inspection_report.v1.schema.json` |
+| Interop harness | `specs/core/INTEROPERABILITY-HARNESS.md` |
+| Profile/binding registry | `specs/core/PROFILE-AND-BINDING-REGISTRY.md` |
+| Profile governance | `specs/core/PROFILE-GOVERNANCE.md` |
+| Terminology audit | `specs/core/TERMINOLOGY-COLLISION-AUDIT.md` |
 | CI coverage | `.github/workflows/core-draft.yml` |
 | Open question triage | `specs/core/OPEN-QUESTIONS.md` |
 

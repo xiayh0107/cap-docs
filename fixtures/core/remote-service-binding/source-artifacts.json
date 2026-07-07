@@ -36,6 +36,7 @@
         "uri": "https://api.example.invalid/openapi.json",
         "scope": "external",
         "kind": "openapi-document",
+        "integrityState": "unavailable",
         "integrity": null,
         "accessHints": ["external-reference"]
       },
@@ -56,6 +57,7 @@
         "uri": "oci://example/service-client@sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
         "scope": "external",
         "kind": "oci-image",
+        "integrityState": "verified",
         "integrity": {
           "algorithm": "sha256",
           "value": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"

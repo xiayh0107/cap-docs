@@ -4,7 +4,20 @@
   "title": "CAP-Core Run v1",
   "type": "object",
   "additionalProperties": true,
-  "required": ["schema", "id", "assemblyId", "state", "startedAt", "inputs", "outputs", "evidenceRefs"],
+  "required": [
+    "schema",
+    "id",
+    "assemblyId",
+    "state",
+    "startedAt",
+    "inputs",
+    "outputs",
+    "runtimeBinding",
+    "resourceBinding",
+    "serviceBindings",
+    "logs",
+    "evidenceRefs"
+  ],
   "properties": {
     "schema": { "const": "cap.core.run.v1" },
     "id": { "type": "string", "minLength": 1 },

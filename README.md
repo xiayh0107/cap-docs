@@ -73,6 +73,8 @@ CAP-Core executable draft-track coverage includes:
 - `schemas/core/`
 - `fixtures/core/local-analysis/`
 - `fixtures/core/build-test/`
+- `fixtures/core/remote-service-binding/`
+- `fixtures/core/negative/`
 - `reference/python/cap_core/`
 
 These Core assets are useful for design validation, but they are not stable
@@ -88,6 +90,8 @@ python reference/python/scripts/validate_schema_fixtures.py
 python reference/python/scripts/validate_fixtures.py
 python reference/python/scripts/validate_fixtures.py --report conformance-report.json
 python reference/python/scripts/validate_core_fixtures.py --report core-conformance-report.json
+python reference/python/scripts/render_core_inspection_report.py --fixture local-analysis
+python reference/python/scripts/run_core_interop_harness.py --report core-interop-reference.json
 ```
 
 The conformance report uses `cap.conformance_report.v1` and currently covers

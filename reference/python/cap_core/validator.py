@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import shlex
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -45,6 +47,7 @@ BINDING_STATUSES = {"candidate", "resolved", "denied", "stale", "unavailable", "
 RUN_STATES = {"planned", "starting", "running", "waiting", "completed", "failed", "cancelled", "stale"}
 POLICY_DECISIONS = {"allowed", "denied", "allowed_with_constraints", "needs_confirmation", "stale_context"}
 SECRET_VALUE_KEYS = {"secretvalue", "password", "plaintextsecret", "privatekey", "apikey"}
+DIGEST_INTEGRITY_STATES = {"verified", "unverified", "unavailable"}
 
 
 @dataclass(frozen=True)
@@ -109,10 +112,38 @@ def validate_core_record(record: dict[str, Any], path: str) -> list[dict[str, st
             errors.append({"code": "invalid_binding_type", "path": f"{path}.type", "message": "Invalid binding type."})
         if record.get("status") not in BINDING_STATUSES:
             errors.append({"code": "invalid_binding_status", "path": f"{path}.status", "message": "Invalid binding status."})
+        if record.get("type") == "digest" and record.get("constraints", {}).get("digestEvidenceIsRunEvidence") is not False:
+            errors.append(
+                {
+                    "code": "digest_binding_collapses_evidence_layers",
+                    "path": f"{path}.constraints.digestEvidenceIsRunEvidence",
+                    "message": "DigestBinding must explicitly keep DigestEvidence separate from RunEvidence.",
+                }
+            )
     if schema == "cap.core.run.v1" and "state" in record and record.get("state") not in RUN_STATES:
         errors.append({"code": "invalid_run_state", "path": f"{path}.state", "message": "Invalid run state."})
+    if schema == "cap.core.run.v1" and "assemblyId" in record and record.get("state") == "completed" and not record.get("outputs"):
+        errors.append({"code": "run_completed_without_output", "path": f"{path}.outputs", "message": "Completed run has no outputs."})
     if schema == "cap.core.policy_decision.v1" and "decision" in record and record.get("decision") not in POLICY_DECISIONS:
         errors.append({"code": "invalid_policy_decision", "path": f"{path}.decision", "message": "Invalid policy decision."})
+    if schema == "cap.core.policy_decision.v1" and record.get("decision") in {"allowed", "allowed_with_constraints"} and not record.get("obligations"):
+        errors.append(
+            {
+                "code": "policy_decision_missing_obligations",
+                "path": f"{path}.obligations",
+                "message": "Allowed policy decisions need explicit obligations.",
+            }
+        )
+    if schema == "cap.core.artifact.v1":
+        ref = record.get("ref", {})
+        if isinstance(ref, dict) and ref.get("scope") == "external" and ref.get("integrityState") not in DIGEST_INTEGRITY_STATES:
+            errors.append(
+                {
+                    "code": "artifact_integrity_state_missing",
+                    "path": f"{path}.ref.integrityState",
+                    "message": "External ArtifactRef records must declare verified, unverified, or unavailable integrity state.",
+                }
+            )
     _scan_for_secret_values(record, path, errors)
     return errors
 
@@ -186,8 +217,35 @@ def validate_negative_case(case: dict[str, Any], path: str) -> CoreValidationRes
                     "message": "Executable Assembly requires an explicit PolicyDecision for candidate conformance.",
                 }
             )
+    elif case_name == "policy-decision-missing-obligations" and isinstance(record, dict):
+        if record.get("decision") in {"allowed", "allowed_with_constraints"} and not record.get("obligations"):
+            errors.append(
+                {
+                    "code": "policy_decision_missing_obligations",
+                    "path": f"{path}.record.obligations",
+                    "message": "Allowed policy decisions need explicit obligations or an explicit empty-risk rationale.",
+                }
+            )
     elif case_name == "remote-evidence-overclaim" and isinstance(record, dict):
         _append_overclaim_errors(record, f"{path}.record", errors)
+    elif case_name == "run-completed-without-output" and isinstance(record, dict):
+        if record.get("schema") == "cap.core.run.v1" and record.get("state") == "completed" and not record.get("outputs"):
+            errors.append(
+                {
+                    "code": "run_completed_without_output",
+                    "path": f"{path}.record.outputs",
+                    "message": "Completed runs need at least one output, log, or explicit profile-owned no-output explanation.",
+                }
+            )
+    elif case_name == "digest-binding-collapses-evidence" and isinstance(record, dict):
+        if record.get("type") == "digest" and record.get("constraints", {}).get("digestEvidenceIsRunEvidence") is not False:
+            errors.append(
+                {
+                    "code": "digest_binding_collapses_evidence_layers",
+                    "path": f"{path}.record.constraints.digestEvidenceIsRunEvidence",
+                    "message": "DigestBinding must explicitly keep DigestEvidence separate from RunEvidence.",
+                }
+            )
     elif case_name == "run-evidence-overclaims-correctness" and isinstance(record, dict):
         _append_overclaim_errors(record, f"{path}.record", errors)
     elif case_name == "run-without-assembly-reference" and isinstance(record, dict):
@@ -230,6 +288,19 @@ def validate_negative_case(case: dict[str, Any], path: str) -> CoreValidationRes
                     "message": "Artifacts marked reproducible need an integrity anchor or external evidence.",
                 }
             )
+    elif case_name == "external-artifact-unverified-integrity" and isinstance(record, dict):
+        if record.get("schema") == "cap.core.artifact.v1":
+            ref = record.get("ref", {})
+            integrity_state = ref.get("integrityState") if isinstance(ref, dict) else None
+            scope = ref.get("scope") if isinstance(ref, dict) else None
+            if scope == "external" and integrity_state not in DIGEST_INTEGRITY_STATES:
+                errors.append(
+                    {
+                        "code": "artifact_integrity_state_missing",
+                        "path": f"{path}.record.ref.integrityState",
+                        "message": "External ArtifactRef records must declare verified, unverified, or unavailable integrity state.",
+                    }
+                )
     elif case_name == "undeclared-network-access" and isinstance(record, dict):
         if record.get("type") == "service" and record.get("constraints", {}).get("networkDeclaredByPolicy") is False:
             errors.append(
@@ -386,6 +457,24 @@ def validate_core_fixture(fixture: dict[str, Any]) -> CoreValidationResult:
                 "message": "DigestBinding must point at RunEvidence.",
             }
         )
+    if digest_view_ref.get("constraints", {}).get("digestEvidenceIsRunEvidence") is not False:
+        errors.append(
+            {
+                "code": "digest_binding_collapses_evidence_layers",
+                "path": "digest-view-ref.constraints.digestEvidenceIsRunEvidence",
+                "message": "DigestBinding must explicitly state that DigestEvidence is not RunEvidence.",
+            }
+        )
+    for artifact_index, artifact in enumerate(artifacts):
+        ref = artifact.get("ref", {})
+        if isinstance(ref, dict) and ref.get("scope") == "external" and "integrityState" not in ref:
+            warnings.append(
+                {
+                    "code": "artifact_integrity_state_implicit",
+                    "path": f"source-artifacts.artifacts[{artifact_index}].ref.integrityState",
+                    "message": "External artifact integrity state should be explicit in candidate review records.",
+                }
+            )
 
     summary = {
         "artifacts": len(artifacts),
@@ -442,11 +531,11 @@ def build_core_conformance_report(root: Path, target_level: str = "L3") -> dict[
                 "errors": validation.errors,
                 "warnings": validation.warnings,
                 "checks": [
-                    _report_check("schema", validation.errors, {"unknown_schema", "missing_required_field", "invalid_binding_type", "invalid_binding_status", "invalid_run_state", "invalid_policy_decision"}),
+                    _report_check("schema", validation.errors, {"unknown_schema", "missing_required_field", "invalid_binding_type", "invalid_binding_status", "invalid_run_state", "invalid_policy_decision", "artifact_integrity_state_missing"}),
                     _report_check("ref-closure", validation.errors, {"unknown_reference", "invalid_reference_list", "missing_required_binding_type", "digest_binding_not_in_assembly"}),
-                    _report_check("policy", validation.errors, {"policy_binding_mismatch", "missing_policy_decision", "undeclared_network_access"}),
+                    _report_check("policy", validation.errors, {"policy_binding_mismatch", "missing_policy_decision", "policy_decision_missing_obligations", "undeclared_network_access"}),
                     _report_check("binding", validation.errors, {"stale_service_binding", "secret_value_in_core_record"}),
-                    _report_check("run-evidence", validation.errors, {"run_evidence_mismatch", "digest_binding_evidence_mismatch", "run_evidence_overclaims_correctness"}),
+                    _report_check("run-evidence", validation.errors, {"run_evidence_mismatch", "run_completed_without_output", "digest_binding_evidence_mismatch", "digest_binding_collapses_evidence_layers", "run_evidence_overclaims_correctness"}),
                     {
                         "category": "security",
                         "ok": not validation.errors,
@@ -509,6 +598,268 @@ def render_review_summary(fixture: dict[str, Any]) -> str:
             f"Digest view: {digest_view_ref.get('id')}",
         ]
     ) + "\n"
+
+
+def build_core_inspection_report(root: Path, fixture_name: str) -> dict[str, Any]:
+    return build_core_inspection_report_from_fixture(fixture_name, f"fixtures/core/{fixture_name}", load_core_fixture(root, fixture_name))
+
+
+def build_core_inspection_report_from_fixture(fixture_name: str, fixture_path: str, fixture: dict[str, Any]) -> dict[str, Any]:
+    validation = validate_core_fixture(fixture)
+    artifacts = fixture["source_artifacts"].get("artifacts", [])
+    assembly = fixture["assembly"]
+    capability = fixture["capability"]
+    policy_decision = fixture["policy_decision"]
+    run = fixture["run"]
+    run_evidence = fixture["run_evidence"]
+    digest_view_ref = fixture["digest_view_ref"]
+    bindings = assembly.get("bindingRecords", [])
+    return {
+        "schema": "cap.core.inspection_report.v1",
+        "renderer": {
+            "name": "cap_core.reference_inspection_renderer",
+            "version": CORE_VALIDATOR_VERSION,
+        },
+        "status": "draft-track-candidate-prep-non-normative",
+        "fixture": {
+            "name": fixture_name,
+            "path": fixture_path,
+        },
+        "objectGraph": {
+            "artifactSetSchema": fixture["source_artifacts"].get("schema"),
+            "artifactIds": [artifact.get("id") for artifact in artifacts],
+            "assemblyId": assembly.get("id"),
+            "capabilityId": capability.get("id"),
+            "bindingIds": [binding.get("id") for binding in bindings],
+            "policyDecisionId": policy_decision.get("id"),
+            "runId": run.get("id"),
+            "runEvidenceId": run_evidence.get("id"),
+            "digestBindingId": digest_view_ref.get("id"),
+        },
+        "capability": {
+            "name": capability.get("name"),
+            "inputs": capability.get("inputs", []),
+            "outputs": capability.get("outputs", []),
+            "sideEffects": capability.get("sideEffects", []),
+            "requiredBindings": capability.get("requiredBindings", []),
+            "authorizationBoundary": "Capability declares operation shape only; PolicyDecision records authorization.",
+        },
+        "bindings": [
+            {
+                "id": binding.get("id"),
+                "type": binding.get("type"),
+                "target": _redact_secret_like_target(binding.get("target")),
+                "standard": binding.get("standard"),
+                "status": binding.get("status"),
+                "secretRefs": _collect_secret_refs(binding),
+                "limitations": _binding_limitations(binding),
+            }
+            for binding in bindings
+        ],
+        "policy": {
+            "id": policy_decision.get("id"),
+            "decision": policy_decision.get("decision"),
+            "policyBinding": policy_decision.get("policyBinding"),
+            "conditions": policy_decision.get("conditions", {}),
+            "obligations": policy_decision.get("obligations", []),
+            "failClosed": True,
+            "externalPolicyLanguage": policy_decision.get("policySystem"),
+        },
+        "run": {
+            "id": run.get("id"),
+            "assemblyId": run.get("assemblyId"),
+            "state": run.get("state"),
+            "inputs": run.get("inputs", []),
+            "outputs": run.get("outputs", []),
+            "logs": run.get("logs", []),
+            "evidenceRefs": run.get("evidenceRefs", []),
+        },
+        "evidence": {
+            "id": run_evidence.get("id"),
+            "runId": run_evidence.get("runId"),
+            "evidenceType": run_evidence.get("evidenceType"),
+            "materials": run_evidence.get("materials", []),
+            "products": run_evidence.get("products", []),
+            "logs": run_evidence.get("logs", []),
+            "digestViews": run_evidence.get("digestViews", []),
+            "completeness": run_evidence.get("completeness"),
+            "integrity": run_evidence.get("integrity"),
+            "limitations": run_evidence.get("records", {}).get("remoteLimitations", []),
+            "overclaimBoundary": "RunEvidence records observations and attestations; it does not prove semantic correctness.",
+        },
+        "diagnostics": {
+            "ok": validation.ok,
+            "errors": validation.errors,
+            "warnings": validation.warnings,
+        },
+    }
+
+
+def render_inspection_report(report: dict[str, Any]) -> str:
+    graph = report["objectGraph"]
+    diagnostics = report["diagnostics"]
+    binding_lines = [
+        f"- {binding['id']} [{binding['type']}] status={binding['status']} target={binding['target']}"
+        for binding in report["bindings"]
+    ]
+    diagnostic_lines = [
+        f"- ERROR {item['code']} at {item['path']}: {item['message']}"
+        for item in diagnostics.get("errors", [])
+    ] + [
+        f"- WARNING {item['code']} at {item['path']}: {item['message']}"
+        for item in diagnostics.get("warnings", [])
+    ]
+    if not diagnostic_lines:
+        diagnostic_lines = ["- none"]
+    limitations = report["evidence"].get("limitations") or ["none recorded"]
+    lines = [
+        "CAP-Core inspection report",
+        f"Status: {report['status']}",
+        f"Fixture: {report['fixture']['name']} ({report['fixture']['path']})",
+        "",
+        "Object graph:",
+        f"- Assembly: {graph['assemblyId']}",
+        f"- Capability: {graph['capabilityId']}",
+        f"- Artifacts: {len(graph['artifactIds'])}",
+        f"- Bindings: {len(graph['bindingIds'])}",
+        f"- PolicyDecision: {graph['policyDecisionId']}",
+        f"- Run: {graph['runId']}",
+        f"- RunEvidence: {graph['runEvidenceId']}",
+        f"- DigestBinding: {graph['digestBindingId']}",
+        "",
+        "Bindings:",
+        *binding_lines,
+        "",
+        "Policy:",
+        f"- Decision: {report['policy']['decision']}",
+        f"- Fail closed: {str(report['policy']['failClosed']).lower()}",
+        f"- Obligations: {', '.join(report['policy']['obligations']) or 'none'}",
+        "",
+        "Run and evidence:",
+        f"- Run state: {report['run']['state']}",
+        f"- Outputs: {', '.join(report['run']['outputs']) or 'none'}",
+        f"- Evidence completeness: {report['evidence']['completeness']}",
+        f"- Evidence integrity: {report['evidence']['integrity']}",
+        f"- Digest views: {', '.join(report['evidence']['digestViews']) or 'none'}",
+        f"- Limitations: {' | '.join(limitations)}",
+        "",
+        "Diagnostics:",
+        *diagnostic_lines,
+    ]
+    return "\n".join(lines) + "\n"
+
+
+def build_core_interop_report(root: Path, implementation_name: str = "cap_core.reference_validator") -> dict[str, Any]:
+    fixtures = []
+    for name in CORE_FIXTURE_NAMES:
+        validation = validate_core_fixture(load_core_fixture(root, name))
+        fixtures.append(
+            {
+                "name": name,
+                "path": f"fixtures/core/{name}",
+                "ok": validation.ok,
+                "errorCodes": sorted({error["code"] for error in validation.errors}),
+                "warningCodes": sorted({warning["code"] for warning in validation.warnings}),
+                "unsupportedFeatures": [
+                    "workflow execution",
+                    "external policy evaluation",
+                    "secret retrieval",
+                    "remote service semantic verification",
+                ],
+            }
+        )
+    negative = validate_core_negative_suite(root)
+    return {
+        "schema": "cap.core.interop_report.v1",
+        "implementation": {
+            "name": implementation_name,
+            "version": CORE_VALIDATOR_VERSION,
+            "command": "python reference/python/scripts/validate_core_fixtures.py --report core-conformance-report.json",
+        },
+        "status": "draft-track-candidate-prep-non-normative",
+        "fixtures": fixtures,
+        "negativeSuites": [
+            {
+                "name": "fixtures/core/negative",
+                "ok": negative["ok"],
+                "cases": [
+                    {
+                        "name": case["name"],
+                        "ok": case["ok"],
+                        "errorCodes": case["actualErrorCodes"],
+                    }
+                    for case in negative["cases"]
+                ],
+            }
+        ],
+    }
+
+
+def build_external_core_interop_report(root: Path, implementation_name: str, command_template: str) -> dict[str, Any]:
+    fixtures = []
+    for name in CORE_FIXTURE_NAMES:
+        fixture_path = f"fixtures/core/{name}"
+        command = command_template.format(root=root.as_posix(), fixture=name, fixture_path=fixture_path)
+        completed = subprocess.run(shlex.split(command), cwd=root, check=False, text=True, capture_output=True)
+        if completed.returncode != 0:
+            fixtures.append(
+                {
+                    "name": name,
+                    "path": fixture_path,
+                    "ok": False,
+                    "errorCodes": ["external_validator_failed"],
+                    "warningCodes": [],
+                    "unsupportedFeatures": [completed.stderr.strip() or completed.stdout.strip() or "external command failed"],
+                }
+            )
+            continue
+        payload = json.loads(completed.stdout)
+        fixtures.append(
+            {
+                "name": name,
+                "path": fixture_path,
+                "ok": bool(payload.get("ok")),
+                "errorCodes": sorted(payload.get("errorCodes", [])),
+                "warningCodes": sorted(payload.get("warningCodes", [])),
+                "unsupportedFeatures": sorted(payload.get("unsupportedFeatures", [])),
+            }
+        )
+    return {
+        "schema": "cap.core.interop_report.v1",
+        "implementation": {
+            "name": implementation_name,
+            "version": "external",
+            "command": command_template,
+        },
+        "status": "draft-track-candidate-prep-non-normative",
+        "fixtures": fixtures,
+        "negativeSuites": [],
+    }
+
+
+def compare_core_interop_reports(expected: dict[str, Any], actual: dict[str, Any]) -> dict[str, Any]:
+    expected_fixtures = {fixture["name"]: fixture for fixture in expected.get("fixtures", [])}
+    actual_fixtures = {fixture["name"]: fixture for fixture in actual.get("fixtures", [])}
+    checks = []
+    for name in sorted(set(expected_fixtures) | set(actual_fixtures)):
+        expected_fixture = expected_fixtures.get(name)
+        actual_fixture = actual_fixtures.get(name)
+        problems = []
+        if expected_fixture is None or actual_fixture is None:
+            problems.append("fixture_missing")
+        else:
+            if expected_fixture.get("ok") != actual_fixture.get("ok"):
+                problems.append("ok_mismatch")
+            if sorted(expected_fixture.get("errorCodes", [])) != sorted(actual_fixture.get("errorCodes", [])):
+                problems.append("error_codes_mismatch")
+        checks.append({"fixture": name, "ok": not problems, "problems": problems})
+    return {
+        "schema": "cap.core.interop_comparison.v1",
+        "expectedImplementation": expected.get("implementation", {}).get("name"),
+        "actualImplementation": actual.get("implementation", {}).get("name"),
+        "ok": all(check["ok"] for check in checks),
+        "checks": checks,
+    }
 
 
 def _ids(records: list[dict[str, Any]]) -> set[str]:
@@ -579,6 +930,39 @@ def _append_overclaim_errors(record: dict[str, Any], path: str, errors: list[dic
                 "message": "RunEvidence must not claim Core verified semantic correctness.",
             }
         )
+
+
+def _collect_secret_refs(value: Any) -> list[str]:
+    refs: list[str] = []
+    if isinstance(value, dict):
+        for key, child in value.items():
+            if key == "secretRef" and isinstance(child, str):
+                refs.append(child)
+            refs.extend(_collect_secret_refs(child))
+    elif isinstance(value, list):
+        for child in value:
+            refs.extend(_collect_secret_refs(child))
+    return sorted(set(refs))
+
+
+def _redact_secret_like_target(target: Any) -> Any:
+    if not isinstance(target, str):
+        return target
+    lowered = target.lower()
+    if any(marker in lowered for marker in ("password=", "apikey=", "api_key=", "token=")):
+        return "[redacted-secret-like-target]"
+    return target
+
+
+def _binding_limitations(binding: dict[str, Any]) -> list[str]:
+    limitations: list[str] = []
+    if binding.get("type") in {"runtime", "resource", "service", "policy", "evidence", "transport", "data-plane", "schema"}:
+        limitations.append("external or profile-owned semantics")
+    if binding.get("type") == "service":
+        limitations.append("Core does not authorize credential exchange or verify remote semantic correctness")
+    if binding.get("type") == "digest":
+        limitations.append("Digest view is model-visible context, not replacement RunEvidence")
+    return limitations
 
 
 def _report_check(category: str, errors: list[dict[str, str]], codes: set[str]) -> dict[str, Any]:

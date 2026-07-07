@@ -4,7 +4,7 @@
   "title": "CAP-Core Assembly v1",
   "type": "object",
   "additionalProperties": true,
-  "required": ["schema", "id", "artifacts", "capability", "bindings", "policyBinding", "state"],
+  "required": ["schema", "id", "artifacts", "capability", "bindings", "bindingRecords", "policyBinding", "state"],
   "properties": {
     "schema": { "const": "cap.core.assembly.v1" },
     "id": { "type": "string", "minLength": 1 },
@@ -21,6 +21,10 @@
     "bindings": {
       "type": "array",
       "items": { "type": "string", "minLength": 1 }
+    },
+    "bindingRecords": {
+      "type": "array",
+      "items": { "$ref": "cap.core.binding.v1.schema.json" }
     },
     "policyBinding": { "type": "string", "minLength": 1 },
     "state": {

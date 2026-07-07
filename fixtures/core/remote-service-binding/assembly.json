@@ -134,7 +134,8 @@
       "standardVersion": "2026-07-06-draft",
       "profile": "profile.cap-digest-view.v0",
       "constraints": {
-        "sourceRunEvidence": "evidence.remote-service-001"
+        "sourceRunEvidence": "evidence.remote-service-001",
+        "digestEvidenceIsRunEvidence": false
       },
       "integrity": null,
       "freshness": null,

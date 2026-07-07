@@ -33,6 +33,10 @@
         "uri": { "type": "string", "minLength": 1 },
         "scope": { "type": "string", "minLength": 1 },
         "kind": { "type": ["string", "null"] },
+        "integrityState": {
+          "type": "string",
+          "enum": ["verified", "unverified", "unavailable"]
+        },
         "integrity": {
           "type": ["object", "null"],
           "additionalProperties": true,
@@ -45,7 +49,18 @@
           "type": "array",
           "items": { "type": "string" }
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["scope"],
+            "properties": {
+              "scope": { "const": "external" }
+            }
+          },
+          "then": { "required": ["integrityState"] }
+        }
+      ]
     },
     "version": { "type": ["string", "null"] },
     "labels": {

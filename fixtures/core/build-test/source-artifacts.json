@@ -57,6 +57,7 @@
         "uri": "oci://example/python-test@sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
         "scope": "external",
         "kind": "oci-image",
+        "integrityState": "verified",
         "integrity": {
           "algorithm": "sha256",
           "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
