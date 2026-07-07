@@ -392,12 +392,11 @@ def package_v1_release(release: str, stable: bool) -> Path:
     write_json(package / "reports" / "digest-interop-independent-structural.json", independent_interop)
     write_json(package / "reports" / "digest-interop-comparison.json", comparison)
 
-    source_revision = git_value("rev-parse", "HEAD")
     write(
         package / "reference-version.txt",
         f"""
 release: {release}
-sourceRevision: {source_revision}
+sourceRevision: recorded by repository tag cap-digest-v1.0.0
 referenceImplementation: reference/python
 status: {status}
 tagPlan: cap-digest-v1.0.0

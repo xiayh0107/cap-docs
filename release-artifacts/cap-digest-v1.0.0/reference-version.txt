@@ -1,5 +1,5 @@
 release: cap-digest-v1.0.0
-sourceRevision: af9f750ac7f40e029ccde0ec5713611715f7c981
+sourceRevision: recorded by repository tag cap-digest-v1.0.0
 referenceImplementation: reference/python
 status: stable
 tagPlan: cap-digest-v1.0.0
