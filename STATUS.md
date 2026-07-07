@@ -28,20 +28,25 @@ exchange, scientific correctness, or CAP-Digest behavior changes.
 
 ## Post-release maintenance
 
-The active post-release work is normal maintenance, not expansion of the
-CAP-Core v1.0.0 stability claim:
+The initial post-release maintenance pass is recorded in
+`specs/core/reviews/2026-07-07-post-release-maintenance-audit.md`. It is normal
+maintenance, not expansion of the CAP-Core v1.0.0 stability claim:
 
 - [#88](https://github.com/xiayh0107/cap-docs/issues/88) tracks v1.0.x errata
-  and patch releases under `specs/core/MAINTENANCE-v1.0.md`.
+  and patch releases under `specs/core/MAINTENANCE-v1.0.md`; the initial audit
+  found no open errata requiring a patch release.
 - [#89](https://github.com/xiayh0107/cap-docs/issues/89) tracks real external
-  implementation feedback for L4 interoperability.
+  implementation feedback for L4 interoperability; the initial feedback window
+  closed with no external reports received.
 - [#90](https://github.com/xiayh0107/cap-docs/issues/90) tracks Core v1.0.0
-  boundary hygiene.
+  boundary hygiene; the initial audit keeps out-of-scope layers excluded.
 - [#91](https://github.com/xiayh0107/cap-docs/issues/91) tracks a separate
-  path for any future CAP-Digest stable work.
+  path for any future CAP-Digest stable work; #92 is now the independent Digest
+  stable tracker.
 
 CAP-Digest remains an alpha draft profile. CAP-Digest stable planning must use
-Digest-specific gates and must not be bundled into Core v1.0.x maintenance.
+Digest-specific gates, documented in `specs/digest/STABLE-TRACK.md`, and must
+not be bundled into Core v1.0.x maintenance.
 
 ## Current implementation target
 

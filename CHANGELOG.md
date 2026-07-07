@@ -18,6 +18,8 @@ stable artifacts.
 - Added post-release maintenance tracking for CAP-Core v1.0.x errata/patch
   releases, external L4 interoperability feedback, Core v1.0.0 scope
   guardrails, and a separate CAP-Digest stable planning route.
+- Added the initial CAP-Core v1.0.x post-release maintenance audit and a
+  separate CAP-Digest stable-track planning note.
 - Added CAPP-0006 and a CAP-Core candidate normative review-entry agenda for
   issue #61, preserving CAP-Digest behavior during review.
 - Added CAP-Core candidate-prep schema rules, normative-language policy,

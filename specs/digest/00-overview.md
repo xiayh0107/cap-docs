@@ -74,9 +74,13 @@ context surface inspectable, bounded, and enforceable.
 CAP-Digest is the **context evidence layer** of CAP: it specifies how a source
 object is safely turned into model-readable context with traceable anchors and
 gated follow-up. It is deliberately scoped and does not define artifact graphs,
-runtime/capability binding, RunEvidence, or external standard bindings — those
-belong to **CAP-Core**, which is tracked separately as a non-normative draft
-area in `specs/core/`.
+runtime/capability binding, RunEvidence, or external standard bindings. Those
+belong to **CAP-Core**, whose v1.0.0 stable release is tracked separately in
+`specs/core/`.
+
+CAP-Core v1.0.0 stability does not promote CAP-Digest beyond alpha draft
+status. Any future Digest stable work must use the independent track in
+`STABLE-TRACK.md`.
 
 When working in this directory, ask first:
 
@@ -103,3 +107,4 @@ Read these files in order:
 10. [Digest Packs](10-digest-packs.md)
 11. [Versioning, Conformance, and Governance](11-versioning-conformance-governance.md)
 12. [Implementation Guide](12-implementation-guide.md)
+13. [Stable Track](STABLE-TRACK.md)

@@ -8,6 +8,9 @@ Errata may clarify wording, correct examples, or fix manifest/report mistakes
 without changing v1.0 semantics. Errata should be recorded in `CHANGELOG.md`
 and linked from release notes.
 
+Current maintenance audit:
+`specs/core/reviews/2026-07-07-post-release-maintenance-audit.md`.
+
 ## Patch Releases
 
 v1.0.x patch releases may:
@@ -20,6 +23,10 @@ v1.0.x patch releases may:
 
 v1.0.x patch releases must not remove required fields, change stable enum
 meanings, weaken security findings, or change CAP-Digest behavior.
+
+If an audit finds no open errata, the next patch release may be explicitly
+deferred. Deferral does not close the maintenance policy; it only records that
+no patch artifact is required for that maintenance pass.
 
 ## Fixture Corrections
 
