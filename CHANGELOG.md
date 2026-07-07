@@ -9,6 +9,8 @@ CAP-Core draft proposal.
 
 ### Added
 
+- Added CAPP-0006 and a CAP-Core candidate normative review-entry agenda for
+  issue #61, while keeping CAP-Core non-stable and CAP-Digest unchanged.
 - Added CAP-Core candidate-prep schema rules, normative-language policy,
   status map, secret/service binding safety model, inspection report schema,
   interoperability report schemas, profile/binding registry, profile

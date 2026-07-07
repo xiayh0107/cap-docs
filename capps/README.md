@@ -59,4 +59,5 @@ A CAPP should not be accepted without:
 | CAPP-0002 | Initial schemas and fixtures | implemented |
 | CAPP-0003 | table-basic Digest Pack | implemented |
 | CAPP-0004 | CAP-Core Draft Entry | implemented |
-| CAPP-0005 | CAP-Core Candidate Normative Track | draft |
+| CAPP-0005 | CAP-Core Candidate Normative Track | implemented |
+| CAPP-0006 | CAP-Core Candidate Normative Review Entry | proposed |

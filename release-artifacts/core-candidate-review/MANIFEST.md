@@ -5,6 +5,7 @@
 ## Governance
 
 - `capps/CAPP-0005-cap-core-candidate-normative-track.md`
+- `capps/CAPP-0006-cap-core-candidate-normative-review-entry.md`
 - `ROADMAP.md`
 - `STATUS.md`
 - `CHANGELOG.md`
@@ -143,4 +144,5 @@
 ## Readiness
 
 - `specs/core/reviews/2026-07-07-candidate-readiness.md`
+- `specs/core/reviews/2026-07-07-candidate-normative-review-entry.md`
 - `release-artifacts/core-candidate-review/known-limitations.md`

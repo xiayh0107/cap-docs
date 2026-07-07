@@ -135,3 +135,21 @@ Exit criteria:
 - Security, service binding, policy, and RunEvidence boundaries are reviewed.
 - Candidate review artifacts and readiness report are recorded before any
   normative promotion.
+
+## Phase 9 - CAP-Core candidate normative review
+
+Goal: run the governance review that decides whether CAP-Core should enter
+candidate normative status without publishing a stable release.
+Tracker: [#61](https://github.com/xiayh0107/cap-docs/issues/61).
+
+- [x] Open the candidate review decision issue.
+- [x] Propose CAPP-0006 for CAP-Core candidate normative review entry.
+- [ ] Decide whether to accept, defer, or revise CAPP-0006.
+- [ ] If accepted, record the candidate normative review status without
+  freezing Core schemas as stable.
+- [ ] If additional evidence is requested, split blockers into focused issues
+  or CAPPs.
+
+Candidate review is not a stable release. CAP-Core schemas, fixtures,
+RunEvidence, bindings, profiles, and reference implementation behavior remain
+non-stable until a later accepted CAPP says otherwise.

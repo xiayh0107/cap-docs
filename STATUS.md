@@ -8,7 +8,7 @@ non-normative CAP-Core draft proposal area.
 | Area | Path | Status | Normative? | Notes |
 |---|---|---:|---:|---|
 | CAP-Digest overview and specification | `specs/digest/` | alpha draft | yes | Current active specification work; `cap-digest-0.1.0-alpha` is tagged. |
-| CAP-Core | `specs/core/` | candidate-prep draft proposal + executable fixture prototypes | no | Integrated RFC-0001 overview, split draft RFCs, schema sketches, three fixture families, systematic negative suite, validator/renderer, inspection report, interop harness, candidate review package, and readiness report; no stable conformance. |
+| CAP-Core | `specs/core/` | candidate-prep complete; candidate normative review proposed | no | CAPP-0006 and issue #61 propose review entry. Integrated RFC-0001 overview, split draft RFCs, schema sketches, three fixture families, systematic negative suite, validator/renderer, inspection report, interop harness, candidate review package, and readiness report exist; no stable conformance. |
 | Design and research notes | `notes/` | analysis | no | Non-normative material only. |
 | JSON schemas | `schemas/` | draft | yes when marked active | CAP-Digest schemas and CAP-Core schema sketches. |
 | Conformance fixtures | `fixtures/` | draft | yes when marked active | CAP-Digest basic, negative, follow-up, pack, and security fixtures plus three CAP-Core fixture families and the Core negative suite. |
@@ -23,7 +23,8 @@ Every change should answer:
 > Is this refining CAP-Digest, or does it actually belong in CAP-Core?
 
 CAP-Core content must remain non-normative until a future CAPP accepts Core
-schemas, fixtures, and conformance language.
+schemas, fixtures, and conformance language. CAPP-0006 proposes candidate
+normative review entry; it is not a stable release.
 
 ## Current implementation target
 

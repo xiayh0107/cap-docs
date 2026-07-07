@@ -1,6 +1,6 @@
 # CAPP-0005: CAP-Core Candidate Normative Track
 
-> Status: draft - Created: 2026-07-07 - Layer: CAP-Core
+> Status: implemented - Created: 2026-07-07 - Layer: CAP-Core
 
 ## Motivation
 
