@@ -1,6 +1,6 @@
 # CAP-Digest Implementer and Adoption Guide v1.0
 
-> Status: stable v1.0 - Implementer guidance - Last updated: 2026-07-07
+> Status: stable v1.0 - Implementer guidance - Last updated: 2026-07-10
 
 This guide summarizes the stable adoption path for CAP-Digest v1.0.0.
 
@@ -18,6 +18,23 @@ Implement:
 
 Use `fixtures/basic-table/` and `fixtures/security-adversarial/` as the first
 compatibility target.
+
+## Design the Host Adapter Boundary
+
+Before adding many host-language object classes, define an open source-adapter
+boundary. Read [CAP-Digest Source Adapter Guide](SOURCE-ADAPTER-GUIDE.md).
+
+A host implementation should:
+
+- resolve one adapter and keep the core assembly pipeline class-independent;
+- separate concrete host classes from broad source-family semantics;
+- keep serialized field contracts symbolic and runtime functions host-local;
+- make registry resolution deterministic and fail closed on ambiguity;
+- preserve adapter identity and compatible bindings across follow-up;
+- label generic structural fallback as non-semantic and non-conformant.
+
+Adding a community adapter may produce valid CAP artifacts, but it does not
+expand the CAP-Digest v1.0 stable table fixture claim.
 
 ## Add L2 Follow-Up
 
@@ -39,7 +56,8 @@ Adopters should publish:
 - unsupported features;
 - conformance report;
 - security notes for redaction and extraction;
-- whether the implementation is independent or derived from `reference/python/`.
+- whether the implementation is independent or derived from `reference/python/`;
+- stable, community, experimental, and fallback adapter scopes separately.
 
 ## Out-of-Scope Integrations
 

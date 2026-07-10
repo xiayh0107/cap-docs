@@ -9,6 +9,10 @@ v1.0.0 stable artifacts.
 
 ### Added
 
+- Added a non-normative CAP-Digest source adapter guide covering open adapter
+  contracts, host class versus source-family boundaries, deterministic registry
+  resolution, symbolic runtime bindings, third-party field namespaces, guarded
+  structural fallback, follow-up provenance pinning, and claim layering.
 - Added CAP-Digest v1.0.0 stable release materials: CAPP-0008, CAPP-0009,
   stable scope, text grammar, manifest/evidence contract, follow-up gate,
   schema package, fixture index, pack compatibility, conformance levels,
@@ -52,6 +56,8 @@ v1.0.0 stable artifacts.
 
 ### Changed
 
+- Linked the source adapter guide from the repository reading path and the
+  CAP-Digest v1.0 implementer/adoption guide.
 - Expanded Core fixture validation, schema-fixture validation, tests, and
   conformance reporting to cover the Core fixture suites.
 - Updated Core documentation to keep artifact-set, policy-decision, binding,
