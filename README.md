@@ -1,6 +1,6 @@
 # CAP — Context Assembly Protocol
 
-> Status: stable tracks · Version: 2026-07-07 · Scope: CAP-Digest v1.0.0 plus CAP-Core v1.0.0
+> Status: stable tracks · Version: 2026-07-10 · Scope: CAP-Digest v1.0.0 plus CAP-Core v1.0.0
 
 CAP is a family of specifications for turning complex source objects and
 machine-operable task records into safe, bounded, traceable context and assembly
@@ -33,7 +33,7 @@ changes.
 ```text
 cap-docs/
 ├── specs/
-│   ├── digest/               # CAP-Digest v1.0 stable docs plus historical draft material
+│   ├── digest/               # CAP-Digest v1.0 stable docs plus implementer guidance
 │   └── core/                 # CAP-Core v1.0.0 stable docs plus historical drafts
 ├── schemas/                  # CAP-Digest schemas and CAP-Core v1.0 schemas
 ├── fixtures/                 # executable fixtures and conformance suites
@@ -50,6 +50,8 @@ cap-docs/
 - CAP-Digest v1.0 stable track: [specs/digest/STABLE-TRACK.md](specs/digest/STABLE-TRACK.md)
 - Current CAP-Digest spec: [specs/digest/00-overview.md](specs/digest/00-overview.md)
 - Implementation guide: [specs/digest/12-implementation-guide.md](specs/digest/12-implementation-guide.md)
+- Source adapter guide: [specs/digest/SOURCE-ADAPTER-GUIDE.md](specs/digest/SOURCE-ADAPTER-GUIDE.md)
+- Implementer/adoption guide: [specs/digest/IMPLEMENTER-ADOPTION-v1.0.md](specs/digest/IMPLEMENTER-ADOPTION-v1.0.md)
 - Current project status: [STATUS.md](STATUS.md)
 - Roadmap: [ROADMAP.md](ROADMAP.md)
 - Alpha release checklist: [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md)
